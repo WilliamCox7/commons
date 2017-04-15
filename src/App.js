@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './images/logo.png';
+import './reset.css';
 import './App.css';
 
 class App extends Component {
@@ -13,7 +14,7 @@ class App extends Component {
         <div className="auth">
           <button>log in with facebook</button>
           <p>or</p>
-          
+          <a>Create Account</a>
         </div>
       </div>
     );

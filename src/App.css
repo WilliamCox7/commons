@@ -1,3 +1,11 @@
+/* GLOBAL */
+
+html {
+  font-family: helvetica;
+}
+
+/* HOME */
+
 .home {
   background: #FF6C48;
   height: 100%;
@@ -6,22 +14,52 @@
   color: white;
 }
 
+/* HOME - LOGO */
+
 .home .home-logo {
   position: absolute;
+  text-align: center;
   margin: auto;
-  width: 95px;
+  width: 170px;
   height: 95px;
   right: 0;
   left: 0;
-  top: -25px;
+  top: 0;
   bottom: 0;
 }
 
-.home img {
+.home .home-logo img {
   width: 95px;
 }
 
-.home h1 {
+.home .home-logo h1 {
   margin: auto;
-  margin-left: -25px;
+  font-size: 34px;
+}
+
+/* HOME - AUTH */
+
+.home .auth {
+  position: absolute;
+  margin: auto;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  padding: 70px 0px;
+}
+
+.home .auth button {
+  padding: 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 22px;
+  font-weight: bold;
+  width: 290px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+
+.home .auth p,
+.home .auth a {
+  padding: 10px;
 }
