@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import { Router, Route, browserHistory } from 'react-router';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import store from './redux/store';
+
 import App from './App';
-import './index.css';
+import Login from './Components/Auth/Login/Login';
+import Create from './Components/Auth/Create/Create';
+import Welcome from './Components/Walkthrough/Welcome/Welcome';
+import Home from './Components/Home/Home';
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
-      <Route path="/" component={App} />
-    </Router>
+    <HashRouter>
+      <App>
+        <Route path="/login" component={Login} />
+        <Route path="/create" component={Create} />
+        <Route path="/welcome" component={Welcome} />
+        <Route path="/home" component={Home} />
+      </App>
+    </HashRouter>
   </Provider>,
   document.getElementById('root')
 );
