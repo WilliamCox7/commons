@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../../images/logo-white.svg';
-import logo_text from '../../../images/logo-text-white.svg';
+import logo from '../../../images/white-logo.svg';
+import logo_text from '../../../images/white-text.svg';
 import './Login.css';
 
 class Login extends Component {

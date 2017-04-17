@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from '../../../images/logo-orange.svg';
-import logo_text from '../../../images/logo-text-orange.svg';
+import logo from '../../../images/orange-logo.svg';
+import logo_text from '../../../images/orange-text.svg';
 import './Create.css';
 
 class Create extends Component {

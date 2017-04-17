@@ -21,14 +21,14 @@
 }
 
 .create .text {
-  width: 138px;
-  padding: 8px;
+  width: 160px;
+  padding: 17px;
 }
 
 /* CREATE - FORM SECTION */
 
 .create .form-section {
-  margin: auto;
+  margin: 0px auto 40px;
   width: 80%;
   max-width: 300px;
 }
