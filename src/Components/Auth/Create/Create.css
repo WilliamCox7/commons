@@ -13,24 +13,24 @@
 
 .create .logo-section {
   text-align: center;
-  padding: 50px 0px;
+  padding: 40px 0px 50px;
 }
 
 .create .logo {
-  width: 65px;
+  width: 57px;
 }
 
 .create .text {
-  width: 160px;
-  padding: 17px;
+  width: 138px;
+  padding: 14px;
 }
 
 /* CREATE - FORM SECTION */
 
 .create .form-section {
-  margin: 0px auto 40px;
+  margin: 0px auto 20px;
   width: 80%;
-  max-width: 300px;
+  max-width: 350px;
 }
 
 .create input[type="text"],
@@ -131,6 +131,7 @@
 
 .create .form-submit {
   width: 100%;
+  padding: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
