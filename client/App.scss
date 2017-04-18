@@ -1,0 +1,14 @@
+/* GLOBAL */
+
+html {
+  font-family: helvetica;
+}
+
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+button:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,152 @@
+/* CREATE */
+
+.create {
+  background: white;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  color: #FF7553;
+  font-size: 20px;
+}
+
+/* CREATE - LOGO SECTION */
+
+.create .logo-section {
+  text-align: center;
+  padding: 40px 0px 50px;
+}
+
+.create .logo {
+  width: 57px;
+}
+
+.create .text {
+  width: 138px;
+  padding: 14px;
+}
+
+/* CREATE - FORM SECTION */
+
+.create .form-section {
+  margin: 0px auto 20px;
+  width: 80%;
+  max-width: 350px;
+}
+
+.create input[type="text"],
+.create input[type="password"] {
+  padding: 10px 0px;
+  width: 100%;
+  border: none;
+  border-bottom: solid 1px gainsboro;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+/* CREATE - FORM SECTION - FORM RADIO */
+
+.create select {
+  border: solid 1px rgba(255,108,72,0.5);
+  border-radius: 15px;
+  padding: 5px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+
+.create option {
+  background: #FF8A6E;
+  color: white;
+}
+
+.create .form-radio {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.create .form-age {
+  width: 60%;
+}
+
+.create .form-gender {
+  width: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.create .radio-gender {
+  text-align: center;
+}
+
+.create .radio-gender input[type="radio"] {
+  width: 100%;
+  margin: 0px;
+}
+
+.create .radio-gender h2 {
+  font-size: 14px;
+  padding: 15px 0px 0px 0px;
+}
+
+.create .outer-circle {
+  border: solid 1px rgba(255,108,72,0.5);
+  background: white;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.create .inner-circle {
+  background: white;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin: auto;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 50%;
+}
+
+.create .outer-circle:hover .inner-circle {
+  background: #FF8A6E;
+}
+
+.create .inner-circle:hover {
+  background: #FF8A6E;
+}
+
+/* CREATE - FORM SECTION - FORM SUBMIT */
+
+.create .form-submit {
+  width: 100%;
+  padding: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.create button {
+  margin: auto;
+  color: white;
+  padding: 6px;
+  border-radius: 50px;
+  width: 175px;
+  border: none;
+  font-size: 24px;
+  background: #FF8A6E;;
+}

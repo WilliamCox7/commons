@@ -129,9 +129,17 @@ app.get('/auth/fb/callback', passport.authenticate('facebook', {
     failureRedirect: '/#!/login'
 }));
 
+/* FS */
+const fs = require('fs');
+var hobbies = [];
+fs.readFile('./server/hobbies.json', 'utf8', (err, data) => { hobbies = JSON.parse(data); });
+
 /* ENDPOINTS */
+app.get('/hobbies', (req, res) => {
+  res.status(200).send(hobbies.hobbies);
+});
 
 /* SERVER */
-app.listen(port, function() {
-  console.log('port ' + port + ' is listening...');
+app.listen(app.get('port'), function() {
+  console.log('port ' + app.get('port') + ' is listening...');
 });

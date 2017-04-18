@@ -1,0 +1,87 @@
+/* DIAL */
+
+.dial {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dial div {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50%;
+  background: #EFEFEF;
+  color: black;
+  font-weight: bold;
+  /*background: #FF7553;*/
+}
+
+.dial div p {
+  text-align: center;
+  margin: 15px;
+}
+
+.dial .spoke {
+  width: 50px;
+  height: 83%;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dial .dial-1 {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.dial .dial-1 div {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.dial .dial-2 {
+  -webkit-transform: rotate(72deg);
+          transform: rotate(72deg);
+}
+
+.dial .dial-2 div {
+  -webkit-transform: rotate(-72deg);
+          transform: rotate(-72deg);
+}
+
+.dial .dial-3 {
+  -webkit-transform: rotate(144deg);
+          transform: rotate(144deg);
+}
+
+.dial .dial-3 div {
+  -webkit-transform: rotate(-144deg);
+          transform: rotate(-144deg);
+}
+
+.dial .dial-4 {
+  -webkit-transform: rotate(216deg);
+          transform: rotate(216deg);
+}
+
+.dial .dial-4 div {
+  -webkit-transform: rotate(-216deg);
+          transform: rotate(-216deg);
+}
+
+.dial .dial-5 {
+  -webkit-transform: rotate(288deg);
+          transform: rotate(288deg);
+}
+
+.dial .dial-5 div {
+  -webkit-transform: rotate(-288deg);
+          transform: rotate(-288deg);
+}
