@@ -1,5 +1,6 @@
 const SEARCH = 'hobby/SEARCH';
-const SET = 'hobby/SET'
+const SET = 'hobby/SET';
+const REMOVE = 'hobby/REMOVE';
 
 const initState = {
   hobbies: {},
@@ -35,7 +36,11 @@ export default function reducer(state=initState, action) {
       var editState = Object.assign({}, state);
       editState.selected[editState.selCount] = action.payload;
       editState.selCount++;
-      console.log(editState);
+      return Object.assign({}, state, editState);
+    case REMOVE:
+      var editState = Object.assign({}, state);
+      editState.selCount--;
+      editState.selected[editState.selCount] = null;
       return Object.assign({}, state, editState);
     default: return state;
   }
@@ -52,5 +57,11 @@ export function setHobby(hobby) {
   return {
     type: SET,
     payload: hobby
+  }
+}
+
+export function removeHobby() {
+  return {
+    type: REMOVE
   }
 }

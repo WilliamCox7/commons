@@ -36,52 +36,72 @@
   right: 0;
 }
 
-.dial .dial-1 {
+#dial-1 {
   -webkit-transform: rotate(0deg);
           transform: rotate(0deg);
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
 }
 
-.dial .dial-1 div {
+#dial-1 div {
   -webkit-transform: rotate(0deg);
           transform: rotate(0deg);
+          -webkit-transition: background 1s ease;
+          transition: background 1s ease;
 }
 
-.dial .dial-2 {
+#dial-2 {
   -webkit-transform: rotate(72deg);
           transform: rotate(72deg);
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
 }
 
-.dial .dial-2 div {
+#dial-2 div {
   -webkit-transform: rotate(-72deg);
           transform: rotate(-72deg);
+          -webkit-transition: background 1s ease;
+          transition: background 1s ease;
 }
 
-.dial .dial-3 {
+#dial-3 {
   -webkit-transform: rotate(144deg);
           transform: rotate(144deg);
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
 }
 
-.dial .dial-3 div {
+#dial-3 div {
   -webkit-transform: rotate(-144deg);
           transform: rotate(-144deg);
+          -webkit-transition: background 1s ease;
+          transition: background 1s ease;
 }
 
-.dial .dial-4 {
+#dial-4 {
   -webkit-transform: rotate(216deg);
           transform: rotate(216deg);
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
 }
 
-.dial .dial-4 div {
+#dial-4 div {
   -webkit-transform: rotate(-216deg);
           transform: rotate(-216deg);
+          -webkit-transition: background 1s ease;
+          transition: background 1s ease;
 }
 
-.dial .dial-5 {
+#dial-5 {
   -webkit-transform: rotate(288deg);
           transform: rotate(288deg);
+          -webkit-transition: all 1s ease;
+          transition: all 1s ease;
 }
 
-.dial .dial-5 div {
+#dial-5 div {
   -webkit-transform: rotate(-288deg);
           transform: rotate(-288deg);
+          -webkit-transition: background 1s ease;
+          transition: background 1s ease;
 }

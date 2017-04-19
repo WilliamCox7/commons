@@ -52,7 +52,7 @@ class SearchHobbies extends Component {
         return (
           <div className="hobby-result" key={i} onClick={() => {this.setHobby(hobby);}}>
             {hobby.toLowerCase()}
-            <div className="hobby-letter"><p>{hobby[0].toLowerCase()}</p></div>
+            <div className="hobby-letter"><p>{hobby[0].toUpperCase()}</p></div>
           </div>
         )
       });
