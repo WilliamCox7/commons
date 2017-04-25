@@ -9,14 +9,14 @@ const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
 /* EXPORTS */
-const config = require('./config');
+// const config = require('./config');
 const auth = require('./server/auth');
 
 /* APP */
 const app = module.exports = express();
 
 app.use(session({
-  secret: config.secret,
+  secret: /*config.secret*/'devsecret',
   resave: true,
   saveUninitialized: true,
   cookie: {maxAge: 1000 * 60 * 60 * 24}
@@ -88,8 +88,11 @@ app.post('/auth/signup', passport.authenticate('signup'), auth.signup);
 
 /* FACEBOOK STRATEGY */// -- LOGIN/SIGNUP
 passport.use(new FacebookStrategy({
-    clientID: config.fb.clientID,
-    clientSecret: config.fb.clientSecret,
+    // clientID: config.fb.clientID,
+    // clientSecret: config.fb.clientSecret,
+    // callbackURL: "http://localhost:3000/auth/fb/callback"
+    clientID: 'devfbid',
+    clientSecret: 'devfbsecret',
     callbackURL: "http://localhost:3000/auth/fb/callback"
   },
   function(token, refreshToken, profile, done) {
