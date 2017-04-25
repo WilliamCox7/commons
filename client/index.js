@@ -18,7 +18,7 @@ ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
       <App>
-        <Route path="/login" component={Login} />
+        <Route path="/" component={Login} />
         <Route path="/create" component={Create} />
         <Route path="/welcome" component={Welcome} />
         <Route path="/hobbies" component={Hobbies} />
