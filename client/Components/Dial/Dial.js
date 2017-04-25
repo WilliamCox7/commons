@@ -13,56 +13,46 @@ class Dial extends Component {
     this.removeHobby = this.removeHobby.bind(this);
   }
 
-  rotateDial(r) {
+  rotateDial() {
     $(document).ready(() => {
 
-      if ($("#dial-1").data('angle')) {
-        var d1 = $("#dial-1").data('angle') + r;
-        $("#dial-1").data('angle', d1);
+      if ($(".dial").data('dir') === 'rev') { var r = 72;}
+      else { var r = -72; }
+
+      if ($(".dial").data('angle')) {
+        var deg = $(".dial").data('angle') + r;
+        $(".dial").data('angle', deg);
       } else {
-        $("#dial-1").data('angle', 0);
-        var d1 = $("#dial-1").data('angle') + r;
-        $("#dial-1").data('angle', d1);
+        $(".dial").data('angle', 0);
+        var deg = $(".dial").data('angle') + r;
+        $(".dial").data('angle', deg);
       }
 
-      var d2 = d1 - r;
-      var d3 = d2 - r;
-      var d4 = d3 - r;
-      var d5 = d4 - r;
+      var d1 = -deg;
+      var d2 = d1 - 72;
+      var d3 = d2 - 72;
+      var d4 = d3 - 72;
+      var d5 = d4 - 72;
 
-      $('#dial-1').css('transform', 'rotate(' + d1 + 'deg)');
-      $('#dial-2').css('transform', 'rotate(' + d2 + 'deg)');
-      $('#dial-3').css('transform', 'rotate(' + d3 + 'deg)');
-      $('#dial-4').css('transform', 'rotate(' + d4 + 'deg)');
-      $('#dial-5').css('transform', 'rotate(' + d5 + 'deg)');
-      $('#dial-1 div').css('transform', 'rotate(' + -d1 + 'deg)');
-      $('#dial-2 div').css('transform', 'rotate(' + -d2 + 'deg)');
-      $('#dial-3 div').css('transform', 'rotate(' + -d3 + 'deg)');
-      $('#dial-4 div').css('transform', 'rotate(' + -d4 + 'deg)');
-      $('#dial-5 div').css('transform', 'rotate(' + -d5 + 'deg)');
+      $(".dial").css('transform', 'rotate(' + deg + 'deg)');
+      $("#dial-1 div").css('transform', 'rotate(' + d1 + 'deg)');
+      $("#dial-2 div").css('transform', 'rotate(' + d2 + 'deg)');
+      $("#dial-3 div").css('transform', 'rotate(' + d3 + 'deg)');
+      $("#dial-4 div").css('transform', 'rotate(' + d4 + 'deg)');
+      $("#dial-5 div").css('transform', 'rotate(' + d5 + 'deg)');
+
+      $(".dial").data('dir', 'for');
 
     });
   }
 
   removeHobby() {
     this.props.removeHobby();
-    if ($("#dial-5")["0"].innerText.indexOf('+') === -1) {
-      $('#dial-5 div').css('background', '#EFEFEF');
-      $('#dial-5 div').css('color', 'black');
-    } else if ($("#dial-4")["0"].innerText.indexOf('+') === -1) {
-      $('#dial-4 div').css('background', '#EFEFEF');
-      $('#dial-4 div').css('color', 'black');
-    } else if ($("#dial-3")["0"].innerText.indexOf('+') === -1) {
-      $('#dial-3 div').css('background', '#EFEFEF');
-      $('#dial-3 div').css('color', 'black');
-    } else if ($("#dial-2")["0"].innerText.indexOf('+') === -1) {
-      $('#dial-2 div').css('background', '#EFEFEF');
-      $('#dial-2 div').css('color', 'black');
-    } else if ($("#dial-1")["0"].innerText.indexOf('+') === -1) {
-      $('#dial-1 div').css('background', '#EFEFEF');
-      $('#dial-1 div').css('color', 'black');
+    if (this.props.hobbies.selCount > 1) {
+      $(document).ready(() => {
+        $(".dial").data('dir', 'rev');
+      });
     }
-    this.rotateDial(72);
   }
 
   updateStyle() {
@@ -70,23 +60,39 @@ class Dial extends Component {
       if ($('#dial-1')["0"].innerText.indexOf('+') === -1) {
         $('#dial-1 div').css('background', '#FF7553');
         $('#dial-1 div').css('color', 'white');
-        this.rotateDial(-72);
+        this.rotateDial();
+      } else {
+        $('#dial-1 div').css('background', '#EFEFEF');
+        $('#dial-1 div').css('color', 'black');
+        if ($(".dial").data('dir')) { this.rotateDial(); }
       }
       if ($('#dial-2')["0"].innerText.indexOf('+') === -1) {
         $('#dial-2 div').css('background', '#FF7553');
         $('#dial-2 div').css('color', 'white');
+      } else {
+        $('#dial-2 div').css('background', '#EFEFEF');
+        $('#dial-2 div').css('color', 'black');
       }
       if ($('#dial-3')["0"].innerText.indexOf('+') === -1) {
         $('#dial-3 div').css('background', '#FF7553');
         $('#dial-3 div').css('color', 'white');
+      } else {
+        $('#dial-3 div').css('background', '#EFEFEF');
+        $('#dial-3 div').css('color', 'black');
       }
       if ($('#dial-4')["0"].innerText.indexOf('+') === -1) {
         $('#dial-4 div').css('background', '#FF7553');
         $('#dial-4 div').css('color', 'white');
+      } else {
+        $('#dial-4 div').css('background', '#EFEFEF');
+        $('#dial-4 div').css('color', 'black');
       }
       if ($('#dial-5')["0"].innerText.indexOf('+') === -1) {
         $('#dial-5 div').css('background', '#FF7553');
         $('#dial-5 div').css('color', 'white');
+      } else {
+        $('#dial-5 div').css('background', '#EFEFEF');
+        $('#dial-5 div').css('color', 'black');
       }
     });
   }

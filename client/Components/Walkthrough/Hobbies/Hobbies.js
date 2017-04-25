@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
 import Dial from '../../Dial/Dial';
 import SearchHobbies from '../../SearchHobbies/SearchHobbies';
@@ -26,9 +27,25 @@ class Hobbies extends Component {
           <Dial />
         </div>
         <SearchHobbies />
+        {this.props.hobbies.selCount < 6 ? (
+          <div className="hobbie-next">
+            <a href="/#/favorites"><div className="next-text">skip</div></a>
+          </div>
+        ) : (
+          <div className="hobbie-next">
+            <a href="/#/favorites"><div className="next-text">next</div></a>
+          </div>
+        )}
+
       </div>
     );
   }
 }
 
-export default Hobbies;
+function mapStateToProps(state) {
+  return {
+    hobbies: state.hobby
+  }
+}
+
+export default connect(mapStateToProps)(Hobbies);

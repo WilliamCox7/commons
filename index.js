@@ -26,7 +26,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/build'));
 
 /* DATABASE */
 var url = 'mongodb://localhost:27017/commons';

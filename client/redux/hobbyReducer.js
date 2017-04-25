@@ -34,14 +34,22 @@ export default function reducer(state=initState, action) {
       return Object.assign({}, state, newState);
     case SET:
       var editState = Object.assign({}, state);
-      editState.selected[editState.selCount] = action.payload;
-      editState.selCount++;
-      return Object.assign({}, state, editState);
+      if (editState.selCount !== 6) {
+        editState.selected[editState.selCount] = action.payload;
+        editState.selCount++;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
     case REMOVE:
       var editState = Object.assign({}, state);
-      editState.selCount--;
-      editState.selected[editState.selCount] = null;
-      return Object.assign({}, state, editState);
+      if (editState.selCount !== 1) {
+        editState.selCount--;
+        editState.selected[editState.selCount] = null;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
     default: return state;
   }
 }

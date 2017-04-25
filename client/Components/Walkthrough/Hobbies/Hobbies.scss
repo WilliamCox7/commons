@@ -26,7 +26,7 @@
   position: absolute;
   width: 16px;
   height: 3.5px;
-  margin-top: 18px;
+  margin-top: 17px;
   background: #FF7553;
   border: none;
   -webkit-transform: rotate(45deg);
@@ -153,4 +153,19 @@
 .hobbies .hobby-results .hobby-letter p {
   text-align: center;
   margin: 7px;
+}
+
+.hobbies .hobbie-next {
+  padding: 20px 0px;
+  text-align: right;
+  width: 80%;
+  margin: auto;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.hobbies .hobbie-next a {
+  text-decoration: none;
+  color: #FF7553
 }
