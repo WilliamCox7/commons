@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter, Route } from 'react-router-dom';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { createStore } from 'redux';
 import rootReducer from './redux/rootReducer';
 
@@ -16,15 +16,15 @@ const store = createStore(rootReducer);
 
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter>
-      <App>
-        <Route path="/" component={Login} />
+    <Router history={hashHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute path="/login" component={Login} />
         <Route path="/create" component={Create} />
         <Route path="/welcome" component={Welcome} />
         <Route path="/hobbies" component={Hobbies} />
         <Route path="/home" component={Home} />
-      </App>
-    </HashRouter>
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('root')
 );
