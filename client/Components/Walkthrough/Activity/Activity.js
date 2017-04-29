@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { setActivity } from '../../../redux/walkthroughReducer';
 import Navigation from '../Navigation/Navigation';
 import Next from '../Next/Next';
-import axios from 'axios';
 import './Activity.scss';
 
 class Activity extends Component {
