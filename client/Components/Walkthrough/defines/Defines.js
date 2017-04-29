@@ -4,6 +4,7 @@ import curl from '../../../images/curl-arrow.png';
 import Dial from '../Dial/Dial';
 import SearchDefines from './SearchDefines/SearchDefines';
 import Navigation from '../Navigation/Navigation';
+import Next from '../Next/Next';
 import axios from 'axios';
 import './Defines.scss';
 
@@ -20,16 +21,7 @@ class Defines extends Component {
           <Dial type={'defines'} />
         </div>
         <SearchDefines />
-        {this.props.walkthrough.defineCount < 6 ? (
-          <div className="define-next">
-            <a href="/#/activity"><div className="next-text">skip</div></a>
-          </div>
-        ) : (
-          <div className="define-next">
-            <a href="/#/activity"><div className="next-text">next</div></a>
-          </div>
-        )}
-
+        <Next condition={this.props.walkthrough.defineCount < 6} redirect={'activity'} />
       </div>
     );
   }

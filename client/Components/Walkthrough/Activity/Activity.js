@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setActivity } from '../../../redux/walkthroughReducer';
 import Navigation from '../Navigation/Navigation';
+import Next from '../Next/Next';
 import axios from 'axios';
 import './Activity.scss';
 
@@ -26,15 +27,7 @@ class Activity extends Component {
         <div className="activity-text">
           <textarea onChange={this.setActivity}></textarea>
         </div>
-        {!this.props.walkthrough.activity ? (
-          <div className="activity-next">
-            <a href="/#/upload"><div className="next-text">skip</div></a>
-          </div>
-        ) : (
-          <div className="activity-next">
-            <a href="/#/upload"><div className="next-text">next</div></a>
-          </div>
-        )}
+        <Next condition={!this.props.walkthrough.activity} redirect={'upload'} />
       </div>
     )
   }

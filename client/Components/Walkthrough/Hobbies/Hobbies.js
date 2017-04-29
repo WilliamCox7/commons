@@ -4,6 +4,7 @@ import curl from '../../../images/curl-arrow.png';
 import Dial from '../Dial/Dial';
 import SearchHobbies from './SearchHobbies/SearchHobbies';
 import Navigation from '../Navigation/Navigation';
+import Next from '../Next/Next';
 import axios from 'axios';
 import './Hobbies.scss';
 
@@ -20,16 +21,7 @@ class Hobbies extends Component {
           <Dial type={'hobbies'} />
         </div>
         <SearchHobbies />
-        {this.props.walkthrough.hobbyCount < 6 ? (
-          <div className="hobbie-next">
-            <a href="/#/defines"><div className="next-text">skip</div></a>
-          </div>
-        ) : (
-          <div className="hobbie-next">
-            <a href="/#/defines"><div className="next-text">next</div></a>
-          </div>
-        )}
-
+        <Next condition={this.props.walkthrough.hobbyCount < 6} redirect={'defines'} />
       </div>
     );
   }
