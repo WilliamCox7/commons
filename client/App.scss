@@ -5,7 +5,8 @@ html {
 }
 
 button:focus,
-input:focus {
+input:focus,
+textarea:focus {
   outline: 0;
 }
 

@@ -2,6 +2,7 @@ const SEARCH_HOBBY = 'dial/SEARCH_HOBBY';
 const SEARCH_DEFINE = 'dial/SEARCH_DEFINE';
 const SET_HOBBY = 'dial/SET_HOBBY';
 const SET_DEFINE = 'dial/SET_DEFINE';
+const SET_ACTIVITY = 'dial/SET_ACTIVITY';
 const REM_HOBBY = 'dial/REM_HOBBY';
 const REM_DEFINE = 'dial/REM_DEFINE';
 
@@ -23,7 +24,8 @@ const initState = {
     5: null
   },
   hobbyCount: 1,
-  defineCount: 1
+  defineCount: 1,
+  activity: null
 }
 
 function parseData(state, data, option) {
@@ -66,6 +68,10 @@ export default function reducer(state=initState, action) {
       } else {
         return state;
       }
+    case SET_ACTIVITY:
+      var editState = Object.assign({}, state);
+      editState.activity = action.payload;
+      return Object.assign({}, state, editState);
     case REM_HOBBY:
       var editState = Object.assign({}, state);
       if (editState.hobbyCount !== 1) {
@@ -115,6 +121,13 @@ export function setDefine(define) {
   return {
     type: SET_DEFINE,
     payload: define
+  }
+}
+
+export function setActivity(activity) {
+  return {
+    type: SET_ACTIVITY,
+    payload: activity
   }
 }
 

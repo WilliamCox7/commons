@@ -11,7 +11,7 @@ class Defines extends Component {
     return (
       <div className="defines">
         <div className="back-section">
-          <a href="/#/welcome"><div className="back-arrow">
+          <a href="/#/hobbies"><div className="back-arrow">
             <div className="back-arrow-1"></div>
             <div className="back-arrow-2"></div>
           </div></a>
