@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchDefines } from '../../../../redux/dialReducer';
-import { setDefine } from '../../../../redux/dialReducer';
+import { searchDefines } from '../../../../redux/walkthroughReducer';
+import { setDefine } from '../../../../redux/walkthroughReducer';
 import axios from 'axios';
 
 class SearchDefines extends Component {
@@ -74,7 +74,7 @@ class SearchDefines extends Component {
 
 function mapStateToProps(state) {
   return {
-    defines: state.dial.defines
+    defines: state.walkthrough.defines
   }
 }
 

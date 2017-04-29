@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
-import Dial from '../../Dial/Dial';
+import Dial from '../Dial/Dial';
 import SearchHobbies from './SearchHobbies/SearchHobbies';
 import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
@@ -20,7 +20,7 @@ class Hobbies extends Component {
           <Dial type={'hobbies'} />
         </div>
         <SearchHobbies />
-        {this.props.dial.hobbyCount < 6 ? (
+        {this.props.walkthrough.hobbyCount < 6 ? (
           <div className="hobbie-next">
             <a href="/#/defines"><div className="next-text">skip</div></a>
           </div>
@@ -37,7 +37,7 @@ class Hobbies extends Component {
 
 function mapStateToProps(state) {
   return {
-    dial: state.dial
+    walkthrough: state.walkthrough
   }
 }
 

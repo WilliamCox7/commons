@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
-import Dial from '../../Dial/Dial';
+import Dial from '../Dial/Dial';
 import SearchDefines from './SearchDefines/SearchDefines';
 import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
@@ -20,7 +20,7 @@ class Defines extends Component {
           <Dial type={'defines'} />
         </div>
         <SearchDefines />
-        {this.props.dial.defineCount < 6 ? (
+        {this.props.walkthrough.defineCount < 6 ? (
           <div className="define-next">
             <a href="/#/activity"><div className="next-text">skip</div></a>
           </div>
@@ -37,7 +37,7 @@ class Defines extends Component {
 
 function mapStateToProps(state) {
   return {
-    dial: state.dial
+    walkthrough: state.walkthrough
   }
 }
 

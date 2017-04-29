@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchHobbies } from '../../../../redux/dialReducer';
-import { setHobby } from '../../../../redux/dialReducer';
+import { searchHobbies } from '../../../../redux/walkthroughReducer';
+import { setHobby } from '../../../../redux/walkthroughReducer';
 import axios from 'axios';
 
 class SearchHobbies extends Component {
@@ -74,7 +74,7 @@ class SearchHobbies extends Component {
 
 function mapStateToProps(state) {
   return {
-    hobbies: state.dial.hobbies
+    hobbies: state.walkthrough.hobbies
   }
 }
 

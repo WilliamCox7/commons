@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeHobby } from '../../redux/dialReducer';
-import { removeDefine } from '../../redux/dialReducer';
+import { removeHobby } from '../../../redux/walkthroughReducer';
+import { removeDefine } from '../../../redux/walkthroughReducer';
 import $ from 'jquery';
 import './Dial.scss';
 
@@ -53,14 +53,14 @@ class Dial extends Component {
   removeData() {
     if (this.props.type === 'hobbies') {
       this.props.removeHobby();
-      if (this.props.dial.hobbyCount > 1) {
+      if (this.props.walkthrough.hobbyCount > 1) {
         $(document).ready(() => {
           $(".dial").data('dir', 'rev');
         });
       }
     } else {
       this.props.removeDefine();
-      if (this.props.dial.defineCount > 1) {
+      if (this.props.walkthrough.defineCount > 1) {
         $(document).ready(() => {
           $(".dial").data('dir', 'rev');
         });
@@ -113,17 +113,17 @@ class Dial extends Component {
   render() {
     this.updateStyle();
     if (this.props.type === 'hobbies') {
-      var dial1 = this.props.dial.hobbySelected[1] ? this.props.dial.hobbySelected[1][0] : '+';
-      var dial2 = this.props.dial.hobbySelected[2] ? this.props.dial.hobbySelected[2][0] : '+';
-      var dial3 = this.props.dial.hobbySelected[3] ? this.props.dial.hobbySelected[3][0] : '+';
-      var dial4 = this.props.dial.hobbySelected[4] ? this.props.dial.hobbySelected[4][0] : '+';
-      var dial5 = this.props.dial.hobbySelected[5] ? this.props.dial.hobbySelected[5][0] : '+';
+      var dial1 = this.props.walkthrough.hobbySelected[1] ? this.props.walkthrough.hobbySelected[1][0] : '+';
+      var dial2 = this.props.walkthrough.hobbySelected[2] ? this.props.walkthrough.hobbySelected[2][0] : '+';
+      var dial3 = this.props.walkthrough.hobbySelected[3] ? this.props.walkthrough.hobbySelected[3][0] : '+';
+      var dial4 = this.props.walkthrough.hobbySelected[4] ? this.props.walkthrough.hobbySelected[4][0] : '+';
+      var dial5 = this.props.walkthrough.hobbySelected[5] ? this.props.walkthrough.hobbySelected[5][0] : '+';
     } else {
-      var dial1 = this.props.dial.defineSelected[1] ? this.props.dial.defineSelected[1][0] : '+';
-      var dial2 = this.props.dial.defineSelected[2] ? this.props.dial.defineSelected[2][0] : '+';
-      var dial3 = this.props.dial.defineSelected[3] ? this.props.dial.defineSelected[3][0] : '+';
-      var dial4 = this.props.dial.defineSelected[4] ? this.props.dial.defineSelected[4][0] : '+';
-      var dial5 = this.props.dial.defineSelected[5] ? this.props.dial.defineSelected[5][0] : '+';
+      var dial1 = this.props.walkthrough.defineSelected[1] ? this.props.walkthrough.defineSelected[1][0] : '+';
+      var dial2 = this.props.walkthrough.defineSelected[2] ? this.props.walkthrough.defineSelected[2][0] : '+';
+      var dial3 = this.props.walkthrough.defineSelected[3] ? this.props.walkthrough.defineSelected[3][0] : '+';
+      var dial4 = this.props.walkthrough.defineSelected[4] ? this.props.walkthrough.defineSelected[4][0] : '+';
+      var dial5 = this.props.walkthrough.defineSelected[5] ? this.props.walkthrough.defineSelected[5][0] : '+';
     }
     return (
       <div className="dial">
@@ -149,7 +149,7 @@ class Dial extends Component {
 
 function mapStateToProps(state) {
   return {
-    dial: state.dial
+    walkthrough: state.walkthrough
   }
 }
 

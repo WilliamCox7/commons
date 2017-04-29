@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import dial from './dialReducer';
+import walkthrough from './walkthroughReducer';
 
 export default combineReducers({
-  dial
+  walkthrough
 });
