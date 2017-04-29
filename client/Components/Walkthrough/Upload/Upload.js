@@ -27,7 +27,7 @@ class Upload extends Component {
 
   render() {
     return (
-      <div className="activity">
+      <div>
         <Navigation redirect={"activity"} width={"100%"} />
         <div className="header-text">
           <h1>make or upload your profile video and picture</h1>
