@@ -9,58 +9,6 @@
   font-size: 20px;
 }
 
-.hobbies .back-section {
-  width: 100%;
-  position: relative;
-  height: 65px;
-  padding: 25px 15px;
-  margin-bottom: 10px;
-}
-
-.hobbies .back-section .back-arrow {
-  width: 30px;
-  height: 30px;
-}
-
-.hobbies .back-section .back-arrow-1 {
-  position: absolute;
-  width: 16px;
-  height: 3.5px;
-  margin-top: 17px;
-  background: #FF7553;
-  border: none;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-
-.hobbies .back-section .back-arrow-2 {
-  position: absolute;
-  width: 16px;
-  height: 3.5px;
-  margin-top: 8px;
-  background: #FF7553;
-  border: none;
-  -webkit-transform: rotate(135deg);
-          transform: rotate(135deg);
-}
-
-/* HOBBIES - STEP BAR */
-
-.hobbies .step-bar {
-  width: 80%;
-  height: 5px;
-  background: #EFEFEF;
-  margin: auto;
-  border-radius: 50px;
-}
-
-.hobbies .step-bar .progress-hobbies {
-  width: 25%;
-  height: 5px;
-  background: #FF7553;
-  border-radius: 50px;
-}
-
 /* HOBBIES - HEADER TEXT */
 
 .hobbies .header-text {

@@ -9,58 +9,6 @@
   font-size: 20px;
 }
 
-.defines .back-section {
-  width: 100%;
-  position: relative;
-  height: 65px;
-  padding: 25px 15px;
-  margin-bottom: 10px;
-}
-
-.defines .back-section .back-arrow {
-  width: 30px;
-  height: 30px;
-}
-
-.defines .back-section .back-arrow-1 {
-  position: absolute;
-  width: 16px;
-  height: 3.5px;
-  margin-top: 17px;
-  background: #FF7553;
-  border: none;
-  -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
-}
-
-.defines .back-section .back-arrow-2 {
-  position: absolute;
-  width: 16px;
-  height: 3.5px;
-  margin-top: 8px;
-  background: #FF7553;
-  border: none;
-  -webkit-transform: rotate(135deg);
-          transform: rotate(135deg);
-}
-
-/* DEFINES - STEP BAR */
-
-.defines .step-bar {
-  width: 80%;
-  height: 5px;
-  background: #EFEFEF;
-  margin: auto;
-  border-radius: 50px;
-}
-
-.defines .step-bar .progress-defines {
-  width: 50%;
-  height: 5px;
-  background: #FF7553;
-  border-radius: 50px;
-}
-
 /* DEFINES - HEADER TEXT */
 
 .defines .header-text {

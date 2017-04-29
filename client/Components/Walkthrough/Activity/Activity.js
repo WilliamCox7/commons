@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setActivity } from '../../../redux/dialReducer';
+import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
 import './Activity.scss';
 
@@ -16,18 +17,9 @@ class Activity extends Component {
   }
 
   render() {
-    console.log(this.props.dial);
     return (
       <div className="activity">
-        <div className="back-section">
-          <a href="/#/defines"><div className="back-arrow">
-            <div className="back-arrow-1"></div>
-            <div className="back-arrow-2"></div>
-          </div></a>
-        </div>
-        <div className="step-bar">
-          <div className="progress-activity"></div>
-        </div>
+        <Navigation redirect={"defines"} width={"75%"} />
         <div className="header-text">
           <h1>what are you up to this week?</h1>
         </div>

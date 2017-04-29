@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
 import Dial from '../../Dial/Dial';
 import SearchHobbies from './SearchHobbies/SearchHobbies';
+import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
 import './Hobbies.scss';
 
@@ -10,15 +11,7 @@ class Hobbies extends Component {
   render() {
     return (
       <div className="hobbies">
-        <div className="back-section">
-          <a href="/#/welcome"><div className="back-arrow">
-            <div className="back-arrow-1"></div>
-            <div className="back-arrow-2"></div>
-          </div></a>
-        </div>
-        <div className="step-bar">
-          <div className="progress-hobbies"></div>
-        </div>
+        <Navigation redirect={"welcome"} width={"25%"} />
         <div className="header-text">
           <h1>choose five hobbies</h1>
         </div>

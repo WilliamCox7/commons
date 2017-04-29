@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
 import Dial from '../../Dial/Dial';
 import SearchDefines from './SearchDefines/SearchDefines';
+import Navigation from '../Navigation/Navigation';
 import axios from 'axios';
 import './Defines.scss';
 
@@ -10,15 +11,7 @@ class Defines extends Component {
   render() {
     return (
       <div className="defines">
-        <div className="back-section">
-          <a href="/#/hobbies"><div className="back-arrow">
-            <div className="back-arrow-1"></div>
-            <div className="back-arrow-2"></div>
-          </div></a>
-        </div>
-        <div className="step-bar">
-          <div className="progress-defines"></div>
-        </div>
+        <Navigation redirect={"hobbies"} width={"50%"} />
         <div className="header-text">
           <h1>choose five things that define you</h1>
         </div>
