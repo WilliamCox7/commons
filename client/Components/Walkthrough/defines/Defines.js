@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import curl from '../../../images/curl-arrow.png';
 import Dial from '../../Dial/Dial';
-import SearchHobbies from './SearchHobbies/SearchHobbies';
+import SearchDefines from './SearchDefines/SearchDefines';
 import axios from 'axios';
-import './Hobbies.scss';
+import './Defines.scss';
 
-class Hobbies extends Component {
+class Defines extends Component {
   render() {
     return (
-      <div className="hobbies">
+      <div className="defines">
         <div className="back-section">
           <a href="/#/welcome"><div className="back-arrow">
             <div className="back-arrow-1"></div>
@@ -17,22 +17,22 @@ class Hobbies extends Component {
           </div></a>
         </div>
         <div className="step-bar">
-          <div className="progress-hobbies"></div>
+          <div className="progress-defines"></div>
         </div>
         <div className="header-text">
-          <h1>choose five hobbies</h1>
+          <h1>choose five things that define you</h1>
         </div>
-        <div className="hobbie-dial">
+        <div className="define-dial">
           <img src={curl} />
-          <Dial type={'hobbies'} />
+          <Dial type={'defines'} />
         </div>
-        <SearchHobbies />
-        {this.props.dial.hobbyCount < 6 ? (
-          <div className="hobbie-next">
+        <SearchDefines />
+        {this.props.dial.defineCount < 6 ? (
+          <div className="define-next">
             <a href="/#/defines"><div className="next-text">skip</div></a>
           </div>
         ) : (
-          <div className="hobbie-next">
+          <div className="define-next">
             <a href="/#/defines"><div className="next-text">next</div></a>
           </div>
         )}
@@ -48,4 +48,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Hobbies);
+export default connect(mapStateToProps)(Defines);

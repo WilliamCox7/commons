@@ -10,6 +10,7 @@ import Login from './Components/Auth/Login/Login';
 import Create from './Components/Auth/Create/Create';
 import Welcome from './Components/Walkthrough/Welcome/Welcome';
 import Hobbies from './Components/Walkthrough/Hobbies/Hobbies';
+import Defines from './Components/Walkthrough/Defines/Defines';
 import Home from './Components/Home/Home';
 
 const store = createStore(rootReducer);
@@ -22,6 +23,7 @@ ReactDOM.render(
         <Route path="/create" component={Create} />
         <Route path="/welcome" component={Welcome} />
         <Route path="/hobbies" component={Hobbies} />
+        <Route path="/defines" component={Defines} />
         <Route path="/home" component={Home} />
       </Route>
     </Router>

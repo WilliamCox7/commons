@@ -1,0 +1,131 @@
+const SEARCH_HOBBY = 'dial/SEARCH_HOBBY';
+const SEARCH_DEFINE = 'dial/SEARCH_DEFINE';
+const SET_HOBBY = 'dial/SET_HOBBY';
+const SET_DEFINE = 'dial/SET_DEFINE';
+const REM_HOBBY = 'dial/REM_HOBBY';
+const REM_DEFINE = 'dial/REM_DEFINE';
+
+const initState = {
+  hobbies: {},
+  defines: {},
+  hobbySelected: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null
+  },
+  defineSelected: {
+    1: null,
+    2: null,
+    3: null,
+    4: null,
+    5: null
+  },
+  hobbyCount: 1,
+  defineCount: 1
+}
+
+function parseData(state, data, option) {
+  data.forEach((d) => {
+    var firstLetter = d[0].toUpperCase();
+    if (!state[option][firstLetter]) {
+      state[option][firstLetter] = [d];
+    } else {
+      state[option][firstLetter].push(d);
+    }
+  });
+  return state;
+}
+
+export default function reducer(state=initState, action) {
+  switch (action.type) {
+    case SEARCH_HOBBY:
+      var editState = Object.assign({}, state);
+      var newState = parseData(editState, action.payload, action.option);
+      return Object.assign({}, state, newState);
+    case SEARCH_DEFINE:
+      var editState = Object.assign({}, state);
+      var newState = parseData(editState, action.payload, action.option);
+      return Object.assign({}, state, newState);
+    case SET_HOBBY:
+      var editState = Object.assign({}, state);
+      if (editState.hobbyCount !== 6) {
+        editState.hobbySelected[editState.hobbyCount] = action.payload;
+        editState.hobbyCount++;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
+    case SET_DEFINE:
+      var editState = Object.assign({}, state);
+      if (editState.defineCount !== 6) {
+        editState.defineSelected[editState.defineCount] = action.payload;
+        editState.defineCount++;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
+    case REM_HOBBY:
+      var editState = Object.assign({}, state);
+      if (editState.hobbyCount !== 1) {
+        editState.hobbyCount--;
+        editState.hobbySelected[editState.hobbyCount] = null;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
+    case REM_DEFINE:
+      var editState = Object.assign({}, state);
+      if (editState.defineCount !== 1) {
+        editState.defineCount--;
+        editState.defineSelected[editState.defineCount] = null;
+        return Object.assign({}, state, editState);
+      } else {
+        return state;
+      }
+    default: return state;
+  }
+}
+
+export function searchHobbies(hobbies) {
+  return {
+    type: SEARCH_HOBBY,
+    payload: hobbies,
+    option: 'hobbies'
+  }
+}
+
+export function searchDefines(defines) {
+  return {
+    type: SEARCH_DEFINE,
+    payload: defines,
+    option: 'defines'
+  }
+}
+
+export function setHobby(hobby) {
+  return {
+    type: SET_HOBBY,
+    payload: hobby
+  }
+}
+
+export function setDefine(define) {
+  return {
+    type: SET_DEFINE,
+    payload: define
+  }
+}
+
+export function removeHobby() {
+  return {
+    type: REM_HOBBY
+  }
+}
+
+export function removeDefine() {
+  return {
+    type: REM_DEFINE
+  }
+}

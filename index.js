@@ -96,13 +96,11 @@ passport.use(new FacebookStrategy({
     callbackURL: "http://localhost:3000/auth/fb/callback"
   },
   function(token, refreshToken, profile, done) {
-    console.log(profile);
     MongoClient.connect(app.get('url'), function(err, db) {
       var collection = db.collection("users");
       collection.findOne({
         "fb_id": profile.id
       }, (err, user) => {
-        console.log(user);
         if (!user) {
           collection.insertOne({
             fb_id: profile.id,
@@ -135,11 +133,17 @@ app.get('/auth/fb/callback', passport.authenticate('facebook', {
 /* FS */
 const fs = require('fs');
 var hobbies = [];
+var defines = [];
 fs.readFile('./server/hobbies.json', 'utf8', (err, data) => { hobbies = JSON.parse(data); });
+fs.readFile('./server/defines.json', 'utf8', (err, data) => { defines = JSON.parse(data); });
 
 /* ENDPOINTS */
 app.get('/hobbies', (req, res) => {
   res.status(200).send(hobbies.hobbies);
+});
+
+app.get('/defines', (req, res) => {
+  res.status(200).send(defines.defines);
 });
 
 /* SERVER */

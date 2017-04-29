@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import hobby from './hobbyReducer';
+import dial from './dialReducer';
 
 export default combineReducers({
-  hobby
+  dial
 });

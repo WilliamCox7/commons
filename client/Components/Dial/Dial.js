@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removeHobby } from '../../redux/hobbyReducer';
+import { removeHobby } from '../../redux/dialReducer';
+import { removeDefine } from '../../redux/dialReducer';
 import $ from 'jquery';
 import './Dial.scss';
 
@@ -8,9 +9,12 @@ class Dial extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      type: ''
+    }
     this.updateStyle = this.updateStyle.bind(this);
     this.rotateDial = this.rotateDial.bind(this);
-    this.removeHobby = this.removeHobby.bind(this);
+    this.removeData = this.removeData.bind(this);
   }
 
   rotateDial() {
@@ -46,12 +50,21 @@ class Dial extends Component {
     });
   }
 
-  removeHobby() {
-    this.props.removeHobby();
-    if (this.props.hobbies.selCount > 1) {
-      $(document).ready(() => {
-        $(".dial").data('dir', 'rev');
-      });
+  removeData() {
+    if (this.props.type === 'hobbies') {
+      this.props.removeHobby();
+      if (this.props.dial.hobbyCount > 1) {
+        $(document).ready(() => {
+          $(".dial").data('dir', 'rev');
+        });
+      }
+    } else {
+      this.props.removeDefine();
+      if (this.props.dial.defineCount > 1) {
+        $(document).ready(() => {
+          $(".dial").data('dir', 'rev');
+        });
+      }
     }
   }
 
@@ -99,27 +112,35 @@ class Dial extends Component {
 
   render() {
     this.updateStyle();
-    var dial1 = this.props.hobbies.selected[1] ? this.props.hobbies.selected[1][0] : '+';
-    var dial2 = this.props.hobbies.selected[2] ? this.props.hobbies.selected[2][0] : '+';
-    var dial3 = this.props.hobbies.selected[3] ? this.props.hobbies.selected[3][0] : '+';
-    var dial4 = this.props.hobbies.selected[4] ? this.props.hobbies.selected[4][0] : '+';
-    var dial5 = this.props.hobbies.selected[5] ? this.props.hobbies.selected[5][0] : '+';
+    if (this.props.type === 'hobbies') {
+      var dial1 = this.props.dial.hobbySelected[1] ? this.props.dial.hobbySelected[1][0] : '+';
+      var dial2 = this.props.dial.hobbySelected[2] ? this.props.dial.hobbySelected[2][0] : '+';
+      var dial3 = this.props.dial.hobbySelected[3] ? this.props.dial.hobbySelected[3][0] : '+';
+      var dial4 = this.props.dial.hobbySelected[4] ? this.props.dial.hobbySelected[4][0] : '+';
+      var dial5 = this.props.dial.hobbySelected[5] ? this.props.dial.hobbySelected[5][0] : '+';
+    } else {
+      var dial1 = this.props.dial.defineSelected[1] ? this.props.dial.defineSelected[1][0] : '+';
+      var dial2 = this.props.dial.defineSelected[2] ? this.props.dial.defineSelected[2][0] : '+';
+      var dial3 = this.props.dial.defineSelected[3] ? this.props.dial.defineSelected[3][0] : '+';
+      var dial4 = this.props.dial.defineSelected[4] ? this.props.dial.defineSelected[4][0] : '+';
+      var dial5 = this.props.dial.defineSelected[5] ? this.props.dial.defineSelected[5][0] : '+';
+    }
     return (
       <div className="dial">
         <span className="spoke" id="dial-1">
-          <div onClick={this.removeHobby}><p>{dial1}</p></div>
+          <div onClick={this.removeData}><p>{dial1}</p></div>
         </span>
         <span className="spoke" id="dial-2">
-          <div onClick={this.removeHobby}><p>{dial2}</p></div>
+          <div onClick={this.removeData}><p>{dial2}</p></div>
         </span>
         <span className="spoke" id="dial-3">
-          <div onClick={this.removeHobby}><p>{dial3}</p></div>
+          <div onClick={this.removeData}><p>{dial3}</p></div>
         </span>
         <span className="spoke" id="dial-4">
-          <div onClick={this.removeHobby}><p>{dial4}</p></div>
+          <div onClick={this.removeData}><p>{dial4}</p></div>
         </span>
         <span className="spoke" id="dial-5">
-          <div onClick={this.removeHobby}><p>{dial5}</p></div>
+          <div onClick={this.removeData}><p>{dial5}</p></div>
         </span>
       </div>
     );
@@ -128,12 +149,13 @@ class Dial extends Component {
 
 function mapStateToProps(state) {
   return {
-    hobbies: state.hobby
+    dial: state.dial
   }
 }
 
 const mapDispatchToProps = {
-  removeHobby: removeHobby
+  removeHobby: removeHobby,
+  removeDefine: removeDefine
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dial);
