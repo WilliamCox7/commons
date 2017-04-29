@@ -29,11 +29,11 @@ class Defines extends Component {
         <SearchDefines />
         {this.props.dial.defineCount < 6 ? (
           <div className="define-next">
-            <a href="/#/defines"><div className="next-text">skip</div></a>
+            <a href="/#/activity"><div className="next-text">skip</div></a>
           </div>
         ) : (
           <div className="define-next">
-            <a href="/#/defines"><div className="next-text">next</div></a>
+            <a href="/#/activity"><div className="next-text">next</div></a>
           </div>
         )}
 
