@@ -80,18 +80,17 @@
 }
 
 .activity .activity-text textarea {
-  width: 70%;
+  font-family: helvetica;
+  width: 75%;
   margin: auto;
   right: 0;
   left: 0;
   position: absolute;
-  box-shadow: 0px 0px 30px #EFEFEF;
   border: none;
   font-size: 20px;
-  color: gray;
+  color: #95989a;
   resize: none;
   height: 250px;
-  padding: 12px;
   border-radius: 5px;
 }
 
