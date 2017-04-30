@@ -42,16 +42,16 @@
       &:focus {
         border-bottom: solid 1px lightgray;
       }
-      ::-webkit-input-placeholder {
+      &::-webkit-input-placeholder {
         color: lightgray;
       }
-      ::-moz-placeholder {
+      &::-moz-placeholder {
         color: lightgray;
       }
-      :-ms-input-placeholder {
+      &:-ms-input-placeholder {
         color: lightgray;
       }
-      :-moz-placeholder {
+      &:-moz-placeholder {
         color: lightgray;
       }
     }
