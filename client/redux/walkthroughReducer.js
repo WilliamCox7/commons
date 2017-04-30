@@ -43,7 +43,8 @@ export default function reducer(state=initState, action) {
   switch (action.type) {
     case SEARCH:
       var editState = Object.assign({}, state);
-      var newState = parseData(editState, action.payload, action.option);
+      var newState = parseData(editState, action.hobbies, 'hobbies');
+      var newState = parseData(editState, action.defines, 'defines');
       return Object.assign({}, state, newState);
     case SET_HOBBY:
       var editState = Object.assign({}, state);
@@ -89,11 +90,11 @@ export default function reducer(state=initState, action) {
   }
 }
 
-export function search(data, opt) {
+export function search(data) {
   return {
     type: SEARCH,
-    payload: data,
-    option: opt
+    hobbies: data.hobbies,
+    defines: data.defines
   }
 }
 

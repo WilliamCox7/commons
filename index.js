@@ -138,12 +138,8 @@ fs.readFile('./server/hobbies.json', 'utf8', (err, data) => { hobbies = JSON.par
 fs.readFile('./server/defines.json', 'utf8', (err, data) => { defines = JSON.parse(data); });
 
 /* ENDPOINTS */
-app.get('/hobbies', (req, res) => {
-  res.status(200).send(hobbies.hobbies);
-});
-
-app.get('/defines', (req, res) => {
-  res.status(200).send(defines.defines);
+app.get('/search', (req, res) => {
+  res.status(200).send({hobbies: hobbies.hobbies, defines: defines.defines});
 });
 
 /* SERVER */

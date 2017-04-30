@@ -1,26 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { search } from '../../../../redux/walkthroughReducer';
 import { setHobby } from '../../../../redux/walkthroughReducer';
 import { setDefine } from '../../../../redux/walkthroughReducer';
-import axios from 'axios';
 
 class Search extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      parsed: []
+      parsed: [],
+      gotData: false
     }
-    this.getSearch = this.getSearch.bind(this);
     this.searchParsed = this.searchParsed.bind(this);
     this.set = this.set.bind(this);
-  }
-
-  getSearch() {
-    axios.get('/' + this.props.opt).then((data) => {
-      this.props.search(data.data, this.props.opt);
-    });
   }
 
   searchParsed(e) {
@@ -44,11 +36,6 @@ class Search extends Component {
     } else {
       this.props.setDefine(item);
     }
-
-  }
-
-  componentDidMount() {
-    this.getSearch();
   }
 
   render() {
@@ -85,7 +72,6 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  search: search,
   setHobby: setHobby,
   setDefine: setDefine
 }
