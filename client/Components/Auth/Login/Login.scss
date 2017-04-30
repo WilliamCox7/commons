@@ -1,62 +1,49 @@
-/* LOGIN */
-
 .login {
   background: #FF6C48;
   height: 100%;
   width: 100%;
   position: absolute;
   color: white;
-}
-
-/* LOGIN - LOGO */
-
-.login .login-logo {
-  position: absolute;
-  text-align: center;
-  margin: auto;
-  width: 170px;
-  height: 95px;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-}
-
-.login .logo {
-  width: 95px;
-  margin-bottom: 10px;
-}
-
-.login .text {
-  font-size: 34px;
-}
-
-/* LOGIN - AUTH */
-
-.login .auth {
-  position: absolute;
-  margin: auto;
-  width: 100%;
-  text-align: center;
-  bottom: 0;
-  padding: 70px 0px;
-}
-
-.login .auth button {
-  padding: 20px;
-  border: none;
-  border-radius: 50px;
-  font-size: 22px;
-  font-weight: bold;
-  width: 290px;
-  background: rgba(255,255,255,0.2);
-  color: white;
-}
-
-.login .auth p,
-.login .auth a {
-  padding: 10px;
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
+  .login-logo {
+    position: absolute;
+    text-align: center;
+    margin: auto;
+    width: 170px;
+    height: 95px;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
+  .logo {
+    width: 95px;
+    margin-bottom: 10px;
+  }
+  .text {
+    font-size: 34px;
+  }
+  .auth {
+    position: absolute;
+    margin: auto;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    padding: 70px 0px;
+    button {
+      padding: 20px;
+      border: none;
+      border-radius: 50px;
+      font-size: 22px;
+      font-weight: bold;
+      width: 290px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+    p, a {
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+    }
+  }
 }

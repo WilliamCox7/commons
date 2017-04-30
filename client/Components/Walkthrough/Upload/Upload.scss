@@ -8,32 +8,28 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-}
-
-.upload-img img {
-  width: 130px;
-  height: 100%;
-}
-
-.upload-img .upload-text {
-  font-size: 16px;
-  padding: 16px 0px;
-  width: calc(100% - 150px);
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.upload-img .upload-text .upload-text-img {
-  text-align: center;
-  padding: 10px;
-  width: 100%;
-}
-
-.upload-img .upload-text .upload-text-img img {
-  width: 65px;
+  img {
+    width: 130px;
+    height: 100%;
+  }
+  .upload-text {
+    font-size: 16px;
+    padding: 16px 0px;
+    width: calc(100% - 150px);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    .upload-text-img {
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+      img {
+        width: 65px;
+      }
+    }
+  }
 }

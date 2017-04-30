@@ -1,5 +1,3 @@
-/* DIAL */
-
 .dial {
   position: absolute;
   margin: auto;
@@ -11,118 +9,104 @@
           transform: rotate(0deg);
   -webkit-transition: all 1s ease;
   transition: all 1s ease;
-}
-
-.dial div {
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  border-radius: 50%;
-  background: #EFEFEF;
-  color: black;
-  font-weight: bold;
-  /*background: #FF7553;*/
-}
-
-.dial div p {
-  text-align: center;
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
-}
-
-.dial .spoke {
-  width: 50px;
-  height: 83%;
-  position: absolute;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-#dial-1 {
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-}
-
-#dial-1 div {
-  -webkit-transition: background 1s ease;
-  transition: background 1s ease;
-  -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-          -webkit-transition: transform 1s ease;
-          -webkit-transition: -webkit-transform 1s ease;
-          transition: -webkit-transform 1s ease;
-          transition: transform 1s ease;
-          transition: transform 1s ease, -webkit-transform 1s ease;
-}
-
-#dial-2 {
-  -webkit-transform: rotate(72deg);
-          transform: rotate(72deg);
-}
-
-#dial-2 div {
-  -webkit-transition: background 1s ease;
-  transition: background 1s ease;
-  -webkit-transform: rotate(-72deg);
-          transform: rotate(-72deg);
-          -webkit-transition: transform 1s ease;
-          -webkit-transition: -webkit-transform 1s ease;
-          transition: -webkit-transform 1s ease;
-          transition: transform 1s ease;
-          transition: transform 1s ease, -webkit-transform 1s ease;
-}
-
-#dial-3 {
-  -webkit-transform: rotate(144deg);
-          transform: rotate(144deg);
-}
-
-#dial-3 div {
-  -webkit-transition: background 1s ease;
-  transition: background 1s ease;
-  -webkit-transform: rotate(-144deg);
-          transform: rotate(-144deg);
-          -webkit-transition: transform 1s ease;
-          -webkit-transition: -webkit-transform 1s ease;
-          transition: -webkit-transform 1s ease;
-          transition: transform 1s ease;
-          transition: transform 1s ease, -webkit-transform 1s ease;
-}
-
-#dial-4 {
-  -webkit-transform: rotate(216deg);
-          transform: rotate(216deg);
-}
-
-#dial-4 div {
-  -webkit-transition: background 1s ease;
-  transition: background 1s ease;
-  -webkit-transform: rotate(-216deg);
-          transform: rotate(-216deg);
-          -webkit-transition: transform 1s ease;
-          -webkit-transition: -webkit-transform 1s ease;
-          transition: -webkit-transform 1s ease;
-          transition: transform 1s ease;
-          transition: transform 1s ease, -webkit-transform 1s ease;
-}
-
-#dial-5 {
-  -webkit-transform: rotate(288deg);
-          transform: rotate(288deg);
-}
-
-#dial-5 div {
-  -webkit-transition: background 1s ease;
-  transition: background 1s ease;
-  -webkit-transform: rotate(-288deg);
-          transform: rotate(-288deg);
-          -webkit-transition: transform 1s ease;
-          -webkit-transition: -webkit-transform 1s ease;
-          transition: -webkit-transform 1s ease;
-          transition: transform 1s ease;
-          transition: transform 1s ease, -webkit-transform 1s ease;
+  div {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 50%;
+    background: #EFEFEF;
+    color: black;
+    font-weight: bold;
+    p {
+      text-align: center;
+      line-height: 50px;
+      width: 50px;
+      height: 50px;
+    }
+  }
+  .spoke {
+    width: 50px;
+    height: 83%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  #dial-1 {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    div {
+      -webkit-transition: background 1s ease;
+      transition: background 1s ease;
+      -webkit-transform: rotate(0deg);
+              transform: rotate(0deg);
+              -webkit-transition: transform 1s ease;
+              -webkit-transition: -webkit-transform 1s ease;
+              transition: -webkit-transform 1s ease;
+              transition: transform 1s ease;
+              transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
+  #dial-2 {
+    -webkit-transform: rotate(72deg);
+            transform: rotate(72deg);
+    div {
+      -webkit-transition: background 1s ease;
+      transition: background 1s ease;
+      -webkit-transform: rotate(-72deg);
+              transform: rotate(-72deg);
+              -webkit-transition: transform 1s ease;
+              -webkit-transition: -webkit-transform 1s ease;
+              transition: -webkit-transform 1s ease;
+              transition: transform 1s ease;
+              transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
+  #dial-3 {
+    -webkit-transform: rotate(144deg);
+            transform: rotate(144deg);
+    div {
+      -webkit-transition: background 1s ease;
+      transition: background 1s ease;
+      -webkit-transform: rotate(-144deg);
+              transform: rotate(-144deg);
+              -webkit-transition: transform 1s ease;
+              -webkit-transition: -webkit-transform 1s ease;
+              transition: -webkit-transform 1s ease;
+              transition: transform 1s ease;
+              transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
+  #dial-4 {
+    -webkit-transform: rotate(216deg);
+            transform: rotate(216deg);
+    div {
+      -webkit-transition: background 1s ease;
+      transition: background 1s ease;
+      -webkit-transform: rotate(-216deg);
+              transform: rotate(-216deg);
+              -webkit-transition: transform 1s ease;
+              -webkit-transition: -webkit-transform 1s ease;
+              transition: -webkit-transform 1s ease;
+              transition: transform 1s ease;
+              transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
+  #dial-5 {
+    -webkit-transform: rotate(288deg);
+            transform: rotate(288deg);
+    div {
+      -webkit-transition: background 1s ease;
+      transition: background 1s ease;
+      -webkit-transform: rotate(-288deg);
+              transform: rotate(-288deg);
+              -webkit-transition: transform 1s ease;
+              -webkit-transition: -webkit-transform 1s ease;
+              transition: -webkit-transform 1s ease;
+              transition: transform 1s ease;
+              transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
 }

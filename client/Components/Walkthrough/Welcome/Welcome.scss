@@ -1,5 +1,3 @@
-/* WELCOME */
-
 .welcome {
   background: url('../../../images/welcome.jpg');
   position: absolute;
@@ -8,35 +6,32 @@
   background-position: center;
   background-size: cover;
   z-index: 0;
-}
-
-.welcome .above-welcome {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-}
-
-.welcome h1 {
-  color: white;
-  width: 100%;
-  text-align: center;
-  font-size: 38px;
-  position: absolute;
-  top: 270px;
-}
-
-.welcome button {
-  color: white;
-  position: absolute;
-  margin: auto;
-  background: rgba(255,137,109,0.7);
-  border: none;
-  border-radius: 50px;
-  width: 250px;
-  font-size: 22px;
-  padding: 20px;
-  bottom: 120px;
-  right: 0;
-  left: 0;
+  .above-welcome {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  h1 {
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 38px;
+    position: absolute;
+    top: 270px;
+  }
+  button {
+    color: white;
+    position: absolute;
+    margin: auto;
+    background: rgba(255,137,109,0.7);
+    border: none;
+    border-radius: 50px;
+    width: 250px;
+    font-size: 22px;
+    padding: 20px;
+    bottom: 120px;
+    right: 0;
+    left: 0;
+  }
 }
