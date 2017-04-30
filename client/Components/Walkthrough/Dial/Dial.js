@@ -50,20 +50,26 @@ class Dial extends Component {
     });
   }
 
-  removeData() {
-    if (this.props.type === 'hobbies') {
-      this.props.removeHobby();
-      if (this.props.walkthrough.hobbyCount > 1) {
-        $(document).ready(() => {
-          $(".dial").data('dir', 'rev');
-        });
-      }
+  removeData(e) {
+    if ($(e.target)[0].innerText === '+') {
+      $(document).ready(() => {
+        $('#srch').focus();
+      });
     } else {
-      this.props.removeDefine();
-      if (this.props.walkthrough.defineCount > 1) {
-        $(document).ready(() => {
-          $(".dial").data('dir', 'rev');
-        });
+      if (this.props.type === 'hobbies') {
+        this.props.removeHobby();
+        if (this.props.walkthrough.hobbyCount > 1) {
+          $(document).ready(() => {
+            $(".dial").data('dir', 'rev');
+          });
+        }
+      } else {
+        this.props.removeDefine();
+        if (this.props.walkthrough.defineCount > 1) {
+          $(document).ready(() => {
+            $(".dial").data('dir', 'rev');
+          });
+        }
       }
     }
   }

@@ -68,7 +68,7 @@ class Search extends Component {
     return (
       <div className="search-hobbies">
         <div className="search">
-          <input type="text" placeholder=" search" onChange={this.searchParsed} />
+          <input type="text" id="srch" placeholder=" search" onChange={this.searchParsed} />
         </div>
         <div className="hobby-define-results">
           {parsed}
