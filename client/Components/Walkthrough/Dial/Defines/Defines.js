@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import curl from '../../../images/curl-arrow.png';
-import Dial from '../Dial/Dial';
-import SearchDefines from './SearchDefines/SearchDefines';
-import Navigation from '../Navigation/Navigation';
-import Next from '../Next/Next';
+import curl from '../../../../images/curl-arrow.png';
+import Dial from '../Dial';
+import Search from '../Search/Search';
+import Navigation from '../../Navigation/Navigation';
+import Next from '../../Next/Next';
 import axios from 'axios';
-import '../Dial/HobbyDefine.scss';
+import '../HobbyDefine.scss';
 
 class Defines extends Component {
   render() {
@@ -20,7 +20,7 @@ class Defines extends Component {
           <img src={curl} />
           <Dial type={'defines'} />
         </div>
-        <SearchDefines />
+        <Search opt={'defines'} />
         <Next condition={this.props.walkthrough.defineCount < 6} redirect={'activity'} />
       </div>
     );

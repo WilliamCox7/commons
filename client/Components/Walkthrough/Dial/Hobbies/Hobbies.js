@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import curl from '../../../images/curl-arrow.png';
-import Dial from '../Dial/Dial';
-import SearchHobbies from './SearchHobbies/SearchHobbies';
-import Navigation from '../Navigation/Navigation';
-import Next from '../Next/Next';
+import curl from '../../../../images/curl-arrow.png';
+import Dial from '../Dial';
+import Search from '../Search/Search';
+import Navigation from '../../Navigation/Navigation';
+import Next from '../../Next/Next';
 import axios from 'axios';
-import '../Dial/HobbyDefine.scss';
+import '../HobbyDefine.scss';
 
 class Hobbies extends Component {
   render() {
@@ -20,7 +20,7 @@ class Hobbies extends Component {
           <img src={curl} />
           <Dial type={'hobbies'} />
         </div>
-        <SearchHobbies />
+        <Search opt={'hobbies'} />
         <Next condition={this.props.walkthrough.hobbyCount < 6} redirect={'defines'} />
       </div>
     );

@@ -1,5 +1,4 @@
-const SEARCH_HOBBY = 'dial/SEARCH_HOBBY';
-const SEARCH_DEFINE = 'dial/SEARCH_DEFINE';
+const SEARCH = 'dial/SEARCH';
 const SET_HOBBY = 'dial/SET_HOBBY';
 const SET_DEFINE = 'dial/SET_DEFINE';
 const SET_ACTIVITY = 'dial/SET_ACTIVITY';
@@ -42,11 +41,7 @@ function parseData(state, data, option) {
 
 export default function reducer(state=initState, action) {
   switch (action.type) {
-    case SEARCH_HOBBY:
-      var editState = Object.assign({}, state);
-      var newState = parseData(editState, action.payload, action.option);
-      return Object.assign({}, state, newState);
-    case SEARCH_DEFINE:
+    case SEARCH:
       var editState = Object.assign({}, state);
       var newState = parseData(editState, action.payload, action.option);
       return Object.assign({}, state, newState);
@@ -94,19 +89,11 @@ export default function reducer(state=initState, action) {
   }
 }
 
-export function searchHobbies(hobbies) {
+export function search(data, opt) {
   return {
-    type: SEARCH_HOBBY,
-    payload: hobbies,
-    option: 'hobbies'
-  }
-}
-
-export function searchDefines(defines) {
-  return {
-    type: SEARCH_DEFINE,
-    payload: defines,
-    option: 'defines'
+    type: SEARCH,
+    payload: data,
+    option: opt
   }
 }
 
