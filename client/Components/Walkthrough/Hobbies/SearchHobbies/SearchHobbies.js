@@ -50,9 +50,9 @@ class SearchHobbies extends Component {
       var parsedHobbies = this.state.parsedHobbies.map((hobby, i) => {
         if (i < 4) {
           return (
-            <div className="hobby-result" key={i} onClick={() => {this.setHobby(hobby);}}>
+            <div className="hobby-define-result" key={i} onClick={() => {this.setHobby(hobby);}}>
               {hobby.toLowerCase()}
-              <div className="hobby-letter"><p>{hobby[0].toUpperCase()}</p></div>
+              <div className="hobby-define-letter"><p>{hobby[0].toUpperCase()}</p></div>
             </div>
           )
         }
@@ -64,7 +64,7 @@ class SearchHobbies extends Component {
         <div className="search">
           <input type="text" placeholder=" search" onChange={this.searchParsedHobbies} />
         </div>
-        <div className="hobby-results">
+        <div className="hobby-define-results">
           {parsedHobbies}
         </div>
       </div>

@@ -50,9 +50,9 @@ class SearchDefines extends Component {
       var parsedDefines = this.state.parsedDefines.map((define, i) => {
         if (i < 4) {
           return (
-            <div className="define-result" key={i} onClick={() => {this.setDefine(define);}}>
+            <div className="hobby-define-result" key={i} onClick={() => {this.setDefine(define);}}>
               {define.toLowerCase()}
-              <div className="define-letter"><p>{define[0].toUpperCase()}</p></div>
+              <div className="hobby-define-letter"><p>{define[0].toUpperCase()}</p></div>
             </div>
           )
         }
@@ -64,7 +64,7 @@ class SearchDefines extends Component {
         <div className="search">
           <input type="text" placeholder=" search" onChange={this.searchParsedDefines} />
         </div>
-        <div className="define-results">
+        <div className="hobby-define-results">
           {parsedDefines}
         </div>
       </div>

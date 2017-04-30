@@ -6,17 +6,17 @@ import SearchHobbies from './SearchHobbies/SearchHobbies';
 import Navigation from '../Navigation/Navigation';
 import Next from '../Next/Next';
 import axios from 'axios';
-import './Hobbies.scss';
+import '../Dial/HobbyDefine.scss';
 
 class Hobbies extends Component {
   render() {
     return (
-      <div className="hobbies">
+      <div className="hobby-defines">
         <Navigation redirect={"welcome"} width={"25%"} />
         <div className="header-text">
           <h1>choose five hobbies</h1>
         </div>
-        <div className="hobbie-dial">
+        <div className="hobby-define-dial">
           <img src={curl} />
           <Dial type={'hobbies'} />
         </div>

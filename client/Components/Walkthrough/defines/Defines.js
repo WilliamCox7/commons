@@ -6,17 +6,17 @@ import SearchDefines from './SearchDefines/SearchDefines';
 import Navigation from '../Navigation/Navigation';
 import Next from '../Next/Next';
 import axios from 'axios';
-import './Defines.scss';
+import '../Dial/HobbyDefine.scss';
 
 class Defines extends Component {
   render() {
     return (
-      <div className="defines">
+      <div className="hobby-defines">
         <Navigation redirect={"hobbies"} width={"50%"} />
         <div className="header-text">
           <h1>choose five things that define you</h1>
         </div>
-        <div className="define-dial">
+        <div className="hobby-define-dial">
           <img src={curl} />
           <Dial type={'defines'} />
         </div>
