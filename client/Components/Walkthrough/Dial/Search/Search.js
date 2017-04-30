@@ -30,7 +30,7 @@ class Search extends Component {
       var parsed = [];
       parsed = this.props.walkthrough[this.props.opt][firstLetter].filter((item) => {
         item = item.toLowerCase();
-        if (item.indexOf(str) >= 0) {
+        if (item.indexOf(str.toLowerCase()) >= 0) {
           return item;
         }
       });
