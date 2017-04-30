@@ -14,7 +14,7 @@ class Defines extends Component {
       <div className="hobby-defines">
         <Navigation redirect={"hobbies"} width={"50%"} />
         <div className="header-text">
-          <h1>choose five things that define you</h1>
+          <h1>what defines you?</h1>
         </div>
         <div className="hobby-define-dial">
           <img src={curl} />

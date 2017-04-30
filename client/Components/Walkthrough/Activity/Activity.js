@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { setActivity } from '../../../redux/walkthroughReducer';
 import Navigation from '../Navigation/Navigation';
 import Next from '../Next/Next';
+import $ from 'jquery';
 import './Activity.scss';
 
 class Activity extends Component {
@@ -14,6 +15,12 @@ class Activity extends Component {
 
   setActivity(e) {
     this.props.setActivity(e.target.value);
+  }
+
+  componentDidMount() {
+    $(document).ready(() => {
+      $('.activity-text textarea').focus();
+    });
   }
 
   render() {
