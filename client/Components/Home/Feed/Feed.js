@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Nav from '../Nav/Nav';
+import Presentation from '../Presentation/Presentation';
 
 class Home extends Component {
   render() {
     return (
       <div>
         <Nav />
-        {/* <Navigation /> //has the search component in it */}
-        {/* <Presentation /> //has dial component in it */}
+        <Presentation />
+        <Presentation />
+        <Presentation />
+        <Presentation />
       </div>
     )
   }
