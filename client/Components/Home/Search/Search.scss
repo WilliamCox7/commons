@@ -1,0 +1,30 @@
+.search {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  input[type="text"] {
+    margin: 10px 0;
+    padding: 10px;
+    padding-left: 45px;
+    font-size: 17px;
+    border: none;
+  }
+  #placeholderImg {
+    background-image: url('../../../images/search.png');
+    background-size: 27px;
+    background-repeat: no-repeat;
+    background-position: 7px;
+  }
+  ::-webkit-input-placeholder {
+    color: lightgray;
+  }
+  ::-moz-placeholder {
+    color: lightgray;
+  }
+  :-ms-input-placeholder {
+    color: lightgray;
+  }
+  ::placeholder {
+    color: lightgray;
+  }
+}

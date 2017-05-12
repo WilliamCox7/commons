@@ -13,7 +13,7 @@ import Hobbies from './Components/Walkthrough/Dial/Hobbies/Hobbies';
 import Defines from './Components/Walkthrough/Dial/Defines/Defines';
 import Activity from './Components/Walkthrough/Activity/Activity';
 import Upload from './Components/Walkthrough/Upload/Upload';
-import Home from './Components/Home/Home';
+import Feed from './Components/Home/Feed/Feed';
 
 const store = createStore(rootReducer);
 
@@ -28,7 +28,7 @@ ReactDOM.render(
         <Route path="/defines" component={Defines} />
         <Route path="/activity" component={Activity} />
         <Route path="/upload" component={Upload} />
-        <Route path="/home" component={Home} />
+        <Route path="/feed" component={Feed} />
       </Route>
     </Router>
   </Provider>,
