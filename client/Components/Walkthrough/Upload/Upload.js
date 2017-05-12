@@ -7,6 +7,7 @@ import Next from '../Next/Next';
 import uploadProfile from '../../../images/upload-profile.png';
 import uploadMedia from '../../../images/upload-media.png';
 import uploadArrow from '../../../images/upload-arrow.png';
+import $ from 'jquery';
 import './Upload.scss';
 
 class Upload extends Component {
@@ -25,30 +26,47 @@ class Upload extends Component {
     this.props.setMedia(e.target.value);
   }
 
+  uploadFile() {
+    var reader = new FileReader();
+    reader.onload = function(evt) {
+
+    }
+  }
+
+  clickInput(input) {
+    $(document).ready(() => {
+      $(input).click();
+    });
+  }
+
   render() {
     return (
-      <div>
+      <div className="upload">
         <Navigation redirect={"activity"} width={"100%"} />
         <div className="header-text">
           <h1>make or upload your profile video and picture</h1>
         </div>
-        <div className="upload-img">
-          <img src={uploadProfile} />
-          <div className="upload-text">
-            <h1>upload profile picture</h1>
-            <div className="upload-text-img">
-              <img src={uploadArrow} />
+        <div className="upload-imgs">
+          <form className="upload-img">
+            <input id="inputImage" type="file" accept=".png" />
+            <img onClick={() => {this.clickInput('#inputImage')}} src={uploadProfile} />
+            <div onClick={() => {this.clickInput('#inputImage')}} className="upload-text">
+              <h1>upload profile picture</h1>
+              <div className="upload-text-img">
+                <img src={uploadArrow} />
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="upload-img">
-          <img src={uploadMedia} />
-          <div className="upload-text">
-            <h1>upload background media</h1>
-            <div className="upload-text-img">
-              <img src={uploadArrow} />
+          </form>
+          <form className="upload-img">
+            <input id="inputMedia" type="file" accept=".mpeg" />
+            <img onClick={() => {this.clickInput('#inputMedia')}} src={uploadMedia} />
+            <div onClick={() => {this.clickInput('#inputMedia')}} className="upload-text">
+              <h1>upload background media</h1>
+              <div className="upload-text-img">
+                <img src={uploadArrow} />
+              </div>
             </div>
-          </div>
+          </form>
         </div>
         <Next condition={!this.props.walkthrough.activity} redirect={'home'} />
       </div>

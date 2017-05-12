@@ -28,16 +28,16 @@
     -webkit-transform: rotate(135deg);
             transform: rotate(135deg);
   }
-  .step-bar {
-    width: 80%;
+}
+.step-bar {
+  width: 80%;
+  height: 5px;
+  background: #EFEFEF;
+  margin: auto;
+  border-radius: 50px;
+  .progress {
     height: 5px;
-    background: #EFEFEF;
-    margin: auto;
+    background: #FF7553;
     border-radius: 50px;
-    .progress {
-      height: 5px;
-      background: #FF7553;
-      border-radius: 50px;
-    }
   }
 }
