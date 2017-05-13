@@ -4,7 +4,7 @@ import Nav from '../Nav/Nav';
 import Presentation from '../Presentation/Presentation';
 import './Feed.scss';
 
-class Home extends Component {
+class Feed extends Component {
   render() {
     var feed = this.props.feed.presentations.map((presentation) => {
       return <Presentation info={presentation} />;
@@ -26,4 +26,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Feed);

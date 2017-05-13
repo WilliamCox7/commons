@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import heart from '../../../images/heart.svg';
 import cHeart from '../../../images/cHeart.svg';
 import $ from 'jquery';
+import FeedDial from '../FeedDial/FeedDial';
 import './Presentation.scss';
 
 class Presentation extends Component {
@@ -60,6 +61,7 @@ class Presentation extends Component {
           ) : (
             <img onClick={this.toggleHeart} className="heart" src={heart} />
           )}
+          <FeedDial className="feedDial" dial={this.props.info.dial} />
         </div>
       </div>
     )
