@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Nav from '../Nav/Nav';
 import Presentation from '../Presentation/Presentation';
+import './Feed.scss';
 
 class Home extends Component {
   render() {
+    var feed = this.props.feed.presentations.map((presentation) => {
+      return <Presentation info={presentation} />;
+    });
     return (
       <div>
         <Nav />
-        <Presentation />
-        <Presentation />
-        <Presentation />
-        <Presentation />
+        <div className="feed">
+          {feed}
+        </div>
       </div>
     )
   }
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    feed: state.feed
+  }
+}
+
+export default connect(mapStateToProps)(Home);

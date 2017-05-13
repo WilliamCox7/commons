@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { search } from './redux/walkthroughReducer';
+import { parse } from './redux/feedReducer';
 import axios from 'axios';
 import './reset.scss';
 import './App.scss';
@@ -9,17 +10,15 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.getSearch = this.getSearch.bind(this);
-  }
-
-  getSearch() {
-    axios.get('/search').then((data) => {
-      this.props.search(data.data);
-    });
   }
 
   componentDidMount() {
-    this.getSearch();
+    axios.get('/search').then((data) => {
+      this.props.search(data.data);
+      axios.get('/feed').then((data) => {
+        this.props.parse(data.data);
+      });
+    });
   }
 
   render() {
@@ -30,7 +29,8 @@ class App extends Component {
 }
 
 const mapDispatchToProps = {
-  search: search
+  search: search,
+  parse: parse
 }
 
 export default connect(null, mapDispatchToProps)(App);

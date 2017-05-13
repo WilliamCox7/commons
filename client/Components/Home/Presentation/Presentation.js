@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import norman from '../../../images/match-girl-1.jpg';
+import heart from '../../../images/heart.svg';
 import './Presentation.scss';
 
 class Presentation extends Component {
@@ -8,13 +8,14 @@ class Presentation extends Component {
       <div>
         <div className="presentation">
           <div className="pres-text">
-            <div className="pres-name">Norman Toth</div>
-            <div className="pres-info">25 | Cedar City, UT | INFJ</div>
+            <div className="pres-name">{this.props.info.name}</div>
+            <div className="pres-info">{this.props.info.age + ' | ' + this.props.info.loc + ' | ' + this.props.info.personality}</div>
           </div>
-          <div className="pres-pic"></div>
+          <img className="pres-pic" src={this.props.info.pic} />
         </div>
         <div className="pres-media">
-          <img src={norman} />
+          <video loop><source src={this.props.info.media} type="video/mp4"/></video>
+          <img className="heart" src={heart} />
         </div>
       </div>
     )

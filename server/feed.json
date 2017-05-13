@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Ashlee",
+    "age": 25,
+    "loc": "Cedar City, UT",
+    "personality": "INFJ",
+    "pic": "http://data.whicdn.com/images/183237289/superthumb.jpg",
+    "media": "https://williamcox7.github.io/portfolio/fjvid.mp4"
+  },
+  {
+    "name": "Meaghan",
+    "age": 23,
+    "loc": "Provo, UT",
+    "personality": "ENFJ",
+    "pic": "https://scontent.cdninstagram.com/hphotos-xaf1/t51.2885-15/e15/11256817_1630050657209071_1913061581_n.jpg",
+    "media": "https://williamcox7.github.io/portfolio/fjvid.mp4"
+  },
+  {
+    "name": "Tatum",
+    "age": 22,
+    "loc": "Orem, UT",
+    "personality": "INFP",
+    "pic": "https://scontent.cdninstagram.com/hphotos-xfa1/t51.2885-15/e15/11232587_771704952943087_63265033_n.jpg",
+    "media": "https://williamcox7.github.io/portfolio/fjvid.mp4"
+  },
+  {
+    "name": "Kimi",
+    "age": 20,
+    "loc": "Provo, UT",
+    "personality": "ENFP",
+    "pic": "https://s-media-cache-ak0.pinimg.com/originals/53/38/25/53382535b5672d1124b19cd4a5195083.jpg",
+    "media": "https://williamcox7.github.io/portfolio/fjvid.mp4"
+  }
+]

@@ -134,12 +134,18 @@ app.get('/auth/fb/callback', passport.authenticate('facebook', {
 const fs = require('fs');
 var hobbies = [];
 var defines = [];
+var feed = [];
 fs.readFile('./server/hobbies.json', 'utf8', (err, data) => { hobbies = JSON.parse(data); });
 fs.readFile('./server/defines.json', 'utf8', (err, data) => { defines = JSON.parse(data); });
+fs.readFile('./server/feed.json', 'utf8', (err, data) => { feed = JSON.parse(data); });
 
 /* ENDPOINTS */
 app.get('/search', (req, res) => {
   res.status(200).send({hobbies: hobbies.hobbies, defines: defines.defines});
+});
+
+app.get('/feed', (req, res) => {
+  res.status(200).send(feed);
 });
 
 /* SERVER */
