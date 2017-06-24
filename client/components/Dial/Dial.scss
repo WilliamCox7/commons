@@ -1,0 +1,86 @@
+@import "../../vars.scss";
+
+.Dial {
+  width: 150px;
+  height: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: auto;
+  position: relative;
+  -webkit-transition: -webkit-transform 1s ease;
+  transition: -webkit-transform 1s ease;
+  transition: transform 1s ease;
+  transition: transform 1s ease, -webkit-transform 1s ease;
+  .spoke {
+    width: 40px;
+    height: 90px;
+    position: absolute;
+    .circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: $lightergray;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-top: -30px;
+      color: black;
+      position: absolute;
+      -webkit-transition: -webkit-transform 1s ease;
+      transition: -webkit-transform 1s ease;
+      transition: transform 1s ease;
+      transition: transform 1s ease, -webkit-transform 1s ease;
+    }
+  }
+  #drag-overlay {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+  }
+  .current-word {
+    position: absolute;
+    background: $commonsorange;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 50px;
+    right: 0px;
+    top: 0px;
+    white-space: nowrap;
+    opacity: 0.0;
+    -webkit-transition: opacity 1s ease;
+    transition: opacity 1s ease;
+  }
+  .spoke:nth-child(1) {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  .spoke:nth-child(2) {
+    -webkit-transform: rotate(72deg);
+    transform: rotate(72deg);
+  }
+  .spoke:nth-child(3) {
+    -webkit-transform: rotate(144deg);
+    transform: rotate(144deg);
+  }
+  .spoke:nth-child(4) {
+    -webkit-transform: rotate(216deg);
+    transform: rotate(216deg);
+  }
+  .spoke:nth-child(5) {
+    -webkit-transform: rotate(288deg);
+    transform: rotate(288deg);
+  }
+}

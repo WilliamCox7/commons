@@ -1,0 +1,107 @@
+@import "../../vars.scss";
+
+.Create {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  min-height: 580px;
+  width: 100%;
+  position: absolute;
+  padding: 30px 50px;
+  img {
+    width: 120px;
+    margin-bottom: 22px;
+  }
+  .create-input {
+    width: 100%;
+    h1 {
+      color: $commonsorange;
+      margin-bottom: 10px;
+    }
+    input {
+      padding: 5px;
+      width: 100%;
+      border: none;
+      border-bottom: solid 1px $fadedgray;
+      background-image: url('../../src/pencil.svg');
+      background-size: 14px;
+      background-repeat: no-repeat;
+      background-position-y: 5px;
+      &:focus {
+        background-image: none;
+      }
+    }
+  }
+  .create-other-input {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    span {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      h1 {
+        color: $commonsorange;
+        margin-right: 10px;
+        padding: 5px 0px;
+      }
+      select {
+        border: none;
+        border-bottom: solid 1px $fadedgray;
+        width: 50px;
+        padding: 5px;
+        option {
+          background: white;
+          color: $commonsorange;
+        }
+      }
+      i {
+        color: $lightgray;
+        font-size: 24px;
+        margin-left: 10px;
+        &:hover {
+          cursor: pointer;
+          color: $commonsorange;
+        }
+      }
+      #selected {
+        color: $commonsorange;
+      }
+    }
+  }
+  button {
+    margin-top: 22px;
+    padding: 18px 30px;
+    background: $commonsorange;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    font-size: 20px;
+    position: relative;
+    span {
+      display: none;
+      position: absolute;
+      color: red;
+      width: 100%;
+      top: -20px;
+      left: 0;
+      font-size: 12px;
+    }
+  }
+}

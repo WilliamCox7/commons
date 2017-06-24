@@ -1,36 +1,50 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
-import { createStore } from 'redux';
-import rootReducer from './redux/rootReducer';
+/* PACKAGES */
+import React from "react";
+import { render } from "react-dom";
+import { Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { Router, Route, hashHistory } from "react-router";
+import rootReducer from './rootReducer';
 
-import App from './App';
-import Login from './Components/Auth/Login/Login';
-import Create from './Components/Auth/Create/Create';
-import Welcome from './Components/Walkthrough/Welcome/Welcome';
-import Hobbies from './Components/Walkthrough/Dial/Hobbies/Hobbies';
-import Defines from './Components/Walkthrough/Dial/Defines/Defines';
-import Activity from './Components/Walkthrough/Activity/Activity';
-import Upload from './Components/Walkthrough/Upload/Upload';
-import Feed from './Components/Home/Feed/Feed';
+/* COMPONENTS */
+import App from './App.js';
+import Login from './components/Login/Login';
+import IsLoggedIn from './components/IsLoggedIn/IsLoggedIn';
+import Welcome from './components/Welcome/Welcome';
+import Create from './components/Create/Create';
+import Hobbies from './components/Hobbies/Hobbies';
+import Attributes from './components/Attributes/Attributes';
+import Activities from './components/Activities/Activities';
+import Upload from './components/Upload/Upload';
+import Feed from './components/Feed/Feed';
 
-const store = createStore(rootReducer);
+/* STORE - REDUX */
+let store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+)
 
-ReactDOM.render(
+/* ROUTES */
+render (
   <Provider store={store}>
     <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute path="/login" component={Login} />
+      <Route component={App}>
+        <Route path="/login" component={Login} />
         <Route path="/create" component={Create} />
-        <Route path="/welcome" component={Welcome} />
-        <Route path="/hobbies" component={Hobbies} />
-        <Route path="/defines" component={Defines} />
-        <Route path="/activity" component={Activity} />
-        <Route path="/upload" component={Upload} />
-        <Route path="/feed" component={Feed} />
+        <Route component={IsLoggedIn}>
+          <Route path="/" component={Welcome} />
+          <Route path="/hobbies" component={Hobbies} />
+          <Route path="/attributes" component={Attributes} />
+          <Route path="/activities" component={Activities} />
+          <Route path="/upload" component={Upload} />
+          <Route path="/feed" component={Feed} />
+        </Route>
       </Route>
     </Router>
-  </Provider>,
-  document.getElementById('root')
+  </Provider>
+  , document.getElementById('root')
 );

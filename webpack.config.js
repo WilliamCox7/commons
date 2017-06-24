@@ -1,12 +1,11 @@
 var webpack = require('webpack');
 var path = require('path');
 
-
 module.exports = {
 
-  devtool:'source-map',
+  devtool: 'source-map',
 
-  entry:[
+  entry: [
     './client/index.js'
   ],
 
@@ -14,21 +13,6 @@ module.exports = {
     path: path.join(__dirname, '/build'),
     filename: "bundle.js"
   },
-
-  plugins: [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
-  ],
 
   module: {
     loaders: [
@@ -46,11 +30,10 @@ module.exports = {
         loader: 'file-loader'
       }
     ]
-
   },
 
   resolve: {
       extensions: ["", ".js", ".css"]
   }
-
+  
 }

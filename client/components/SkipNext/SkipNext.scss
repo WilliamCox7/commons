@@ -1,0 +1,10 @@
+@import "../../vars.scss";
+
+.SkipNext {
+  margin: 25px;
+  color: $commonsorange;
+  text-align: right;
+  &:hover {
+    cursor: pointer;
+  }
+}

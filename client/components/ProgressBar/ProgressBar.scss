@@ -1,0 +1,32 @@
+@import "../../vars.scss";
+
+.ProgressBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 30px;
+  img {
+    width: 15px;
+    height: 34px;
+    margin: 20px;
+  }
+  .progress-bar {
+    width: calc(100% - 80px);
+    height: 5px;
+    background: $lightergray;
+    margin: auto 0;
+    border-radius: 50px;
+    .progress {
+      height: 5px;
+      background: $commonsorange;
+      border-radius: 50px;
+    }
+  }
+  h1 {
+    color: $commonsorange;
+    font-size: 22px;
+    position: absolute;
+    left: 53px;
+    top: 58px;
+  }
+}

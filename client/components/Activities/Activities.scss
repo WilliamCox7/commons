@@ -1,0 +1,12 @@
+@import "../../vars.scss";
+
+.Activities {
+  textarea {
+    width: 292px;
+    margin-left: 53px;
+    resize: none;
+    font-family: Helvetica, sans-serif;
+    border: none;
+    height: calc(100vh - 177px);
+  }
+}
