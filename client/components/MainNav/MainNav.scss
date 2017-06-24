@@ -1,0 +1,24 @@
+@import "../../vars.scss";
+
+.MainNav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 15px;
+  box-shadow: 0px 3px 4px $fadedgray;
+  position: fixed;
+  width: 100%;
+  .active {
+    color: $commonsorange;
+  }
+  i {
+    color: $lightgray;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    &:hover {
+      color: $commonsorange;
+      cursor: pointer;
+    }
+  }
+}

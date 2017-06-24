@@ -1,0 +1,29 @@
+@import "../../vars.scss";
+
+.FeedFilter {
+  margin-left: 20px;
+  width: calc(100% - 80px);
+  input {
+    padding: 5px;
+    padding-left: 30px;
+    border: none;
+    background-image: url('../../src/search.svg');
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position-y: 5px;
+    font-size: 18px;
+    width: calc(100% - 55px);
+    &::-webkit-input-placeholder {
+      color: $lightgray;
+    }
+    &::-moz-placeholder {
+      color: $lightgray;
+    }
+    &:-ms-input-placeholder {
+      color: $lightgray;
+    }
+    &::placeholder {
+      color: $lightgray;
+    }
+  }
+}

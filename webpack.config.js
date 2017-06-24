@@ -28,6 +28,10 @@ module.exports = {
       {
         test: /\.(jpg|png|svg)$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader'
       }
     ]
   },
@@ -35,5 +39,5 @@ module.exports = {
   resolve: {
       extensions: ["", ".js", ".css"]
   }
-  
+
 }
