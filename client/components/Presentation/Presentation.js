@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dial from '../Dial/Dial';
+import Profile from '../Profile/Profile';
 import { likePerson } from '../../reducers/feedReducer';
 import './Presentation.scss';
 
@@ -8,7 +9,11 @@ class Presentation extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      showProfile: false
+    }
     this.likePerson = this.likePerson.bind(this);
+    this.openProfile = this.openProfile.bind(this);
   }
 
   componentDidMount() {
@@ -32,7 +37,18 @@ class Presentation extends Component {
     this.props.likePerson(this.props.presentation.id);
   }
 
+  openProfile() {
+    this.setState({showProfile: !this.state.showProfile});
+  }
+
   render() {
+
+    if (this.state.showProfile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'initial';
+    }
+
     return (
       <div className="Presentation">
         <div className="pres-info">
@@ -47,8 +63,9 @@ class Presentation extends Component {
           </div>
         </div>
         <div className="pres-media">
-          <video loop muted><source src={this.props.presentation.video1}
-            type="video/mp4"/></video>
+          <video loop muted onClick={this.openProfile}>
+            <source src={this.props.presentation.video1} type="video/mp4"/>
+          </video>
           {this.props.presentation.liked ? (
             <i onClick={this.likePerson} className="icon-heart liked"></i>
           ) : (
@@ -65,6 +82,9 @@ class Presentation extends Component {
             <div>{this.props.presentation.posted}</div>
           </p>
         </div>
+        {this.state.showProfile ? (
+          <Profile profile={this.props.presentation} />
+        ) : (null)}
       </div>
     )
   }

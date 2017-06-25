@@ -38,6 +38,9 @@
       transition: transform 1s ease;
       transition: transform 1s ease, -webkit-transform 1s ease;
     }
+    .active-circle {
+      background: $commonsorange !important;
+    }
   }
   #drag-overlay {
     position: absolute;

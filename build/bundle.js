@@ -29290,11 +29290,13 @@
 	  value: true
 	});
 	exports.default = reducer;
-	
+	exports.updKey = updKey;
+	var KEY = 'dial/KEY';
 	
 	var initState = {
 	  hobbiesList: ["axe cleaning", "animal care", "airboarding", "ant collecting", "axe throwing"],
-	  attributesList: []
+	  attributesList: [],
+	  wordkey: 1
 	};
 	
 	function reducer() {
@@ -29306,10 +29308,24 @@
 	
 	  switch (action.type) {
 	
+	    case KEY:
+	      if (editState.wordkey === 5) {
+	        editState.wordkey = 1;
+	      } else {
+	        editState.wordkey++;
+	      }
+	      return Object.assign({}, state, editState);
+	
 	    default:
 	      return state;
 	
 	  }
+	}
+	
+	function updKey() {
+	  return {
+	    type: KEY
+	  };
 	}
 
 /***/ }),
@@ -32327,9 +32343,13 @@
 	
 	var _userReducer = __webpack_require__(273);
 	
+	var _dialReducer = __webpack_require__(274);
+	
 	__webpack_require__(337);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -32356,6 +32376,7 @@
 	    _this.dragDown = _this.dragDown.bind(_this);
 	    _this.addToDial = _this.addToDial.bind(_this);
 	    _this.removeFromDial = _this.removeFromDial.bind(_this);
+	    _this.updCurCircle = _this.updCurCircle.bind(_this);
 	    return _this;
 	  }
 	
@@ -32393,6 +32414,8 @@
 	        }
 	        circles[nextUp].children[0].style.opacity = '1.0';
 	        this.setState({ curCirc: nextUp });
+	      } else if (this.props.type === 'profile') {
+	        this.props.updKey();
 	      }
 	    }
 	  }, {
@@ -32404,6 +32427,23 @@
 	    key: 'endGesture',
 	    value: function endGesture(e) {
 	      this.setState({ curDown: false, y: undefined });
+	    }
+	  }, {
+	    key: 'updCurCircle',
+	    value: function updCurCircle(e) {
+	      if (this.props.type === "profile") {
+	        var el = e.currentTarget.parentElement;
+	        var circles = el.getElementsByClassName('circle');
+	        if (circles.length > 1) {
+	          for (var i = 0; i < 5; i++) {
+	            if (this.props.dial.wordkey - 1 === i + 1 || this.props.dial.wordkey - 1 === 0 && i === 4) {
+	              circles[4 - i].classList.add('active-circle');
+	            } else {
+	              circles[4 - i].classList.remove('active-circle');
+	            }
+	          }
+	        }
+	      }
 	    }
 	  }, {
 	    key: 'addToDial',
@@ -32579,8 +32619,9 @@
 	              ) : null
 	            )
 	          ),
-	          this.props.type !== 'edit' ? _react2.default.createElement('div', { id: 'drag-overlay', onTouchStart: this.startGesture,
-	            onTouchMove: this.dragDown, onTouchEnd: this.endGesture }) : _react2.default.createElement('div', { id: 'drag-overlay', onClick: this.removeFromDial })
+	          this.props.type !== 'edit' ? _react2.default.createElement('div', _defineProperty({ id: 'drag-overlay', onTouchStart: this.startGesture,
+	            onTouchMove: this.dragDown, onTouchEnd: this.endGesture
+	          }, 'onTouchEnd', this.updCurCircle)) : _react2.default.createElement('div', { id: 'drag-overlay', onClick: this.removeFromDial })
 	        ),
 	        this.props.type === 'edit' ? _react2.default.createElement(_DialSearch2.default, { addToDial: this.addToDial,
 	          editType: this.props.editType }) : null
@@ -32593,13 +32634,15 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    user: state.user
+	    user: state.user,
+	    dial: state.dial
 	  };
 	};
 	
 	var mapDispatchToProps = {
 	  addToDial: _userReducer.addToDial,
-	  removeFromDial: _userReducer.removeFromDial
+	  removeFromDial: _userReducer.removeFromDial,
+	  updKey: _dialReducer.updKey
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Dial);
@@ -32787,7 +32830,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Dial {\n  border-radius: 50px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  margin: auto;\n  position: relative;\n  -webkit-transition: -webkit-transform 1s ease;\n  transition: -webkit-transform 1s ease;\n  transition: transform 1s ease;\n  transition: transform 1s ease, -webkit-transform 1s ease; }\n  .Dial .spoke {\n    position: absolute; }\n    .Dial .spoke .circle {\n      border-radius: 50%;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      font-weight: bold;\n      -webkit-box-pack: center;\n      -ms-flex-pack: center;\n      justify-content: center;\n      -webkit-box-align: center;\n      -ms-flex-align: center;\n      align-items: center;\n      margin-top: -30px;\n      position: absolute;\n      -webkit-transition: -webkit-transform 1s ease;\n      transition: -webkit-transform 1s ease;\n      transition: transform 1s ease;\n      transition: transform 1s ease, -webkit-transform 1s ease; }\n  .Dial #drag-overlay {\n    position: absolute;\n    width: 120px;\n    height: 120px;\n    -ms-touch-action: none;\n    touch-action: none; }\n  .Dial .current-word {\n    position: absolute;\n    background: #F26648;\n    color: white;\n    padding: 7px 12px;\n    border-radius: 50px;\n    right: 0px;\n    top: 0px;\n    white-space: nowrap;\n    opacity: 0.0;\n    -webkit-transition: opacity 1s ease;\n    transition: opacity 1s ease; }\n  .Dial .spoke:nth-child(1) {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  .Dial .spoke:nth-child(2) {\n    -webkit-transform: rotate(72deg);\n    transform: rotate(72deg); }\n  .Dial .spoke:nth-child(3) {\n    -webkit-transform: rotate(144deg);\n    transform: rotate(144deg); }\n  .Dial .spoke:nth-child(4) {\n    -webkit-transform: rotate(216deg);\n    transform: rotate(216deg); }\n  .Dial .spoke:nth-child(5) {\n    -webkit-transform: rotate(288deg);\n    transform: rotate(288deg); }\n", ""]);
+	exports.push([module.id, ".Dial {\n  border-radius: 50px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n  -ms-flex-pack: center;\n  justify-content: center;\n  -webkit-box-align: center;\n  -ms-flex-align: center;\n  align-items: center;\n  margin: auto;\n  position: relative;\n  -webkit-transition: -webkit-transform 1s ease;\n  transition: -webkit-transform 1s ease;\n  transition: transform 1s ease;\n  transition: transform 1s ease, -webkit-transform 1s ease; }\n  .Dial .spoke {\n    position: absolute; }\n    .Dial .spoke .circle {\n      border-radius: 50%;\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      font-weight: bold;\n      -webkit-box-pack: center;\n      -ms-flex-pack: center;\n      justify-content: center;\n      -webkit-box-align: center;\n      -ms-flex-align: center;\n      align-items: center;\n      margin-top: -30px;\n      position: absolute;\n      -webkit-transition: -webkit-transform 1s ease;\n      transition: -webkit-transform 1s ease;\n      transition: transform 1s ease;\n      transition: transform 1s ease, -webkit-transform 1s ease; }\n    .Dial .spoke .active-circle {\n      background: #F26648 !important; }\n  .Dial #drag-overlay {\n    position: absolute;\n    width: 120px;\n    height: 120px;\n    -ms-touch-action: none;\n    touch-action: none; }\n  .Dial .current-word {\n    position: absolute;\n    background: #F26648;\n    color: white;\n    padding: 7px 12px;\n    border-radius: 50px;\n    right: 0px;\n    top: 0px;\n    white-space: nowrap;\n    opacity: 0.0;\n    -webkit-transition: opacity 1s ease;\n    transition: opacity 1s ease; }\n  .Dial .spoke:nth-child(1) {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  .Dial .spoke:nth-child(2) {\n    -webkit-transform: rotate(72deg);\n    transform: rotate(72deg); }\n  .Dial .spoke:nth-child(3) {\n    -webkit-transform: rotate(144deg);\n    transform: rotate(144deg); }\n  .Dial .spoke:nth-child(4) {\n    -webkit-transform: rotate(216deg);\n    transform: rotate(216deg); }\n  .Dial .spoke:nth-child(5) {\n    -webkit-transform: rotate(288deg);\n    transform: rotate(288deg); }\n", ""]);
 	
 	// exports
 
@@ -33422,11 +33465,11 @@
 	
 	var _MainNav2 = _interopRequireDefault(_MainNav);
 	
-	var _Presentation = __webpack_require__(368);
+	var _Presentation = __webpack_require__(366);
 	
 	var _Presentation2 = _interopRequireDefault(_Presentation);
 	
-	__webpack_require__(366);
+	__webpack_require__(376);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33695,46 +33738,6 @@
 /* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(367);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(280)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 367 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(279)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 62px;\n    width: 100%; }\n", ""]);
-	
-	// exports
-
-
-/***/ }),
-/* 368 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -33753,9 +33756,13 @@
 	
 	var _Dial2 = _interopRequireDefault(_Dial);
 	
+	var _Profile = __webpack_require__(367);
+	
+	var _Profile2 = _interopRequireDefault(_Profile);
+	
 	var _feedReducer = __webpack_require__(275);
 	
-	__webpack_require__(369);
+	__webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33773,7 +33780,11 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Presentation.__proto__ || Object.getPrototypeOf(Presentation)).call(this, props));
 	
+	    _this.state = {
+	      showProfile: false
+	    };
 	    _this.likePerson = _this.likePerson.bind(_this);
+	    _this.openProfile = _this.openProfile.bind(_this);
 	    return _this;
 	  }
 	
@@ -33801,8 +33812,20 @@
 	      this.props.likePerson(this.props.presentation.id);
 	    }
 	  }, {
+	    key: 'openProfile',
+	    value: function openProfile() {
+	      this.setState({ showProfile: !this.state.showProfile });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	
+	      if (this.state.showProfile) {
+	        document.body.style.overflow = 'hidden';
+	      } else {
+	        document.body.style.overflow = 'initial';
+	      }
+	
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'Presentation' },
@@ -33826,9 +33849,8 @@
 	          { className: 'pres-media' },
 	          _react2.default.createElement(
 	            'video',
-	            { loop: true, muted: true },
-	            _react2.default.createElement('source', { src: this.props.presentation.video1,
-	              type: 'video/mp4' })
+	            { loop: true, muted: true, onClick: this.openProfile },
+	            _react2.default.createElement('source', { src: this.props.presentation.video1, type: 'video/mp4' })
 	          ),
 	          this.props.presentation.liked ? _react2.default.createElement('i', { onClick: this.likePerson, className: 'icon-heart liked' }) : _react2.default.createElement('i', { onClick: this.likePerson, className: 'icon-heart' }),
 	          _react2.default.createElement(
@@ -33852,7 +33874,8 @@
 	              this.props.presentation.posted
 	            )
 	          )
-	        )
+	        ),
+	        this.state.showProfile ? _react2.default.createElement(_Profile2.default, { profile: this.props.presentation }) : null
 	      );
 	    }
 	  }]);
@@ -33873,13 +33896,373 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Presentation);
 
 /***/ }),
+/* 367 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(185);
+	
+	var _DialWords = __webpack_require__(368);
+	
+	var _DialWords2 = _interopRequireDefault(_DialWords);
+	
+	var _Dial = __webpack_require__(333);
+	
+	var _Dial2 = _interopRequireDefault(_Dial);
+	
+	var _Advertisement = __webpack_require__(369);
+	
+	var _Advertisement2 = _interopRequireDefault(_Advertisement);
+	
+	var _triangle = __webpack_require__(370);
+	
+	var _triangle2 = _interopRequireDefault(_triangle);
+	
+	var _triangle3 = __webpack_require__(371);
+	
+	var _triangle4 = _interopRequireDefault(_triangle3);
+	
+	__webpack_require__(372);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Profile = function (_Component) {
+	  _inherits(Profile, _Component);
+	
+	  function Profile(props) {
+	    _classCallCheck(this, Profile);
+	
+	    var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+	
+	    _this.state = {
+	      nav: 'hobbies'
+	    };
+	    _this.toggleNav = _this.toggleNav.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Profile, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var profileDial = document.getElementsByClassName('dial-section')[0];
+	      var circles = profileDial.getElementsByClassName('circle');
+	      circles[0].classList.add('active-circle');
+	    }
+	  }, {
+	    key: 'toggleNav',
+	    value: function toggleNav(e) {
+	      this.setState({ nav: e.target.innerText });
+	      var navs = e.target.parentElement.children;
+	      if (e.target.innerText === 'hobbies') {
+	        navs[0].classList.add('active');
+	        navs[1].classList.remove('active');
+	        navs[2].classList.remove('active');
+	      } else if (e.target.innerText === 'attributes') {
+	        navs[0].classList.remove('active');
+	        navs[1].classList.add('active');
+	        navs[2].classList.remove('active');
+	      } else {
+	        navs[0].classList.remove('active');
+	        navs[1].classList.remove('active');
+	        navs[2].classList.add('active');
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      var array = 'hobbies';
+	      if (this.state.nav === 'attributes') {
+	        array = 'attributes';
+	      }
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'Profile' },
+	        _react2.default.createElement(
+	          'video',
+	          { loop: true, muted: true },
+	          _react2.default.createElement('source', { src: this.props.profile.video1,
+	            type: 'video/mp4' })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-info' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'pic-info' },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              this.props.profile.first + " " + this.props.profile.last
+	            ),
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.props.profile.age + " | " + this.props.profile.location,
+	              this.props.profile.test ? " | " + this.props.profile.test : null
+	            ),
+	            _react2.default.createElement('img', { src: this.props.profile.pic1 })
+	          ),
+	          this.state.nav === 'status' ? _react2.default.createElement(
+	            'div',
+	            { className: 'status-section' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              this.props.profile.activity
+	            )
+	          ) : _react2.default.createElement(
+	            'div',
+	            { className: 'dial-section' },
+	            _react2.default.createElement(_DialWords2.default, { wordkey: this.props.dial.wordkey,
+	              words: this.props.profile[array] }),
+	            _react2.default.createElement(_Dial2.default, { type: 'profile', editType: array,
+	              array: this.props.profile[array], dim: [110, 30, 50] })
+	          ),
+	          _react2.default.createElement('img', { id: 'triangle1', src: _triangle2.default }),
+	          _react2.default.createElement('img', { id: 'triangle2', src: _triangle4.default })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'profile-nav' },
+	          _react2.default.createElement(
+	            'p',
+	            { className: 'active', onClick: this.toggleNav },
+	            'hobbies'
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { onClick: this.toggleNav },
+	            'attributes'
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { onClick: this.toggleNav },
+	            'status'
+	          )
+	        ),
+	        _react2.default.createElement(_Advertisement2.default, null)
+	      );
+	    }
+	  }]);
+	
+	  return Profile;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    dial: state.dial
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
+
+/***/ }),
+/* 368 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(185);
+	
+	__webpack_require__(380);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var DialWords = function (_Component) {
+	  _inherits(DialWords, _Component);
+	
+	  function DialWords() {
+	    _classCallCheck(this, DialWords);
+	
+	    return _possibleConstructorReturn(this, (DialWords.__proto__ || Object.getPrototypeOf(DialWords)).apply(this, arguments));
+	  }
+	
+	  _createClass(DialWords, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var words = this.props.words.map(function (word, i) {
+	        if (i + 1 === _this2.props.wordkey) {
+	          return _react2.default.createElement(
+	            'div',
+	            { id: 'active-word', key: i },
+	            word.toLowerCase()
+	          );
+	        } else {
+	          return _react2.default.createElement(
+	            'div',
+	            { key: i },
+	            word.toLowerCase()
+	          );
+	        }
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'DialWords' },
+	        words
+	      );
+	    }
+	  }]);
+	
+	  return DialWords;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    dial: state.dial
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(DialWords);
+
+/***/ }),
 /* 369 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	__webpack_require__(378);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Advertisement = function (_Component) {
+	  _inherits(Advertisement, _Component);
+	
+	  function Advertisement() {
+	    _classCallCheck(this, Advertisement);
+	
+	    return _possibleConstructorReturn(this, (Advertisement.__proto__ || Object.getPrototypeOf(Advertisement)).apply(this, arguments));
+	  }
+	
+	  _createClass(Advertisement, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'Advertisement' },
+	        'Advertisement'
+	      );
+	    }
+	  }]);
+	
+	  return Advertisement;
+	}(_react.Component);
+	
+	exports.default = Advertisement;
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "0265ae4ebebd1b37820da32bd5a4e2ee.svg";
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "79944e349b17318e046e769323ec5bac.svg";
+
+/***/ }),
+/* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(370);
+	var content = __webpack_require__(373);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Profile.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Profile.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Profile {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .status-section {\n      text-align: center;\n      margin-top: 20px;\n      width: 75%; }\n    .Profile .profile-info .dial-section {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n      justify-content: space-around;\n      -webkit-box-align: center;\n      -ms-flex-align: center;\n      align-items: center;\n      height: 300px;\n      width: 260px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(375);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {});
@@ -33899,7 +34282,7 @@
 	}
 
 /***/ }),
-/* 370 */
+/* 375 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
@@ -33908,6 +34291,126 @@
 	
 	// module
 	exports.push([module.id, ".Presentation {\n  border-top: solid 4px #E6E6E6;\n  color: #3B3B3B; }\n  .Presentation .pres-info {\n    padding: 15px 20px; }\n    .Presentation .pres-info .pres-name {\n      font-size: 16px;\n      margin-bottom: 4px; }\n    .Presentation .pres-info .pres-other {\n      font-size: 13px;\n      opacity: 0.8; }\n  .Presentation .pres-media {\n    position: relative; }\n    .Presentation .pres-media video {\n      width: 100%; }\n    .Presentation .pres-media .liked {\n      color: #F26648; }\n    .Presentation .pres-media i {\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 10px;\n      margin: 10px;\n      font-size: 34px;\n      color: white; }\n    .Presentation .pres-media .dial-div {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n      margin: 20px; }\n  .Presentation .pres-activity {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    padding: 20px; }\n    .Presentation .pres-activity img {\n      width: 50px;\n      height: 50px;\n      border-radius: 50px;\n      -o-object-fit: cover;\n      object-fit: cover; }\n    .Presentation .pres-activity p {\n      font-size: 16px;\n      padding-left: 20px;\n      line-height: 19px; }\n      .Presentation .pres-activity p div {\n        color: #E6E6E6;\n        font-size: 14px;\n        margin-top: 10px; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(377);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 377 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 62px;\n    width: 100%; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 378 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(379);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Advertisement {\n  position: absolute;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 20px;\n  background: #3B3B3B;\n  color: white; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(381);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".DialWords {\n  color: #3B3B3B;\n  text-align: right; }\n  .DialWords #active-word {\n    color: #F26648; }\n  .DialWords div {\n    margin-bottom: 15px; }\n  .DialWords div:nth-child(1) {\n    margin-right: 0px; }\n  .DialWords div:nth-child(2) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(3) {\n    margin-right: 50px; }\n  .DialWords div:nth-child(4) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(5) {\n    margin-right: 0px; }\n", ""]);
 	
 	// exports
 

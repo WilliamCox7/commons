@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import DialSearch from '../DialSearch/DialSearch';
 import { addToDial, removeFromDial } from '../../reducers/userReducer';
+import { updKey } from '../../reducers/dialReducer';
 import './Dial.scss';
 
 class Dial extends Component {
@@ -19,6 +20,7 @@ class Dial extends Component {
     this.dragDown = this.dragDown.bind(this);
     this.addToDial = this.addToDial.bind(this);
     this.removeFromDial = this.removeFromDial.bind(this);
+    this.updCurCircle = this.updCurCircle.bind(this);
   }
 
   dragDown(e) {
@@ -50,6 +52,8 @@ class Dial extends Component {
       if (nextUp < 0) { nextUp = 4; }
       circles[nextUp].children[0].style.opacity = '1.0';
       this.setState({curCirc: nextUp});
+    } else if (this.props.type === 'profile') {
+      this.props.updKey();
     }
   }
 
@@ -59,6 +63,23 @@ class Dial extends Component {
 
   endGesture(e) {
     this.setState({curDown: false, y: undefined});
+  }
+
+  updCurCircle(e) {
+    if (this.props.type === "profile") {
+      var el = e.currentTarget.parentElement;
+      var circles = el.getElementsByClassName('circle');
+      if (circles.length > 1) {
+        for (var i = 0; i < 5; i++) {
+          if (this.props.dial.wordkey-1 === i+1 ||
+          (this.props.dial.wordkey-1 === 0 && i === 4)) {
+            circles[4-i].classList.add('active-circle');
+          } else {
+            circles[4-i].classList.remove('active-circle');
+          }
+        }
+      }
+    }
   }
 
   addToDial(el, item) {
@@ -214,7 +235,8 @@ class Dial extends Component {
           </div>
           {this.props.type !== 'edit' ? (
             <div id="drag-overlay" onTouchStart={this.startGesture}
-              onTouchMove={this.dragDown} onTouchEnd={this.endGesture}></div>
+              onTouchMove={this.dragDown} onTouchEnd={this.endGesture}
+              onTouchEnd={this.updCurCircle}></div>
           ) : (
             <div id="drag-overlay" onClick={this.removeFromDial}></div>
           )}
@@ -230,13 +252,15 @@ class Dial extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    dial: state.dial
   }
 }
 
 const mapDispatchToProps = {
   addToDial: addToDial,
-  removeFromDial: removeFromDial
+  removeFromDial: removeFromDial,
+  updKey: updKey
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dial);

@@ -1,0 +1,27 @@
+@import "../../vars.scss";
+
+.DialWords {
+  color: $black;
+  text-align: right;
+  #active-word {
+    color: $commonsorange;
+  }
+  div {
+    margin-bottom: 15px;
+  }
+  div:nth-child(1) {
+    margin-right: 0px;
+  }
+  div:nth-child(2) {
+    margin-right: 25px;
+  }
+  div:nth-child(3) {
+    margin-right: 50px;
+  }
+  div:nth-child(4) {
+    margin-right: 25px;
+  }
+  div:nth-child(5) {
+    margin-right: 0px;
+  }
+}
