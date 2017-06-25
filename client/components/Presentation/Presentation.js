@@ -43,12 +43,6 @@ class Presentation extends Component {
 
   render() {
 
-    if (this.state.showProfile) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'initial';
-    }
-
     return (
       <div className="Presentation">
         <div className="pres-info">

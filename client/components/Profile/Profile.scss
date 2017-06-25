@@ -1,12 +1,14 @@
 @import "../../vars.scss";
 
 .Profile {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   z-index: 1;
   background: white;
+  -ms-touch-action: none;
+  touch-action: none;
   video {
     width: 100%;
   }
@@ -46,23 +48,36 @@
         object-fit: cover;
       }
     }
-    .status-section {
-      text-align: center;
-      margin-top: 20px;
-      width: 75%;
-    }
-    .dial-section {
+    .dial-sections {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-      justify-content: space-around;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      height: 300px;
-      width: 260px;
+      width: calc(100vw * 3);
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+      left: 0%;
+      top: 140px;
+      position: absolute;
+      -webkit-transition: left 0.5s ease;
+      transition: left 0.5s ease;
+      .status-section {
+        text-align: center;
+        margin: 40px;
+        width: calc(67.33% - 80px);
+      }
+      .dial-section {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-around;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: calc(67.33% - 80px);
+        margin: 40px;
+      }
     }
     #triangle1 {
       position: absolute;

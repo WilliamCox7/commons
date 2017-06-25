@@ -3,7 +3,10 @@ const KEY = 'dial/KEY';
 const initState = {
   hobbiesList: ["axe cleaning", "animal care", "airboarding", "ant collecting", "axe throwing"],
   attributesList: [],
-  wordkey: 1
+  wordkey: {
+    attributes: 1,
+    hobbies: 1
+  }
 }
 
 export default function reducer(state=initState, action) {
@@ -13,8 +16,10 @@ export default function reducer(state=initState, action) {
   switch(action.type) {
 
     case KEY:
-      if (editState.wordkey === 5) { editState.wordkey = 1; }
-      else { editState.wordkey++; }
+      if (editState.wordkey[action.array] === 5) {
+        editState.wordkey[action.array] = 1;
+      }
+      else { editState.wordkey[action.array]++; }
       return Object.assign({}, state, editState);
 
     default:
@@ -24,8 +29,9 @@ export default function reducer(state=initState, action) {
 
 }
 
-export function updKey() {
+export function updKey(array) {
   return {
-    type: KEY
+    type: KEY,
+    array: array
   }
 }

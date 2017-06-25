@@ -29296,7 +29296,10 @@
 	var initState = {
 	  hobbiesList: ["axe cleaning", "animal care", "airboarding", "ant collecting", "axe throwing"],
 	  attributesList: [],
-	  wordkey: 1
+	  wordkey: {
+	    attributes: 1,
+	    hobbies: 1
+	  }
 	};
 	
 	function reducer() {
@@ -29309,10 +29312,10 @@
 	  switch (action.type) {
 	
 	    case KEY:
-	      if (editState.wordkey === 5) {
-	        editState.wordkey = 1;
+	      if (editState.wordkey[action.array] === 5) {
+	        editState.wordkey[action.array] = 1;
 	      } else {
-	        editState.wordkey++;
+	        editState.wordkey[action.array]++;
 	      }
 	      return Object.assign({}, state, editState);
 	
@@ -29322,9 +29325,10 @@
 	  }
 	}
 	
-	function updKey() {
+	function updKey(array) {
 	  return {
-	    type: KEY
+	    type: KEY,
+	    array: array
 	  };
 	}
 
@@ -32368,7 +32372,8 @@
 	    _this.state = {
 	      curCirc: 4,
 	      curDown: false,
-	      y: undefined
+	      y: undefined,
+	      x: undefined
 	    };
 	    _this.rotate = _this.rotate.bind(_this);
 	    _this.startGesture = _this.startGesture.bind(_this);
@@ -32384,7 +32389,7 @@
 	    key: 'dragDown',
 	    value: function dragDown(e) {
 	      if (this.state.curDown) {
-	        if (this.state.y < e.touches[0].clientY) {
+	        if (this.state.y + 50 < e.touches[0].clientY && Math.abs(this.state.x - e.touches[0].clientX) < 50) {
 	          this.rotate(e.currentTarget.parentElement, 72);
 	          this.endGesture();
 	        }
@@ -32415,18 +32420,22 @@
 	        circles[nextUp].children[0].style.opacity = '1.0';
 	        this.setState({ curCirc: nextUp });
 	      } else if (this.props.type === 'profile') {
-	        this.props.updKey();
+	        this.props.updKey(this.props.editType);
 	      }
 	    }
 	  }, {
 	    key: 'startGesture',
 	    value: function startGesture(e) {
-	      this.setState({ curDown: true, y: e.touches[0].clientY });
+	      this.setState({
+	        curDown: true,
+	        y: e.touches[0].clientY,
+	        x: e.touches[0].clientX
+	      });
 	    }
 	  }, {
 	    key: 'endGesture',
 	    value: function endGesture(e) {
-	      this.setState({ curDown: false, y: undefined });
+	      this.setState({ curDown: false, y: undefined, x: undefined });
 	    }
 	  }, {
 	    key: 'updCurCircle',
@@ -32436,7 +32445,7 @@
 	        var circles = el.getElementsByClassName('circle');
 	        if (circles.length > 1) {
 	          for (var i = 0; i < 5; i++) {
-	            if (this.props.dial.wordkey - 1 === i + 1 || this.props.dial.wordkey - 1 === 0 && i === 4) {
+	            if (this.props.dial.wordkey[this.props.editType] - 1 === i + 1 || this.props.dial.wordkey[this.props.editType] - 1 === 0 && i === 4) {
 	              circles[4 - i].classList.add('active-circle');
 	            } else {
 	              circles[4 - i].classList.remove('active-circle');
@@ -33469,7 +33478,7 @@
 	
 	var _Presentation2 = _interopRequireDefault(_Presentation);
 	
-	__webpack_require__(376);
+	__webpack_require__(380);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33762,7 +33771,7 @@
 	
 	var _feedReducer = __webpack_require__(275);
 	
-	__webpack_require__(374);
+	__webpack_require__(378);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33819,12 +33828,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	
-	      if (this.state.showProfile) {
-	        document.body.style.overflow = 'hidden';
-	      } else {
-	        document.body.style.overflow = 'initial';
-	      }
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -33921,19 +33924,19 @@
 	
 	var _Dial2 = _interopRequireDefault(_Dial);
 	
-	var _Advertisement = __webpack_require__(369);
+	var _Advertisement = __webpack_require__(371);
 	
 	var _Advertisement2 = _interopRequireDefault(_Advertisement);
 	
-	var _triangle = __webpack_require__(370);
+	var _triangle = __webpack_require__(374);
 	
 	var _triangle2 = _interopRequireDefault(_triangle);
 	
-	var _triangle3 = __webpack_require__(371);
+	var _triangle3 = __webpack_require__(375);
 	
 	var _triangle4 = _interopRequireDefault(_triangle3);
 	
-	__webpack_require__(372);
+	__webpack_require__(376);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33952,37 +33955,105 @@
 	    var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
 	
 	    _this.state = {
-	      nav: 'hobbies'
+	      nav: 'hobbies',
+	      curDown: false,
+	      x: undefined,
+	      y: undefined
 	    };
 	    _this.toggleNav = _this.toggleNav.bind(_this);
+	    _this.setNav = _this.setNav.bind(_this);
+	    _this.startGesture = _this.startGesture.bind(_this);
+	    _this.endGesture = _this.endGesture.bind(_this);
+	    _this.dragOver = _this.dragOver.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(Profile, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var profileDial = document.getElementsByClassName('dial-section')[0];
-	      var circles = profileDial.getElementsByClassName('circle');
-	      circles[0].classList.add('active-circle');
+	      var profileDials = document.getElementsByClassName('dial-section');
+	      var circles0 = profileDials[0].getElementsByClassName('circle');
+	      var circles1 = profileDials[1].getElementsByClassName('circle');
+	      circles0[0].classList.add('active-circle');
+	      circles1[0].classList.add('active-circle');
 	    }
 	  }, {
 	    key: 'toggleNav',
 	    value: function toggleNav(e) {
 	      this.setState({ nav: e.target.innerText });
-	      var navs = e.target.parentElement.children;
-	      if (e.target.innerText === 'hobbies') {
+	      this.setNav(e.target.innerText);
+	    }
+	  }, {
+	    key: 'setNav',
+	    value: function setNav(nav) {
+	      var navs = document.getElementsByClassName('profile-nav')[0].children;
+	      var sections = document.getElementsByClassName('dial-sections')[0];
+	      if (nav === 'hobbies') {
 	        navs[0].classList.add('active');
 	        navs[1].classList.remove('active');
 	        navs[2].classList.remove('active');
-	      } else if (e.target.innerText === 'attributes') {
+	        sections.style.left = '0%';
+	      } else if (nav === 'attributes') {
 	        navs[0].classList.remove('active');
 	        navs[1].classList.add('active');
 	        navs[2].classList.remove('active');
+	        sections.style.left = '-100%';
 	      } else {
 	        navs[0].classList.remove('active');
 	        navs[1].classList.remove('active');
 	        navs[2].classList.add('active');
+	        sections.style.left = '-200%';
 	      }
+	    }
+	  }, {
+	    key: 'dragOver',
+	    value: function dragOver(e) {
+	      if (this.state.curDown) {
+	        var nav = '';
+	        if (this.state.y + 50 >= e.touches[0].clientY) {
+	          if (this.state.x - 50 > e.touches[0].clientX) {
+	            if (this.state.nav === 'hobbies') {
+	              nav = 'attributes';
+	            } else if (this.state.nav === 'attributes') {
+	              nav = 'status';
+	            } else {
+	              this.endGesture();
+	            }
+	            if (nav) {
+	              this.setNav(nav);
+	              this.setState({ nav: nav });
+	              this.endGesture();
+	            }
+	          } else if (this.state.x + 50 < e.touches[0].clientX) {
+	            if (this.state.nav === 'attributes') {
+	              nav = 'hobbies';
+	            } else if (this.state.nav === 'status') {
+	              nav = 'attributes';
+	            } else {
+	              this.endGesture();
+	            }
+	            if (nav) {
+	              this.setNav(nav);
+	              this.setState({ nav: nav });
+	              this.endGesture();
+	            }
+	          }
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'startGesture',
+	    value: function startGesture(e) {
+	      this.setState({
+	        curDown: true,
+	        x: e.touches[0].clientX,
+	        y: e.touches[0].clientY
+	      });
+	    }
+	  }, {
+	    key: 'endGesture',
+	    value: function endGesture(e) {
+	      this.setState({ curDown: false, x: undefined, y: undefined });
 	    }
 	  }, {
 	    key: 'render',
@@ -33995,7 +34066,8 @@
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'Profile' },
+	        { className: 'Profile', onTouchStart: this.startGesture,
+	          onTouchMove: this.dragOver, onTouchEnd: this.endGesture },
 	        _react2.default.createElement(
 	          'video',
 	          { loop: true, muted: true },
@@ -34021,21 +34093,34 @@
 	            ),
 	            _react2.default.createElement('img', { src: this.props.profile.pic1 })
 	          ),
-	          this.state.nav === 'status' ? _react2.default.createElement(
+	          _react2.default.createElement(
 	            'div',
-	            { className: 'status-section' },
+	            { className: 'dial-sections' },
 	            _react2.default.createElement(
-	              'p',
-	              null,
-	              this.props.profile.activity
+	              'div',
+	              { className: 'dial-section' },
+	              _react2.default.createElement(_DialWords2.default, { wordkey: this.props.dial.wordkey['hobbies'],
+	                words: this.props.profile['hobbies'] }),
+	              _react2.default.createElement(_Dial2.default, { type: 'profile', editType: 'hobbies',
+	                array: this.props.profile['hobbies'], dim: [110, 30, 50] })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'dial-section' },
+	              _react2.default.createElement(_DialWords2.default, { wordkey: this.props.dial.wordkey['attributes'],
+	                words: this.props.profile['attributes'] }),
+	              _react2.default.createElement(_Dial2.default, { type: 'profile', editType: 'attributes',
+	                array: this.props.profile['attributes'], dim: [110, 30, 50] })
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'status-section' },
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                this.props.profile.activity
+	              )
 	            )
-	          ) : _react2.default.createElement(
-	            'div',
-	            { className: 'dial-section' },
-	            _react2.default.createElement(_DialWords2.default, { wordkey: this.props.dial.wordkey,
-	              words: this.props.profile[array] }),
-	            _react2.default.createElement(_Dial2.default, { type: 'profile', editType: array,
-	              array: this.props.profile[array], dim: [110, 30, 50] })
 	          ),
 	          _react2.default.createElement('img', { id: 'triangle1', src: _triangle2.default }),
 	          _react2.default.createElement('img', { id: 'triangle2', src: _triangle4.default })
@@ -34093,7 +34178,7 @@
 	
 	var _reactRedux = __webpack_require__(185);
 	
-	__webpack_require__(380);
+	__webpack_require__(369);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -34156,6 +34241,46 @@
 /* 369 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(370);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".DialWords {\n  color: #3B3B3B;\n  text-align: right; }\n  .DialWords #active-word {\n    color: #F26648; }\n  .DialWords div {\n    margin-bottom: 15px;\n    white-space: nowrap; }\n  .DialWords div:nth-child(1) {\n    margin-right: 0px; }\n  .DialWords div:nth-child(2) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(3) {\n    margin-right: 50px; }\n  .DialWords div:nth-child(4) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(5) {\n    margin-right: 0px; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
@@ -34168,7 +34293,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	__webpack_require__(378);
+	__webpack_require__(372);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -34204,18 +34329,6 @@
 	exports.default = Advertisement;
 
 /***/ }),
-/* 370 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "0265ae4ebebd1b37820da32bd5a4e2ee.svg";
-
-/***/ }),
-/* 371 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "79944e349b17318e046e769323ec5bac.svg";
-
-/***/ }),
 /* 372 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34223,6 +34336,58 @@
 	
 	// load the styles
 	var content = __webpack_require__(373);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Advertisement {\n  position: absolute;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 20px;\n  background: #3B3B3B;\n  color: white; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "0265ae4ebebd1b37820da32bd5a4e2ee.svg";
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "79944e349b17318e046e769323ec5bac.svg";
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(377);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {});
@@ -34242,86 +34407,6 @@
 	}
 
 /***/ }),
-/* 373 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(279)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".Profile {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .status-section {\n      text-align: center;\n      margin-top: 20px;\n      width: 75%; }\n    .Profile .profile-info .dial-section {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n      justify-content: space-around;\n      -webkit-box-align: center;\n      -ms-flex-align: center;\n      align-items: center;\n      height: 300px;\n      width: 260px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n", ""]);
-	
-	// exports
-
-
-/***/ }),
-/* 374 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(375);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(280)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Presentation.scss", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Presentation.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 375 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(279)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".Presentation {\n  border-top: solid 4px #E6E6E6;\n  color: #3B3B3B; }\n  .Presentation .pres-info {\n    padding: 15px 20px; }\n    .Presentation .pres-info .pres-name {\n      font-size: 16px;\n      margin-bottom: 4px; }\n    .Presentation .pres-info .pres-other {\n      font-size: 13px;\n      opacity: 0.8; }\n  .Presentation .pres-media {\n    position: relative; }\n    .Presentation .pres-media video {\n      width: 100%; }\n    .Presentation .pres-media .liked {\n      color: #F26648; }\n    .Presentation .pres-media i {\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 10px;\n      margin: 10px;\n      font-size: 34px;\n      color: white; }\n    .Presentation .pres-media .dial-div {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n      margin: 20px; }\n  .Presentation .pres-activity {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    padding: 20px; }\n    .Presentation .pres-activity img {\n      width: 50px;\n      height: 50px;\n      border-radius: 50px;\n      -o-object-fit: cover;\n      object-fit: cover; }\n    .Presentation .pres-activity p {\n      font-size: 16px;\n      padding-left: 20px;\n      line-height: 19px; }\n      .Presentation .pres-activity p div {\n        color: #E6E6E6;\n        font-size: 14px;\n        margin-top: 10px; }\n", ""]);
-	
-	// exports
-
-
-/***/ }),
-/* 376 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(377);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(280)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
 /* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34330,7 +34415,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 62px;\n    width: 100%; }\n", ""]);
+	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 140px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n", ""]);
 	
 	// exports
 
@@ -34351,8 +34436,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Advertisement.scss");
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Presentation.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Presentation.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -34370,7 +34455,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Advertisement {\n  position: absolute;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 20px;\n  background: #3B3B3B;\n  color: white; }\n", ""]);
+	exports.push([module.id, ".Presentation {\n  border-top: solid 4px #E6E6E6;\n  color: #3B3B3B; }\n  .Presentation .pres-info {\n    padding: 15px 20px; }\n    .Presentation .pres-info .pres-name {\n      font-size: 16px;\n      margin-bottom: 4px; }\n    .Presentation .pres-info .pres-other {\n      font-size: 13px;\n      opacity: 0.8; }\n  .Presentation .pres-media {\n    position: relative; }\n    .Presentation .pres-media video {\n      width: 100%; }\n    .Presentation .pres-media .liked {\n      color: #F26648; }\n    .Presentation .pres-media i {\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 10px;\n      margin: 10px;\n      font-size: 34px;\n      color: white; }\n    .Presentation .pres-media .dial-div {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n      margin: 20px; }\n  .Presentation .pres-activity {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    padding: 20px; }\n    .Presentation .pres-activity img {\n      width: 50px;\n      height: 50px;\n      border-radius: 50px;\n      -o-object-fit: cover;\n      object-fit: cover; }\n    .Presentation .pres-activity p {\n      font-size: 16px;\n      padding-left: 20px;\n      line-height: 19px; }\n      .Presentation .pres-activity p div {\n        color: #E6E6E6;\n        font-size: 14px;\n        margin-top: 10px; }\n", ""]);
 	
 	// exports
 
@@ -34391,8 +34476,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss", function() {
-				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./DialWords.scss");
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Feed.scss");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -34410,7 +34495,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".DialWords {\n  color: #3B3B3B;\n  text-align: right; }\n  .DialWords #active-word {\n    color: #F26648; }\n  .DialWords div {\n    margin-bottom: 15px; }\n  .DialWords div:nth-child(1) {\n    margin-right: 0px; }\n  .DialWords div:nth-child(2) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(3) {\n    margin-right: 50px; }\n  .DialWords div:nth-child(4) {\n    margin-right: 25px; }\n  .DialWords div:nth-child(5) {\n    margin-right: 0px; }\n", ""]);
+	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 62px;\n    width: 100%; }\n", ""]);
 	
 	// exports
 

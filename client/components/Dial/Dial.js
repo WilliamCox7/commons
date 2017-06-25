@@ -12,7 +12,8 @@ class Dial extends Component {
     this.state = {
       curCirc: 4,
       curDown: false,
-      y: undefined
+      y: undefined,
+      x: undefined
     }
     this.rotate = this.rotate.bind(this);
     this.startGesture = this.startGesture.bind(this);
@@ -25,7 +26,8 @@ class Dial extends Component {
 
   dragDown(e) {
     if (this.state.curDown) {
-      if (this.state.y < e.touches[0].clientY) {
+      if (this.state.y+50 < e.touches[0].clientY &&
+      Math.abs(this.state.x - e.touches[0].clientX) < 50) {
         this.rotate(e.currentTarget.parentElement, 72);
         this.endGesture();
       }
@@ -53,16 +55,20 @@ class Dial extends Component {
       circles[nextUp].children[0].style.opacity = '1.0';
       this.setState({curCirc: nextUp});
     } else if (this.props.type === 'profile') {
-      this.props.updKey();
+      this.props.updKey(this.props.editType);
     }
   }
 
   startGesture(e) {
-    this.setState({curDown: true, y: e.touches[0].clientY});
+    this.setState({
+      curDown: true,
+      y: e.touches[0].clientY,
+      x: e.touches[0].clientX
+    });
   }
 
   endGesture(e) {
-    this.setState({curDown: false, y: undefined});
+    this.setState({curDown: false, y: undefined, x: undefined});
   }
 
   updCurCircle(e) {
@@ -71,8 +77,8 @@ class Dial extends Component {
       var circles = el.getElementsByClassName('circle');
       if (circles.length > 1) {
         for (var i = 0; i < 5; i++) {
-          if (this.props.dial.wordkey-1 === i+1 ||
-          (this.props.dial.wordkey-1 === 0 && i === 4)) {
+          if (this.props.dial.wordkey[this.props.editType]-1 === i+1 ||
+          (this.props.dial.wordkey[this.props.editType]-1 === 0 && i === 4)) {
             circles[4-i].classList.add('active-circle');
           } else {
             circles[4-i].classList.remove('active-circle');
