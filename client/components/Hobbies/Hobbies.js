@@ -12,7 +12,8 @@ class Hobbies extends Component {
       <div className="Hobbies">
         <ProgressBar redirect={"/"} width={"25%"}
           progressText={"choose five hobbies"} />
-        <Dial type="edit" editType="hobbies" array={this.props.user.hobbies} />
+        <Dial type="edit" editType="hobbies"
+          array={this.props.user.hobbies} dim={[150, 40, 90]} />
         <SkipNext next={this.props.user.hobbies.length > 0}
           redirect="/attributes" />
       </div>

@@ -32163,7 +32163,8 @@
 	        { className: 'Hobbies' },
 	        _react2.default.createElement(_ProgressBar2.default, { redirect: "/", width: "25%",
 	          progressText: "choose five hobbies" }),
-	        _react2.default.createElement(_Dial2.default, { type: 'edit', editType: 'hobbies', array: this.props.user.hobbies }),
+	        _react2.default.createElement(_Dial2.default, { type: 'edit', editType: 'hobbies',
+	          array: this.props.user.hobbies, dim: [150, 40, 90] }),
 	        _react2.default.createElement(_SkipNext2.default, { next: this.props.user.hobbies.length > 0,
 	          redirect: '/attributes' })
 	      );
@@ -33906,7 +33907,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Presentation {\n  border-top: solid 4px #E6E6E6;\n  color: #3B3B3B; }\n  .Presentation .pres-info {\n    padding: 15px 20px; }\n    .Presentation .pres-info .pres-name {\n      font-size: 16px;\n      margin-bottom: 4px; }\n    .Presentation .pres-info .pres-other {\n      font-size: 13px;\n      opacity: 0.8; }\n  .Presentation .pres-media {\n    position: relative; }\n    .Presentation .pres-media video {\n      width: 100%; }\n    .Presentation .pres-media .liked {\n      color: #F26648; }\n    .Presentation .pres-media i {\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 10px;\n      margin: 10px;\n      font-size: 34px;\n      color: white; }\n    .Presentation .pres-media .dial-div {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n      margin: 20px; }\n  .Presentation .pres-activity {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    padding: 20px; }\n    .Presentation .pres-activity img {\n      width: 50px;\n      height: 50px;\n      border-radius: 50px;\n      -o-object-fit: cover;\n      object-fit: cover; }\n    .Presentation .pres-activity p {\n      font-size: 16px;\n      padding-left: 20px; }\n      .Presentation .pres-activity p div {\n        color: #E6E6E6;\n        font-size: 14px;\n        margin-top: 10px; }\n", ""]);
+	exports.push([module.id, ".Presentation {\n  border-top: solid 4px #E6E6E6;\n  color: #3B3B3B; }\n  .Presentation .pres-info {\n    padding: 15px 20px; }\n    .Presentation .pres-info .pres-name {\n      font-size: 16px;\n      margin-bottom: 4px; }\n    .Presentation .pres-info .pres-other {\n      font-size: 13px;\n      opacity: 0.8; }\n  .Presentation .pres-media {\n    position: relative; }\n    .Presentation .pres-media video {\n      width: 100%; }\n    .Presentation .pres-media .liked {\n      color: #F26648; }\n    .Presentation .pres-media i {\n      position: absolute;\n      top: 0;\n      right: 0;\n      padding: 10px;\n      margin: 10px;\n      font-size: 34px;\n      color: white; }\n    .Presentation .pres-media .dial-div {\n      position: absolute;\n      bottom: 0;\n      right: 0;\n      margin: 20px; }\n  .Presentation .pres-activity {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: justify;\n    -ms-flex-pack: justify;\n    justify-content: space-between;\n    padding: 20px; }\n    .Presentation .pres-activity img {\n      width: 50px;\n      height: 50px;\n      border-radius: 50px;\n      -o-object-fit: cover;\n      object-fit: cover; }\n    .Presentation .pres-activity p {\n      font-size: 16px;\n      padding-left: 20px;\n      line-height: 19px; }\n      .Presentation .pres-activity p div {\n        color: #E6E6E6;\n        font-size: 14px;\n        margin-top: 10px; }\n", ""]);
 	
 	// exports
 
