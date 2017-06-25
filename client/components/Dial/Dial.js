@@ -36,7 +36,7 @@ class Dial extends Component {
     r = r.substring(0, r.length-3);
     r = Number(r) + dir;
     el.style.transform = "rotate("+r+"deg)";
-    var circles = document.getElementsByClassName('circle');
+    var circles = el.getElementsByClassName('circle');
     for (var i = 0; i < 5; i++) {
       var cr = circles[i].style.transform;
       cr = cr.substring(7, cr.length-1);
@@ -63,13 +63,13 @@ class Dial extends Component {
 
   addToDial(el, item) {
     this.props.addToDial(item, this.props.editType);
-    if (this.props.user[this.props.editType].length < 5) {
+    if (this.props.array.length < 5) {
       this.rotate(el, 72);
     }
   }
 
   removeFromDial(e) {
-    if (this.props.user[this.props.editType].length > 0) {
+    if (this.props.array.length > 0) {
       this.props.removeFromDial(this.props.editType);
       this.rotate(e.currentTarget.parentElement, -72);
     }
@@ -77,105 +77,137 @@ class Dial extends Component {
 
   render() {
 
-    var circles = document.getElementsByClassName('circle');
-    if (circles.length > 1) {
-      for (var i = 0; i < 5; i++) {
-        if (this.props.user[this.props.editType][i]) {
-          if (i === 0) {
-            circles[i].style.background = "#F26648";
-            circles[i].style.color = "white";
+    var color = 'white', background = '#BFBFBF';
+    if (this.props.type === "edit") {
+      var circles = document.getElementsByClassName('circle');
+      if (circles.length > 1) {
+        for (var i = 0; i < 5; i++) {
+          if (this.props.array[i]) {
+            if (i === 0) {
+              circles[i].style.background = "#F26648";
+              circles[i].style.color = "white";
+            } else {
+              circles[5-i].style.background = "#F26648";
+              circles[5-i].style.color = "white";
+            }
           } else {
-            circles[5-i].style.background = "#F26648";
-            circles[5-i].style.color = "white";
-          }
-        } else {
-          if (i === 0) {
-            circles[i].style.background = "#E6E6E6";
-            circles[i].style.color = "black";
-          } else {
-            circles[5-i].style.background = "#E6E6E6";
-            circles[5-i].style.color = "black";
+            if (i === 0) {
+              circles[i].style.background = "#E6E6E6";
+              circles[i].style.color = "black";
+            } else {
+              circles[5-i].style.background = "#E6E6E6";
+              circles[5-i].style.color = "black";
+            }
           }
         }
       }
+      color = '#3B3B3B'; background = '#E6E6E6';
     }
 
     return (
       <div>
         <div className="Dial"
-          style={{transform: 'rotate(0deg)', WebkitTransform: 'rotate(0deg)'}}>
-          <div className="spoke">
+          style={{transform: 'rotate(0deg)',
+          WebkitTransform: 'rotate(0deg)',
+          width: this.props.dim[0],
+          height: this.props.dim[0]}}>
+          <div className="spoke" style={{
+            width: this.props.dim[1],
+            height: this.props.dim[2]}}>
             <div className="circle"
               style={{
                 transform: 'rotate(0deg)',
-                WebkitTransform: 'rotate(0deg)'
-              }}>{this.props.user[this.props.editType][0] ? (
-                this.props.user[this.props.editType][0][0].toUpperCase()
+                WebkitTransform: 'rotate(0deg)',
+                width: this.props.dim[1],
+                height: this.props.dim[1],
+                color: color, background: background
+              }}>{this.props.array[0] ? (
+                this.props.array[0][0].toUpperCase()
               ) : ("+")}
               {this.props.type === 'feed' ? (
                 <div className="current-word">
-                  {this.props.user[this.props.editType][0]}
+                  {this.props.array[0]}
                 </div>
               ): (null)}
             </div>
           </div>
-          <div className="spoke">
+          <div className="spoke" style={{
+            width: this.props.dim[1],
+            height: this.props.dim[2]}}>
             <div className="circle"
               style={{
                 transform: 'rotate(-72deg)',
-                WebkitTransform: 'rotate(-72deg)'
-              }}>{this.props.user[this.props.editType][4] ? (
-                this.props.user[this.props.editType][4][0].toUpperCase()
+                WebkitTransform: 'rotate(-72deg)',
+                width: this.props.dim[1],
+                height: this.props.dim[1],
+                color: color, background: background
+              }}>{this.props.array[4] ? (
+                this.props.array[4][0].toUpperCase()
               ) : ("+")}
               {this.props.type === 'feed' ? (
                 <div className="current-word">
-                  {this.props.user[this.props.editType][4]}
+                  {this.props.array[4]}
                 </div>
               ): (null)}
             </div>
           </div>
-          <div className="spoke">
+          <div className="spoke" style={{
+            width: this.props.dim[1],
+            height: this.props.dim[2]}}>
             <div className="circle"
               style={{
                 transform: 'rotate(-144deg)',
-                WebkitTransform: 'rotate(-144deg)'
-              }}>{this.props.user[this.props.editType][3] ? (
-                this.props.user[this.props.editType][3][0].toUpperCase()
+                WebkitTransform: 'rotate(-144deg)',
+                width: this.props.dim[1],
+                height: this.props.dim[1],
+                color: color, background: background
+              }}>{this.props.array[3] ? (
+                this.props.array[3][0].toUpperCase()
               ) : ("+")}
               {this.props.type === 'feed' ? (
                 <div className="current-word">
-                  {this.props.user[this.props.editType][3]}
+                  {this.props.array[3]}
                 </div>
               ): (null)}
             </div>
           </div>
-          <div className="spoke">
+          <div className="spoke" style={{
+            width: this.props.dim[1],
+            height: this.props.dim[2]}}>
             <div className="circle"
               style={{
                 transform: 'rotate(-216deg)',
-                WebkitTransform: 'rotate(-216deg)'
-              }}>{this.props.user[this.props.editType][2] ? (
-                this.props.user[this.props.editType][2][0].toUpperCase()
+                WebkitTransform: 'rotate(-216deg)',
+                width: this.props.dim[1],
+                height: this.props.dim[1],
+                color: color, background: background
+              }}>{this.props.array[2] ? (
+                this.props.array[2][0].toUpperCase()
               ) : ("+")}
               {this.props.type === 'feed' ? (
                 <div className="current-word">
-                  {this.props.user[this.props.editType][2]}
+                  {this.props.array[2]}
                 </div>
               ): (null)}
             </div>
           </div>
-          <div className="spoke">
+          <div className="spoke" style={{
+            width: this.props.dim[1],
+            height: this.props.dim[2]}}>
             <div className="circle"
               style={{
                 transform: 'rotate(-288deg)',
-                WebkitTransform: 'rotate(-288deg)'
-              }}>{this.props.user[this.props.editType][1] ? (
-                this.props.user[this.props.editType][1][0].toUpperCase()
+                WebkitTransform: 'rotate(-288deg)',
+                width: this.props.dim[1],
+                height: this.props.dim[1],
+                color: color, background: background
+              }}>{this.props.array[1] ? (
+                this.props.array[1][0].toUpperCase()
               ) : ("+")}
               {this.props.type === 'feed' ? (
                 <div className="current-word"
                   style={{opacity: '1.0'}}>
-                  {this.props.user[this.props.editType][1]}
+                  {this.props.array[1]}
                 </div>
               ): (null)}
             </div>

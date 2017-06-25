@@ -1,8 +1,7 @@
 @import "../../vars.scss";
 
 .Dial {
-  width: 150px;
-  height: 150px;
+  border-radius: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -19,17 +18,13 @@
   transition: transform 1s ease;
   transition: transform 1s ease, -webkit-transform 1s ease;
   .spoke {
-    width: 40px;
-    height: 90px;
     position: absolute;
     .circle {
-      width: 40px;
-      height: 40px;
       border-radius: 50%;
-      background: $lightergray;
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+      font-weight: bold;
       -webkit-box-pack: center;
       -ms-flex-pack: center;
       justify-content: center;
@@ -37,7 +32,6 @@
       -ms-flex-align: center;
       align-items: center;
       margin-top: -30px;
-      color: black;
       position: absolute;
       -webkit-transition: -webkit-transform 1s ease;
       transition: -webkit-transform 1s ease;
@@ -49,6 +43,8 @@
     position: absolute;
     width: 120px;
     height: 120px;
+    -ms-touch-action: none;
+    touch-action: none;
   }
   .current-word {
     position: absolute;

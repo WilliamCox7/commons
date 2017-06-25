@@ -1,0 +1,10 @@
+@import "../../vars.scss";
+
+.Feed {
+  max-width: 100vh;
+  overflow: hidden;
+  .buffer {
+    height: 62px;
+    width: 100%;
+  }
+}
