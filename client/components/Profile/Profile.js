@@ -16,7 +16,8 @@ class Profile extends Component {
       nav: 'hobbies',
       curDown: false,
       x: undefined,
-      y: undefined
+      y: undefined,
+      slideshow: false
     }
     this.toggleNav = this.toggleNav.bind(this);
     this.setNav = this.setNav.bind(this);
@@ -24,6 +25,8 @@ class Profile extends Component {
     this.endGesture = this.endGesture.bind(this);
     this.dragOver = this.dragOver.bind(this);
     this.closeProfile = this.closeProfile.bind(this);
+    this.openToSlidePic = this.openToSlidePic.bind(this);
+    this.openToSlideVideo = this.openToSlideVideo.bind(this);
   }
 
   componentDidMount() {
@@ -107,6 +110,14 @@ class Profile extends Component {
     this.setState({curDown: false, x: undefined, y: undefined});
   }
 
+  openToSlidePic() {
+    this.props.openToSlidePic();
+  }
+
+  openToSlideVideo() {
+    this.props.openToSlideVideo();
+  }
+
   render() {
 
     var array = 'hobbies';
@@ -116,8 +127,12 @@ class Profile extends Component {
 
     return (
       <div className="Profile" onTouchStart={this.startGesture}
-        onTouchMove={this.dragOver} onTouchEnd={this.endGesture}>
-        <video loop muted><source src={this.props.profile.video1}
+        onTouchMove={this.dragOver} onTouchEnd={this.endGesture}
+        style={this.props.slideshow ? ({
+          WebkitFilter: 'blur(4px)',
+          filter: 'blur(4px)'
+        }) : (null)}>
+        <video onClick={this.openToSlideVideo} loop muted><source src={this.props.profile.video1}
           type="video/mp4"/></video>
         <div className="profile-info">
           <div className="pic-info">
@@ -128,7 +143,7 @@ class Profile extends Component {
                 " | " + this.props.profile.test
               ) : (null)}
             </p>
-            <img src={this.props.profile.pic1} />
+            <img onClick={this.openToSlidePic} src={this.props.profile.pic1} />
           </div>
           <div className="dial-sections">
             <div className="dial-section">

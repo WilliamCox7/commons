@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Dial from '../Dial/Dial';
 import Profile from '../Profile/Profile';
+import SlideShow from '../SlideShow/SlideShow';
 import { likePerson } from '../../reducers/feedReducer';
 import './Presentation.scss';
 
@@ -10,10 +11,15 @@ class Presentation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showProfile: false
+      showProfile: false,
+      slideshow: false,
+      slidetype: ''
     }
     this.likePerson = this.likePerson.bind(this);
     this.openProfile = this.openProfile.bind(this);
+    this.openToSlideVideo = this.openToSlideVideo.bind(this);
+    this.openToSlidePic = this.openToSlidePic.bind(this);
+    this.closeSlideShow = this.closeSlideShow.bind(this);
   }
 
   componentDidMount() {
@@ -37,8 +43,36 @@ class Presentation extends Component {
     this.props.likePerson(this.props.presentation.id);
   }
 
+  openToSlideVideo() {
+    this.setState({
+      showProfile: true,
+      slideshow: true,
+      slidetype: 'video'
+    });
+  }
+
+  openToSlidePic() {
+    this.setState({
+      showProfile: true,
+      slideshow: true,
+      slidetype: 'pic'
+    });
+  }
+
   openProfile() {
-    this.setState({showProfile: !this.state.showProfile});
+    this.setState({
+      showProfile: !this.state.showProfile,
+      slideshow: false,
+      slidetype: ''
+    });
+  }
+
+  closeSlideShow() {
+    this.setState({
+      showProfile: true,
+      slideshow: false,
+      slidetype: ''
+    });
   }
 
   render() {
@@ -57,7 +91,7 @@ class Presentation extends Component {
           </div>
         </div>
         <div className="pres-media">
-          <video loop muted onClick={this.openProfile}>
+          <video loop muted onClick={this.openToSlideVideo}>
             <source src={this.props.presentation.video1} type="video/mp4"/>
           </video>
           {this.props.presentation.liked ? (
@@ -71,14 +105,21 @@ class Presentation extends Component {
           </div>
         </div>
         <div className="pres-activity">
-          <img src={this.props.presentation.pic1} />
-          <p>{this.props.presentation.activity}
+          <img onClick={this.openToSlidePic} src={this.props.presentation.pic1} />
+          <p onClick={this.openProfile}>{this.props.presentation.activity}
             <div>{this.props.presentation.posted}</div>
           </p>
         </div>
         {this.state.showProfile ? (
           <Profile profile={this.props.presentation}
-            closeProfile={this.openProfile} />
+            closeProfile={this.openProfile}
+            openToSlidePic={this.openToSlidePic}
+            openToSlideVideo={this.openToSlideVideo}
+            slideshow={this.state.slideshow} />
+        ) : (null)}
+        {this.state.slideshow ? (
+          <SlideShow profile={this.props.presentation}
+            type={this.state.slidetype} closeSlideShow={this.closeSlideShow} />
         ) : (null)}
       </div>
     )

@@ -29,7 +29,7 @@
     .pic-info {
       color: white;
       text-align: center;
-      z-index: 1;
+      z-index: 2;
       h1 {
         font-weight: bold;
         margin-bottom: 4px;
@@ -56,10 +56,12 @@
       -ms-flex-pack: distribute;
           justify-content: space-around;
       left: 0%;
-      top: 140px;
+      top: 131px;
       position: absolute;
       -webkit-transition: left 0.5s ease;
       transition: left 0.5s ease;
+      background: white;
+      z-index: 1;
       .status-section {
         text-align: center;
         margin: 40px;
@@ -81,13 +83,14 @@
     }
     #triangle1 {
       position: absolute;
-      top: 39px;
-      width: 100%;
+      top: 20px;
+      left: -4px;
+      width: 120%;
     }
     #triangle2 {
       position: absolute;
       top: 73px;
-      left: 0;
+      left: -4px;
       width: 80%;
       opacity: 0.5;
     }

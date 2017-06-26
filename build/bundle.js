@@ -33478,7 +33478,7 @@
 	
 	var _Presentation2 = _interopRequireDefault(_Presentation);
 	
-	__webpack_require__(380);
+	__webpack_require__(383);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33769,9 +33769,13 @@
 	
 	var _Profile2 = _interopRequireDefault(_Profile);
 	
+	var _SlideShow = __webpack_require__(378);
+	
+	var _SlideShow2 = _interopRequireDefault(_SlideShow);
+	
 	var _feedReducer = __webpack_require__(275);
 	
-	__webpack_require__(378);
+	__webpack_require__(381);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -33790,10 +33794,15 @@
 	    var _this = _possibleConstructorReturn(this, (Presentation.__proto__ || Object.getPrototypeOf(Presentation)).call(this, props));
 	
 	    _this.state = {
-	      showProfile: false
+	      showProfile: false,
+	      slideshow: false,
+	      slidetype: ''
 	    };
 	    _this.likePerson = _this.likePerson.bind(_this);
 	    _this.openProfile = _this.openProfile.bind(_this);
+	    _this.openToSlideVideo = _this.openToSlideVideo.bind(_this);
+	    _this.openToSlidePic = _this.openToSlidePic.bind(_this);
+	    _this.closeSlideShow = _this.closeSlideShow.bind(_this);
 	    return _this;
 	  }
 	
@@ -33821,9 +33830,40 @@
 	      this.props.likePerson(this.props.presentation.id);
 	    }
 	  }, {
+	    key: 'openToSlideVideo',
+	    value: function openToSlideVideo() {
+	      this.setState({
+	        showProfile: true,
+	        slideshow: true,
+	        slidetype: 'video'
+	      });
+	    }
+	  }, {
+	    key: 'openToSlidePic',
+	    value: function openToSlidePic() {
+	      this.setState({
+	        showProfile: true,
+	        slideshow: true,
+	        slidetype: 'pic'
+	      });
+	    }
+	  }, {
 	    key: 'openProfile',
 	    value: function openProfile() {
-	      this.setState({ showProfile: !this.state.showProfile });
+	      this.setState({
+	        showProfile: !this.state.showProfile,
+	        slideshow: false,
+	        slidetype: ''
+	      });
+	    }
+	  }, {
+	    key: 'closeSlideShow',
+	    value: function closeSlideShow() {
+	      this.setState({
+	        showProfile: true,
+	        slideshow: false,
+	        slidetype: ''
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -33852,7 +33892,7 @@
 	          { className: 'pres-media' },
 	          _react2.default.createElement(
 	            'video',
-	            { loop: true, muted: true, onClick: this.openProfile },
+	            { loop: true, muted: true, onClick: this.openToSlideVideo },
 	            _react2.default.createElement('source', { src: this.props.presentation.video1, type: 'video/mp4' })
 	          ),
 	          this.props.presentation.liked ? _react2.default.createElement('i', { onClick: this.likePerson, className: 'icon-heart liked' }) : _react2.default.createElement('i', { onClick: this.likePerson, className: 'icon-heart' }),
@@ -33866,10 +33906,10 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'pres-activity' },
-	          _react2.default.createElement('img', { src: this.props.presentation.pic1 }),
+	          _react2.default.createElement('img', { onClick: this.openToSlidePic, src: this.props.presentation.pic1 }),
 	          _react2.default.createElement(
 	            'p',
-	            null,
+	            { onClick: this.openProfile },
 	            this.props.presentation.activity,
 	            _react2.default.createElement(
 	              'div',
@@ -33879,7 +33919,12 @@
 	          )
 	        ),
 	        this.state.showProfile ? _react2.default.createElement(_Profile2.default, { profile: this.props.presentation,
-	          closeProfile: this.openProfile }) : null
+	          closeProfile: this.openProfile,
+	          openToSlidePic: this.openToSlidePic,
+	          openToSlideVideo: this.openToSlideVideo,
+	          slideshow: this.state.slideshow }) : null,
+	        this.state.slideshow ? _react2.default.createElement(_SlideShow2.default, { profile: this.props.presentation,
+	          type: this.state.slidetype, closeSlideShow: this.closeSlideShow }) : null
 	      );
 	    }
 	  }]);
@@ -33961,7 +34006,8 @@
 	      nav: 'hobbies',
 	      curDown: false,
 	      x: undefined,
-	      y: undefined
+	      y: undefined,
+	      slideshow: false
 	    };
 	    _this.toggleNav = _this.toggleNav.bind(_this);
 	    _this.setNav = _this.setNav.bind(_this);
@@ -33969,6 +34015,8 @@
 	    _this.endGesture = _this.endGesture.bind(_this);
 	    _this.dragOver = _this.dragOver.bind(_this);
 	    _this.closeProfile = _this.closeProfile.bind(_this);
+	    _this.openToSlidePic = _this.openToSlidePic.bind(_this);
+	    _this.openToSlideVideo = _this.openToSlideVideo.bind(_this);
 	    return _this;
 	  }
 	
@@ -34065,6 +34113,16 @@
 	      this.setState({ curDown: false, x: undefined, y: undefined });
 	    }
 	  }, {
+	    key: 'openToSlidePic',
+	    value: function openToSlidePic() {
+	      this.props.openToSlidePic();
+	    }
+	  }, {
+	    key: 'openToSlideVideo',
+	    value: function openToSlideVideo() {
+	      this.props.openToSlideVideo();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	
@@ -34076,10 +34134,14 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'Profile', onTouchStart: this.startGesture,
-	          onTouchMove: this.dragOver, onTouchEnd: this.endGesture },
+	          onTouchMove: this.dragOver, onTouchEnd: this.endGesture,
+	          style: this.props.slideshow ? {
+	            WebkitFilter: 'blur(4px)',
+	            filter: 'blur(4px)'
+	          } : null },
 	        _react2.default.createElement(
 	          'video',
-	          { loop: true, muted: true },
+	          { onClick: this.openToSlideVideo, loop: true, muted: true },
 	          _react2.default.createElement('source', { src: this.props.profile.video1,
 	            type: 'video/mp4' })
 	        ),
@@ -34100,7 +34162,7 @@
 	              this.props.profile.age + " | " + this.props.profile.location,
 	              this.props.profile.test ? " | " + this.props.profile.test : null
 	            ),
-	            _react2.default.createElement('img', { src: this.props.profile.pic1 })
+	            _react2.default.createElement('img', { onClick: this.openToSlidePic, src: this.props.profile.pic1 })
 	          ),
 	          _react2.default.createElement(
 	            'div',
@@ -34386,7 +34448,7 @@
 /* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "0265ae4ebebd1b37820da32bd5a4e2ee.svg";
+	module.exports = __webpack_require__.p + "17acfb909c93a3d1e0cd9cc5da1f92de.svg";
 
 /***/ }),
 /* 375 */
@@ -34429,7 +34491,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 140px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n  .Profile .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    margin: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .Profile .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
+	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 2; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 131px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease;\n      background: white;\n      z-index: 1; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 20px;\n      left: -4px;\n      width: 120%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: -4px;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n  .Profile .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    margin: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .Profile .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
 	
 	// exports
 
@@ -34438,10 +34500,160 @@
 /* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	__webpack_require__(379);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var SlideShow = function (_Component) {
+	  _inherits(SlideShow, _Component);
+	
+	  function SlideShow(props) {
+	    _classCallCheck(this, SlideShow);
+	
+	    var _this = _possibleConstructorReturn(this, (SlideShow.__proto__ || Object.getPrototypeOf(SlideShow)).call(this, props));
+	
+	    _this.state = {
+	      curDown: false,
+	      x: undefined,
+	      y: undefined,
+	      slide: 1
+	    };
+	    _this.dragOver = _this.dragOver.bind(_this);
+	    _this.startGesture = _this.startGesture.bind(_this);
+	    _this.endGesture = _this.endGesture.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SlideShow, [{
+	    key: 'dragOver',
+	    value: function dragOver(e) {
+	      if (this.state.curDown) {
+	        if (this.state.y + 50 >= e.touches[0].clientY) {
+	          if (this.state.x - 50 > e.touches[0].clientX) {
+	            if (this.state.slide <= 2) {
+	              this.state.slide++;
+	            } else {
+	              this.props.closeSlideShow();
+	            }
+	            this.endGesture();
+	          } else if (this.state.x + 50 < e.touches[0].clientX) {
+	            if (this.state.slide >= 2) {
+	              this.state.slide--;
+	            } else {
+	              this.props.closeSlideShow();
+	            }
+	            this.endGesture();
+	          }
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'startGesture',
+	    value: function startGesture(e) {
+	      this.setState({
+	        curDown: true,
+	        x: e.touches[0].clientX,
+	        y: e.touches[0].clientY
+	      });
+	    }
+	  }, {
+	    key: 'endGesture',
+	    value: function endGesture(e) {
+	      this.setState({ curDown: false, x: undefined, y: undefined });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { onTouchStart: this.startGesture, onTouchMove: this.dragOver,
+	          onTouchEnd: this.endGesture, className: 'SlideShow' },
+	        this.props.type === 'video' ? _react2.default.createElement(
+	          'video',
+	          { loop: true, muted: true },
+	          _react2.default.createElement('source', { src: this.props.profile["video" + this.state.slide],
+	            type: 'video/mp4' })
+	        ) : _react2.default.createElement('img', { src: this.props.profile["pic" + this.state.slide] }),
+	        _react2.default.createElement(
+	          'div',
+	          { onClick: this.props.closeSlideShow, className: 'close-button' },
+	          'X'
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return SlideShow;
+	}(_react.Component);
+	
+	exports.default = SlideShow;
+
+/***/ }),
+/* 379 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(379);
+	var content = __webpack_require__(380);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./SlideShow.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./SlideShow.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 380 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".SlideShow {\n  padding: 20px;\n  background: rgba(0, 0, 0, 0.5);\n  position: fixed;\n  top: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  text-align: center; }\n  .SlideShow video, .SlideShow img {\n    max-width: 100%;\n    max-height: calc(100% - 60px);\n    margin-top: 50px;\n    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    margin: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .SlideShow .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
+	
+	// exports
+
+
+/***/ }),
+/* 381 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(382);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {});
@@ -34461,7 +34673,7 @@
 	}
 
 /***/ }),
-/* 379 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
@@ -34475,13 +34687,13 @@
 
 
 /***/ }),
-/* 380 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(381);
+	var content = __webpack_require__(384);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(280)(content, {});
@@ -34501,7 +34713,7 @@
 	}
 
 /***/ }),
-/* 381 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(279)();
