@@ -77,7 +77,8 @@ class Presentation extends Component {
           </p>
         </div>
         {this.state.showProfile ? (
-          <Profile profile={this.props.presentation} />
+          <Profile profile={this.props.presentation}
+            closeProfile={this.openProfile} />
         ) : (null)}
       </div>
     )

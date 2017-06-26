@@ -33878,7 +33878,8 @@
 	            )
 	          )
 	        ),
-	        this.state.showProfile ? _react2.default.createElement(_Profile2.default, { profile: this.props.presentation }) : null
+	        this.state.showProfile ? _react2.default.createElement(_Profile2.default, { profile: this.props.presentation,
+	          closeProfile: this.openProfile }) : null
 	      );
 	    }
 	  }]);
@@ -33915,6 +33916,8 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(185);
+	
+	var _feedReducer = __webpack_require__(275);
 	
 	var _DialWords = __webpack_require__(368);
 	
@@ -33965,6 +33968,7 @@
 	    _this.startGesture = _this.startGesture.bind(_this);
 	    _this.endGesture = _this.endGesture.bind(_this);
 	    _this.dragOver = _this.dragOver.bind(_this);
+	    _this.closeProfile = _this.closeProfile.bind(_this);
 	    return _this;
 	  }
 	
@@ -33978,6 +33982,11 @@
 	      circles1[0].classList.add('active-circle');
 	    }
 	  }, {
+	    key: 'closeProfile',
+	    value: function closeProfile() {
+	      this.props.closeProfile();
+	    }
+	  }, {
 	    key: 'toggleNav',
 	    value: function toggleNav(e) {
 	      this.setState({ nav: e.target.innerText });
@@ -33988,6 +33997,8 @@
 	    value: function setNav(nav) {
 	      var navs = document.getElementsByClassName('profile-nav')[0].children;
 	      var sections = document.getElementsByClassName('dial-sections')[0];
+	      console.log(navs);
+	      console.log(sections);
 	      if (nav === 'hobbies') {
 	        navs[0].classList.add('active');
 	        navs[1].classList.remove('active');
@@ -34004,6 +34015,8 @@
 	        navs[2].classList.add('active');
 	        sections.style.left = '-200%';
 	      }
+	      this.setState({ nav: nav });
+	      this.endGesture();
 	    }
 	  }, {
 	    key: 'dragOver',
@@ -34021,8 +34034,6 @@
 	            }
 	            if (nav) {
 	              this.setNav(nav);
-	              this.setState({ nav: nav });
-	              this.endGesture();
 	            }
 	          } else if (this.state.x + 50 < e.touches[0].clientX) {
 	            if (this.state.nav === 'attributes') {
@@ -34034,8 +34045,6 @@
 	            }
 	            if (nav) {
 	              this.setNav(nav);
-	              this.setState({ nav: nav });
-	              this.endGesture();
 	            }
 	          }
 	        }
@@ -34144,7 +34153,12 @@
 	            'status'
 	          )
 	        ),
-	        _react2.default.createElement(_Advertisement2.default, null)
+	        _react2.default.createElement(_Advertisement2.default, null),
+	        _react2.default.createElement(
+	          'div',
+	          { onClick: this.closeProfile, className: 'close-button' },
+	          'X'
+	        )
 	      );
 	    }
 	  }]);
@@ -34415,7 +34429,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 140px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n", ""]);
+	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 1; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 140px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 39px;\n      width: 100%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: 0;\n      width: 80%;\n      opacity: 0.5; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n  .Profile .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    margin: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .Profile .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
 	
 	// exports
 

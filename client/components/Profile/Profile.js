@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { likePerson } from '../../reducers/feedReducer';
 import DialWords from '../DialWords/DialWords';
 import Dial from '../Dial/Dial';
 import Advertisement from '../Advertisement/Advertisement';
@@ -22,6 +23,7 @@ class Profile extends Component {
     this.startGesture = this.startGesture.bind(this);
     this.endGesture = this.endGesture.bind(this);
     this.dragOver = this.dragOver.bind(this);
+    this.closeProfile = this.closeProfile.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +34,10 @@ class Profile extends Component {
     circles1[0].classList.add('active-circle');
   }
 
+  closeProfile() {
+    this.props.closeProfile();
+  }
+
   toggleNav(e) {
     this.setState({nav: e.target.innerText});
     this.setNav(e.target.innerText)
@@ -40,6 +46,8 @@ class Profile extends Component {
   setNav(nav) {
     var navs = document.getElementsByClassName('profile-nav')[0].children;
     var sections = document.getElementsByClassName('dial-sections')[0];
+    console.log(navs);
+    console.log(sections);
     if (nav === 'hobbies') {
       navs[0].classList.add('active');
       navs[1].classList.remove('active');
@@ -56,6 +64,8 @@ class Profile extends Component {
       navs[2].classList.add('active');
       sections.style.left = '-200%';
     }
+    this.setState({nav: nav});
+    this.endGesture();
   }
 
   dragOver(e) {
@@ -70,11 +80,7 @@ class Profile extends Component {
           } else {
             this.endGesture();
           }
-          if (nav) {
-            this.setNav(nav);
-            this.setState({nav: nav});
-            this.endGesture();
-          }
+          if (nav) { this.setNav(nav); }
         } else if (this.state.x+50 < e.touches[0].clientX) {
           if (this.state.nav === 'attributes') {
             nav = 'hobbies';
@@ -83,11 +89,7 @@ class Profile extends Component {
           } else {
             this.endGesture();
           }
-          if (nav) {
-            this.setNav(nav);
-            this.setState({nav: nav});
-            this.endGesture();
-          }
+          if (nav) { this.setNav(nav); }
         }
       }
     }
@@ -154,6 +156,7 @@ class Profile extends Component {
           <p onClick={this.toggleNav}>status</p>
         </div>
         <Advertisement />
+        <div onClick={this.closeProfile} className="close-button">X</div>
       </div>
     )
   }
