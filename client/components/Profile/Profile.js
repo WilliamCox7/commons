@@ -27,6 +27,7 @@ class Profile extends Component {
     this.closeProfile = this.closeProfile.bind(this);
     this.openToSlidePic = this.openToSlidePic.bind(this);
     this.openToSlideVideo = this.openToSlideVideo.bind(this);
+    this.likePerson = this.likePerson.bind(this);
   }
 
   componentDidMount() {
@@ -118,6 +119,10 @@ class Profile extends Component {
     this.props.openToSlideVideo();
   }
 
+  likePerson() {
+    this.props.likePerson(this.props.profile.id);
+  }
+
   render() {
 
     var array = 'hobbies';
@@ -164,6 +169,17 @@ class Profile extends Component {
           </div>
           <img id="triangle1" src={T1} />
           <img id="triangle2" src={T2} />
+          {this.props.profile.id === this.props.user.id ? (
+            <i className="icon-gears" style={{
+              fontSize: '40px', margin: '20px calc(25% - 65px)'
+            }} ></i>
+          ) : (
+            <i className="icon-heart" style={this.props.profile.liked ? ({
+              color: '#F26648', fontSize: '30px', margin: '20px calc(25% - 60px)'
+            }):({
+              fontSize: '30px', margin: '20px calc(25% - 60px)'
+            })} onClick={this.likePerson} ></i>
+          )}
         </div>
         <div className="profile-nav">
           <p className="active" onClick={this.toggleNav}>hobbies</p>
@@ -179,8 +195,14 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    dial: state.dial
+    dial: state.dial,
+    user: state.user,
+    feed: state.feed
   }
 }
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = {
+  likePerson: likePerson
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

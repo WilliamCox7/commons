@@ -13,7 +13,8 @@ class Presentation extends Component {
     this.state = {
       showProfile: false,
       slideshow: false,
-      slidetype: ''
+      slidetype: '',
+      numSlides: undefined
     }
     this.likePerson = this.likePerson.bind(this);
     this.openProfile = this.openProfile.bind(this);
@@ -44,18 +45,36 @@ class Presentation extends Component {
   }
 
   openToSlideVideo() {
+    var numSlides = 0;
+    for (var prop in this.props.presentation) {
+      if (prop.indexOf('video') > -1) {
+        if (this.props.presentation[prop]) {
+          numSlides++;
+        }
+      }
+    }
     this.setState({
       showProfile: true,
       slideshow: true,
-      slidetype: 'video'
+      slidetype: 'video',
+      numSlides: numSlides
     });
   }
 
   openToSlidePic() {
+    var numSlides = 0;
+    for (var prop in this.props.presentation) {
+      if (prop.indexOf('pic') > -1) {
+        if (this.props.presentation[prop]) {
+          numSlides++;
+        }
+      }
+    }
     this.setState({
       showProfile: true,
       slideshow: true,
-      slidetype: 'pic'
+      slidetype: 'pic',
+      numSlides: numSlides
     });
   }
 
@@ -63,7 +82,8 @@ class Presentation extends Component {
     this.setState({
       showProfile: !this.state.showProfile,
       slideshow: false,
-      slidetype: ''
+      slidetype: '',
+      numSlides: 0
     });
   }
 
@@ -71,7 +91,8 @@ class Presentation extends Component {
     this.setState({
       showProfile: true,
       slideshow: false,
-      slidetype: ''
+      slidetype: '',
+      numSlides: undefined
     });
   }
 
@@ -79,7 +100,7 @@ class Presentation extends Component {
 
     return (
       <div className="Presentation">
-        <div className="pres-info">
+        <div onClick={this.openProfile} className="pres-info">
           <div className="pres-name">
             {this.props.presentation.first + " " + this.props.presentation.last}
           </div>
@@ -118,8 +139,9 @@ class Presentation extends Component {
             slideshow={this.state.slideshow} />
         ) : (null)}
         {this.state.slideshow ? (
-          <SlideShow profile={this.props.presentation}
-            type={this.state.slidetype} closeSlideShow={this.closeSlideShow} />
+          <SlideShow profile={this.props.presentation} numSlides={this.state.numSlides}
+            type={this.state.slidetype} closeSlideShow={this.closeSlideShow}
+            isUser={this.props.presentation.id === this.props.user.id} />
         ) : (null)}
       </div>
     )
@@ -128,7 +150,8 @@ class Presentation extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    feed: state.feed
+    feed: state.feed,
+    user: state.user
   }
 }
 

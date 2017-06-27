@@ -49,10 +49,10 @@ const initState = {
       test: '',
       video1: 'https://williamcox7.github.io/portfolio/fjvid.mp4',
       video2: 'https://williamcox7.github.io/portfolio/fjvid.mp4',
-      video3: 'https://williamcox7.github.io/portfolio/fjvid.mp4',
+      video3: '',
       pic1: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12316219_10203972004460469_2680188925033407079_n.jpg?oh=5bf7789f38140578fa1092ebc518f3d3&oe=59DBBB2A',
       pic2: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12246599_10203881235431300_1895348970772056564_n.jpg?oh=897e31e96c008e7299213f651986c1d7&oe=5A108C74',
-      pic3: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/11216802_10203513416916067_8828251330570732585_n.jpg?oh=e230836bb02e025e3827c5d0ee1f2147&oe=59C6B9A5',
+      pic3: '',
       liked: false,
       hobbies: ['Dragon Slaying', 'Jousting', 'Sword Fighting', 'Hiking', 'Crafts'],
       attributes: ['Programmer', 'Crack Addict', 'Shoe Salesman', 'Jewish', 'Anti-semitic'],
@@ -74,6 +74,7 @@ export default function reducer(state=initState, action) {
           editState.presentations[i].liked = !pres.liked;
         }
       });
+      console.log(editState);
       return Object.assign({}, state, editState);
 
     default:

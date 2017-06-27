@@ -7,7 +7,8 @@ const FILE = 'user/FILE';
 
 const initState = {
   isLoggedIn: true,
-  isFirstTime: true,
+  isFirstTime: false,
+  id: 3,
   first: 'William',
   last: 'Cox',
   email: 'willubyu7@gmail.com',
