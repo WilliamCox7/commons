@@ -136,12 +136,13 @@ class Presentation extends Component {
             closeProfile={this.openProfile}
             openToSlidePic={this.openToSlidePic}
             openToSlideVideo={this.openToSlideVideo}
-            slideshow={this.state.slideshow} />
+            slideshow={this.state.slideshow}
+            isUser={false} />
         ) : (null)}
         {this.state.slideshow ? (
           <SlideShow profile={this.props.presentation} numSlides={this.state.numSlides}
             type={this.state.slidetype} closeSlideShow={this.closeSlideShow}
-            isUser={this.props.presentation.id === this.props.user.id} />
+            isUser={false} />
         ) : (null)}
       </div>
     )

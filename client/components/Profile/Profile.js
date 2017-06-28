@@ -50,8 +50,6 @@ class Profile extends Component {
   setNav(nav) {
     var navs = document.getElementsByClassName('profile-nav')[0].children;
     var sections = document.getElementsByClassName('dial-sections')[0];
-    console.log(navs);
-    console.log(sections);
     if (nav === 'hobbies') {
       navs[0].classList.add('active');
       navs[1].classList.remove('active');
@@ -133,13 +131,24 @@ class Profile extends Component {
     return (
       <div className="Profile" onTouchStart={this.startGesture}
         onTouchMove={this.dragOver} onTouchEnd={this.endGesture}
-        style={this.props.slideshow ? ({
-          WebkitFilter: 'blur(4px)',
-          filter: 'blur(4px)'
-        }) : (null)}>
+        style={this.props.slideshow ? (this.props.isUser ? ({
+          height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
+        }) : ({
+          height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
+        })) : (
+          this.props.isUser ? ({
+            height: 'calc(100% - 120px)', top: '120px'
+          }) : ({
+            height: '100%', top: '0px'
+          })
+        )}>
         <video onClick={this.openToSlideVideo} loop muted><source src={this.props.profile.video1}
           type="video/mp4"/></video>
-        <div className="profile-info">
+        <div className="profile-info" style={this.props.isUser ? ({
+          marginTop: '-150px'
+        }) : ({
+          marginTop: '-135px'
+        })}>
           <div className="pic-info">
             <h1>{this.props.profile.first + " " + this.props.profile.last}</h1>
             <p>
@@ -187,7 +196,9 @@ class Profile extends Component {
           <p onClick={this.toggleNav}>status</p>
         </div>
         <Advertisement />
-        <div onClick={this.closeProfile} className="close-button">X</div>
+        {this.props.profile.id !== this.props.user.id ? (
+          <div onClick={this.closeProfile} className="close-button">X</div>
+        ) : (null)}
       </div>
     )
   }

@@ -113,18 +113,22 @@
 	
 	var _Feed2 = _interopRequireDefault(_Feed);
 	
+	var _UserProfile = __webpack_require__(385);
+	
+	var _UserProfile2 = _interopRequireDefault(_UserProfile);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* STORE - REDUX */
-	
-	
-	/* COMPONENTS */
+	/* PACKAGES */
 	var store = (0, _redux.createStore)(_rootReducer2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default), window.devToolsExtension ? window.devToolsExtension() : function (f) {
 	  return f;
 	}));
 	
 	/* ROUTES */
-	/* PACKAGES */
+	
+	
+	/* COMPONENTS */
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
@@ -144,7 +148,8 @@
 	        _react2.default.createElement(_reactRouter.Route, { path: "/attributes", component: _Attributes2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: "/activities", component: _Activities2.default }),
 	        _react2.default.createElement(_reactRouter.Route, { path: "/upload", component: _Upload2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: "/feed", component: _Feed2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: "/feed", component: _Feed2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: "/profile", component: _UserProfile2.default })
 	      )
 	    )
 	  )
@@ -29183,13 +29188,20 @@
 	  email: 'willubyu7@gmail.com',
 	  age: '25',
 	  gender: true,
-	  hobbies: [],
-	  attributes: [],
-	  activity: '',
+	  location: 'Provo, UT',
+	  hobbies: ['Dragon Slaying', 'Jousting', 'Sword Fighting', 'Hiking', 'Crafts'],
+	  attributes: ['Programmer', 'Crack Addict', 'Shoe Salesman', 'Jewish', 'Anti-semitic'],
+	  activity: 'I just came across a brick of "flour". Meet me @5 to get destroyed. Ya.',
 	  image: undefined,
+	  pic1: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12316219_10203972004460469_2680188925033407079_n.jpg?oh=5bf7789f38140578fa1092ebc518f3d3&oe=59DBBB2A',
+	  pic2: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12246599_10203881235431300_1895348970772056564_n.jpg?oh=897e31e96c008e7299213f651986c1d7&oe=5A108C74',
+	  pic3: '',
 	  imageName: '',
-	  video: undefined,
-	  videoName: ''
+	  vid: undefined,
+	  video1: 'https://williamcox7.github.io/portfolio/fjvid.mp4',
+	  video2: 'https://williamcox7.github.io/portfolio/fjvid.mp4',
+	  video3: '',
+	  vidName: ''
 	};
 	
 	function reducer() {
@@ -33308,7 +33320,7 @@
 	
 	      if (e.currentTarget.files) {
 	        var name = e.currentTarget.files[0].name;
-	        var type = 'video';
+	        var type = 'vid';
 	        if (e.currentTarget.files[0].type.indexOf("image") > -1) {
 	          type = 'image';
 	        }
@@ -33571,22 +33583,36 @@
 	var MainNav = function (_Component) {
 	  _inherits(MainNav, _Component);
 	
-	  function MainNav() {
+	  function MainNav(props) {
 	    _classCallCheck(this, MainNav);
 	
-	    return _possibleConstructorReturn(this, (MainNav.__proto__ || Object.getPrototypeOf(MainNav)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (MainNav.__proto__ || Object.getPrototypeOf(MainNav)).call(this, props));
+	
+	    _this.gotoFeed = _this.gotoFeed.bind(_this);
+	    _this.gotoProfile = _this.gotoProfile.bind(_this);
+	    return _this;
 	  }
 	
 	  _createClass(MainNav, [{
+	    key: 'gotoFeed',
+	    value: function gotoFeed() {
+	      _reactRouter.hashHistory.replace('/feed');
+	    }
+	  }, {
+	    key: 'gotoProfile',
+	    value: function gotoProfile() {
+	      _reactRouter.hashHistory.replace('/profile');
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var loc = _reactRouter.hashHistory.getCurrentLocation().pathname;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'MainNav' },
-	        loc === '/feed' ? _react2.default.createElement('i', { className: 'icon-home-button active' }) : _react2.default.createElement('i', { className: 'icon-home-button' }),
+	        loc === '/feed' ? _react2.default.createElement('i', { className: 'icon-home-button active' }) : _react2.default.createElement('i', { onClick: this.gotoFeed, className: 'icon-home-button' }),
 	        _react2.default.createElement(_FeedFilter2.default, null),
-	        loc === '/profile' ? _react2.default.createElement('i', { className: 'icon-profile-nav active' }) : _react2.default.createElement('i', { className: 'icon-profile-nav' })
+	        loc === '/profile' ? _react2.default.createElement('i', { className: 'icon-profile-nav active' }) : _react2.default.createElement('i', { onClick: this.gotoProfile, className: 'icon-profile-nav' })
 	      );
 	    }
 	  }]);
@@ -33945,10 +33971,11 @@
 	          closeProfile: this.openProfile,
 	          openToSlidePic: this.openToSlidePic,
 	          openToSlideVideo: this.openToSlideVideo,
-	          slideshow: this.state.slideshow }) : null,
+	          slideshow: this.state.slideshow,
+	          isUser: false }) : null,
 	        this.state.slideshow ? _react2.default.createElement(_SlideShow2.default, { profile: this.props.presentation, numSlides: this.state.numSlides,
 	          type: this.state.slidetype, closeSlideShow: this.closeSlideShow,
-	          isUser: this.props.presentation.id === this.props.user.id }) : null
+	          isUser: false }) : null
 	      );
 	    }
 	  }]);
@@ -34071,8 +34098,6 @@
 	    value: function setNav(nav) {
 	      var navs = document.getElementsByClassName('profile-nav')[0].children;
 	      var sections = document.getElementsByClassName('dial-sections')[0];
-	      console.log(navs);
-	      console.log(sections);
 	      if (nav === 'hobbies') {
 	        navs[0].classList.add('active');
 	        navs[1].classList.remove('active');
@@ -34166,10 +34191,15 @@
 	        'div',
 	        { className: 'Profile', onTouchStart: this.startGesture,
 	          onTouchMove: this.dragOver, onTouchEnd: this.endGesture,
-	          style: this.props.slideshow ? {
-	            WebkitFilter: 'blur(4px)',
-	            filter: 'blur(4px)'
-	          } : null },
+	          style: this.props.slideshow ? this.props.isUser ? {
+	            height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
+	          } : {
+	            height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
+	          } : this.props.isUser ? {
+	            height: 'calc(100% - 120px)', top: '120px'
+	          } : {
+	            height: '100%', top: '0px'
+	          } },
 	        _react2.default.createElement(
 	          'video',
 	          { onClick: this.openToSlideVideo, loop: true, muted: true },
@@ -34178,7 +34208,11 @@
 	        ),
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'profile-info' },
+	          { className: 'profile-info', style: this.props.isUser ? {
+	              marginTop: '-150px'
+	            } : {
+	              marginTop: '-135px'
+	            } },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'pic-info' },
@@ -34254,11 +34288,11 @@
 	          )
 	        ),
 	        _react2.default.createElement(_Advertisement2.default, null),
-	        _react2.default.createElement(
+	        this.props.profile.id !== this.props.user.id ? _react2.default.createElement(
 	          'div',
 	          { onClick: this.closeProfile, className: 'close-button' },
 	          'X'
-	        )
+	        ) : null
 	      );
 	    }
 	  }]);
@@ -34483,7 +34517,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Advertisement {\n  position: absolute;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 20px;\n  background: #3B3B3B;\n  color: white; }\n", ""]);
+	exports.push([module.id, ".Advertisement {\n  position: absolute;\n  bottom: 0;\n  text-align: center;\n  width: 100%;\n  padding: 20px;\n  background: #3B3B3B;\n  color: white;\n  z-index: 1; }\n", ""]);
 	
 	// exports
 
@@ -34535,7 +34569,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    margin-top: -135px;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 2; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 131px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease;\n      background: white;\n      z-index: 1; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 20px;\n      left: -4px;\n      width: 120%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: -4px;\n      width: 80%;\n      opacity: 0.5; }\n    .Profile .profile-info i {\n      position: absolute;\n      top: 62px;\n      right: 0;\n      padding: 20px;\n      color: #BFBFBF;\n      z-index: 1; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n  .Profile .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .Profile .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
+	exports.push([module.id, ".Profile {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  z-index: 1;\n  background: white;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .Profile video {\n    width: 100%; }\n  .Profile .profile-info {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -ms-flex-direction: column;\n    flex-direction: column;\n    -webkit-box-align: center;\n    -ms-flex-align: center;\n    align-items: center;\n    position: absolute;\n    width: 100%; }\n    .Profile .profile-info .pic-info {\n      color: white;\n      text-align: center;\n      z-index: 2; }\n      .Profile .profile-info .pic-info h1 {\n        font-weight: bold;\n        margin-bottom: 4px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info p {\n        font-size: 14px;\n        margin-bottom: 10px;\n        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n      .Profile .profile-info .pic-info img {\n        width: 100px;\n        height: 100px;\n        border-radius: 50px;\n        -o-object-fit: cover;\n        object-fit: cover; }\n    .Profile .profile-info .dial-sections {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      width: calc(100vw * 3);\n      -ms-flex-pack: distribute;\n      justify-content: space-around;\n      left: 0%;\n      top: 131px;\n      position: absolute;\n      -webkit-transition: left 0.5s ease;\n      transition: left 0.5s ease;\n      background: white;\n      z-index: 1; }\n      .Profile .profile-info .dial-sections .status-section {\n        text-align: center;\n        margin: 40px;\n        width: calc(67.33% - 80px); }\n      .Profile .profile-info .dial-sections .dial-section {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: justify;\n        -ms-flex-pack: justify;\n        justify-content: space-around;\n        -webkit-box-align: center;\n        -ms-flex-align: center;\n        align-items: center;\n        width: calc(67.33% - 80px);\n        margin: 40px; }\n    .Profile .profile-info #triangle1 {\n      position: absolute;\n      top: 20px;\n      left: -4px;\n      width: 120%; }\n    .Profile .profile-info #triangle2 {\n      position: absolute;\n      top: 73px;\n      left: -4px;\n      width: 80%;\n      opacity: 0.5; }\n    .Profile .profile-info i {\n      position: absolute;\n      top: 62px;\n      right: 0;\n      padding: 20px;\n      color: #BFBFBF;\n      z-index: 1; }\n  .Profile .profile-nav {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    bottom: 70px;\n    width: 100%; }\n    .Profile .profile-nav .active {\n      color: #3B3B3B; }\n    .Profile .profile-nav p {\n      color: #BFBFBF;\n      padding: 10px; }\n  .Profile .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .Profile .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n", ""]);
 	
 	// exports
 
@@ -34727,7 +34761,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".SlideShow {\n  padding: 20px;\n  background: rgba(0, 0, 0, 0.5);\n  position: fixed;\n  top: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .SlideShow video, .SlideShow img {\n    max-width: 100%;\n    max-height: calc(100% - 60px);\n    margin-top: 50px;\n    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .SlideShow .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n  .SlideShow .cur-slide-show {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    top: 0;\n    margin: auto;\n    right: 0;\n    left: 0;\n    margin-top: 28px; }\n    .SlideShow .cur-slide-show div {\n      border-radius: 50px;\n      width: 10px;\n      height: 10px;\n      margin: 0px 5px;\n      background: white;\n      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow i {\n    position: absolute;\n    top: 0;\n    left: 0;\n    padding: 20px;\n    color: white;\n    font-size: 22px; }\n    .SlideShow i:hover {\n      color: #F26648; }\n", ""]);
+	exports.push([module.id, ".SlideShow {\n  padding: 20px;\n  background: rgba(0, 0, 0, 0.5);\n  position: fixed;\n  top: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .SlideShow video, .SlideShow img {\n    max-width: 100%;\n    max-height: calc(100% - 60px);\n    margin-top: 50px;\n    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .SlideShow .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n  .SlideShow .cur-slide-show {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    top: 0;\n    margin: auto;\n    right: 0;\n    left: 0;\n    max-width: 100px;\n    margin-top: 28px; }\n    .SlideShow .cur-slide-show div {\n      border-radius: 50px;\n      width: 10px;\n      height: 10px;\n      margin: 0px 5px;\n      background: white;\n      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow i {\n    position: absolute;\n    top: 0;\n    left: 0;\n    padding: 20px;\n    color: white;\n    font-size: 22px; }\n    .SlideShow i:hover {\n      color: #F26648; }\n", ""]);
 	
 	// exports
 
@@ -34811,6 +34845,125 @@
 	
 	// exports
 
+
+/***/ }),
+/* 385 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(185);
+	
+	var _MainNav = __webpack_require__(357);
+	
+	var _MainNav2 = _interopRequireDefault(_MainNav);
+	
+	var _Profile = __webpack_require__(367);
+	
+	var _Profile2 = _interopRequireDefault(_Profile);
+	
+	var _SlideShow = __webpack_require__(378);
+	
+	var _SlideShow2 = _interopRequireDefault(_SlideShow);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var UserProfile = function (_Component) {
+	  _inherits(UserProfile, _Component);
+	
+	  function UserProfile(props) {
+	    _classCallCheck(this, UserProfile);
+	
+	    var _this = _possibleConstructorReturn(this, (UserProfile.__proto__ || Object.getPrototypeOf(UserProfile)).call(this, props));
+	
+	    _this.state = {
+	      slideshow: false,
+	      slidetype: ''
+	    };
+	    _this.openProfile = _this.openProfile.bind(_this);
+	    _this.openToSlideVideo = _this.openToSlideVideo.bind(_this);
+	    _this.openToSlidePic = _this.openToSlidePic.bind(_this);
+	    _this.closeSlideShow = _this.closeSlideShow.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(UserProfile, [{
+	    key: 'openToSlideVideo',
+	    value: function openToSlideVideo() {
+	      this.setState({
+	        slideshow: true,
+	        slidetype: 'video'
+	      });
+	    }
+	  }, {
+	    key: 'openToSlidePic',
+	    value: function openToSlidePic() {
+	      this.setState({
+	        slideshow: true,
+	        slidetype: 'pic'
+	      });
+	    }
+	  }, {
+	    key: 'openProfile',
+	    value: function openProfile() {
+	      this.setState({
+	        slideshow: false,
+	        slidetype: ''
+	      });
+	    }
+	  }, {
+	    key: 'closeSlideShow',
+	    value: function closeSlideShow() {
+	      this.setState({
+	        slideshow: false,
+	        slidetype: ''
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'UserProfile' },
+	        _react2.default.createElement(_MainNav2.default, null),
+	        _react2.default.createElement(_Profile2.default, { profile: this.props.user,
+	          closeProfile: this.openProfile,
+	          openToSlidePic: this.openToSlidePic,
+	          openToSlideVideo: this.openToSlideVideo,
+	          slideshow: this.state.slideshow, isUser: true }),
+	        this.state.slideshow ? _react2.default.createElement(_SlideShow2.default, { profile: this.props.user, numSlides: 3,
+	          type: this.state.slidetype, closeSlideShow: this.closeSlideShow,
+	          isUser: true }) : null
+	      );
+	    }
+	  }]);
+	
+	  return UserProfile;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    user: state.user
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(UserProfile);
 
 /***/ })
 /******/ ]);

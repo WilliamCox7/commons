@@ -18,6 +18,7 @@ import Attributes from './components/Attributes/Attributes';
 import Activities from './components/Activities/Activities';
 import Upload from './components/Upload/Upload';
 import Feed from './components/Feed/Feed';
+import UserProfile from './components/UserProfile/UserProfile';
 
 /* STORE - REDUX */
 let store = createStore(
@@ -42,6 +43,7 @@ render (
           <Route path="/activities" component={Activities} />
           <Route path="/upload" component={Upload} />
           <Route path="/feed" component={Feed} />
+          <Route path="/profile" component={UserProfile} />
         </Route>
       </Route>
     </Router>

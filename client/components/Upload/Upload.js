@@ -20,7 +20,7 @@ class Upload extends Component {
   storeFile(e) {
     if (e.currentTarget.files) {
       var name = e.currentTarget.files[0].name;
-      var type = 'video';
+      var type = 'vid';
       if (e.currentTarget.files[0].type.indexOf("image") > -1) {
         type = 'image';
       }
