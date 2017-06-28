@@ -1,0 +1,17 @@
+@import "../../vars.scss";
+
+.Matches {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 54px 10px;
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    margin-left: 10px;
+    margin-top: 6px;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+}

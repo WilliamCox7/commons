@@ -29373,6 +29373,7 @@
 	    pic2: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/14212812_10210588356523725_6540622426231952507_n.jpg?oh=8b7a51d43ba604557bd012aa23987f13&oe=59CE65B1',
 	    pic3: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13413757_10209782621020841_9001998158929460725_n.jpg?oh=85b6132059d73eca0e78e0f0476e4fa1&oe=59C9EF7D',
 	    liked: false,
+	    match: true,
 	    hobbies: ['Dancing', 'Curling', 'Dabbing', 'Kissing', 'Dabbling'],
 	    attributes: ['Jew', 'Canadian', 'Septuagenarian', 'Jedi', 'Sith'],
 	    activity: 'I am going to eat breakfast in the morning. Tomorrow and forever. Join me.',
@@ -29391,6 +29392,7 @@
 	    pic2: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13221485_10154068074535211_4845726143533135830_n.jpg?oh=cd98662e6769ddf1f545fca088e3a75e&oe=59D1B110',
 	    pic3: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12240159_10153639454715211_5945661163850926545_n.jpg?oh=7c052638e73d8a3d40106a38fc39e011&oe=59C49989',
 	    liked: false,
+	    match: true,
 	    hobbies: ['Axe Throwing', 'Arsen', 'Painting', 'Planking', 'Hiking'],
 	    attributes: ['Muslim', 'Jewish', 'Canadian', 'Islamic', 'Christian'],
 	    activity: "I'm going to join the pilgrimage to the Black Stone of Mecca, Hajj to pray to Abraham.",
@@ -29409,6 +29411,7 @@
 	    pic2: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12246599_10203881235431300_1895348970772056564_n.jpg?oh=897e31e96c008e7299213f651986c1d7&oe=5A108C74',
 	    pic3: '',
 	    liked: false,
+	    match: false,
 	    hobbies: ['Dragon Slaying', 'Jousting', 'Sword Fighting', 'Hiking', 'Crafts'],
 	    attributes: ['Programmer', 'Crack Addict', 'Shoe Salesman', 'Jewish', 'Anti-semitic'],
 	    activity: 'I just came across a brick of "flour". Meet me @5 to get destroyed. Ya.',
@@ -33766,7 +33769,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".MainNav {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 15px;\n  box-shadow: 0px 3px 4px rgba(191, 191, 191, 0.25);\n  position: fixed;\n  background: white;\n  z-index: 1;\n  width: 100%; }\n  .MainNav .active {\n    color: #F26648; }\n  .MainNav i {\n    color: #BFBFBF;\n    font-size: 30px;\n    width: 30px;\n    height: 30px; }\n    .MainNav i:hover {\n      color: #F26648;\n      cursor: pointer; }\n", ""]);
+	exports.push([module.id, ".MainNav {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 10px 15px;\n  box-shadow: 0px 3px 4px rgba(191, 191, 191, 0.25);\n  position: fixed;\n  background: white;\n  z-index: 1;\n  width: 100%; }\n  .MainNav .active {\n    color: #F26648; }\n  .MainNav i {\n    color: #BFBFBF;\n    font-size: 30px;\n    width: 30px;\n    height: 30px; }\n    .MainNav i:hover {\n      color: #F26648;\n      cursor: pointer; }\n", ""]);
 	
 	// exports
 
@@ -34196,7 +34199,7 @@
 	          } : {
 	            height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
 	          } : this.props.isUser ? {
-	            height: 'calc(100% - 120px)', top: '120px'
+	            height: 'calc(100% - 115px)', top: '115px'
 	          } : {
 	            height: '100%', top: '0px'
 	          } },
@@ -34886,7 +34889,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 62px;\n    width: 100%; }\n", ""]);
+	exports.push([module.id, ".Feed {\n  max-width: 100vh;\n  overflow: hidden; }\n  .Feed .buffer {\n    height: 51px;\n    width: 100%; }\n", ""]);
 	
 	// exports
 
@@ -34912,6 +34915,10 @@
 	var _MainNav = __webpack_require__(357);
 	
 	var _MainNav2 = _interopRequireDefault(_MainNav);
+	
+	var _Matches = __webpack_require__(386);
+	
+	var _Matches2 = _interopRequireDefault(_Matches);
 	
 	var _Profile = __webpack_require__(367);
 	
@@ -34987,6 +34994,7 @@
 	        'div',
 	        { className: 'UserProfile' },
 	        _react2.default.createElement(_MainNav2.default, null),
+	        _react2.default.createElement(_Matches2.default, null),
 	        _react2.default.createElement(_Profile2.default, { profile: this.props.user,
 	          closeProfile: this.openProfile,
 	          openToSlidePic: this.openToSlidePic,
@@ -35009,6 +35017,124 @@
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(UserProfile);
+
+/***/ }),
+/* 386 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(185);
+	
+	__webpack_require__(387);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Matches = function (_Component) {
+	  _inherits(Matches, _Component);
+	
+	  function Matches(props) {
+	    _classCallCheck(this, Matches);
+	
+	    var _this = _possibleConstructorReturn(this, (Matches.__proto__ || Object.getPrototypeOf(Matches)).call(this, props));
+	
+	    _this.openChat = _this.openChat.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Matches, [{
+	    key: 'openChat',
+	    value: function openChat(id) {
+	      console.log(id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var matches = [];
+	      this.props.feed.presentations.forEach(function (person, i) {
+	        if (person.match) {
+	          matches.push(_react2.default.createElement('img', { src: person.pic1, key: i, onClick: function onClick() {
+	              _this2.openChat(person.id);
+	            } }));
+	        }
+	      });
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'Matches' },
+	        matches
+	      );
+	    }
+	  }]);
+	
+	  return Matches;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    feed: state.feed
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Matches);
+
+/***/ }),
+/* 387 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(388);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(280)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Matches.scss", function() {
+				var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/sass-loader/index.js!./Matches.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 388 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(279)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".Matches {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  padding: 54px 10px; }\n  .Matches img {\n    width: 50px;\n    height: 50px;\n    border-radius: 50px;\n    margin-left: 10px;\n    margin-top: 6px;\n    -o-object-fit: cover;\n    object-fit: cover; }\n", ""]);
+	
+	// exports
+
 
 /***/ })
 /******/ ]);

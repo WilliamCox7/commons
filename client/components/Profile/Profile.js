@@ -137,7 +137,7 @@ class Profile extends Component {
           height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
         })) : (
           this.props.isUser ? ({
-            height: 'calc(100% - 120px)', top: '120px'
+            height: 'calc(100% - 115px)', top: '115px'
           }) : ({
             height: '100%', top: '0px'
           })

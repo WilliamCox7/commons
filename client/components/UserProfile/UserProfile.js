@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MainNav from '../MainNav/MainNav';
+import Matches from '../Matches/Matches';
 import Profile from '../Profile/Profile';
 import SlideShow from '../SlideShow/SlideShow';
 
@@ -50,6 +51,7 @@ class UserProfile extends Component {
     return (
       <div className="UserProfile">
         <MainNav />
+        <Matches />
         <Profile profile={this.props.user}
           closeProfile={this.openProfile}
           openToSlidePic={this.openToSlidePic}
