@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uploadBlock from '../../src/upload-block.svg';
 import './SlideShow.scss';
 
 class SlideShow extends Component {
@@ -14,6 +15,9 @@ class SlideShow extends Component {
     this.dragOver = this.dragOver.bind(this);
     this.startGesture = this.startGesture.bind(this);
     this.endGesture = this.endGesture.bind(this);
+    this.storeFile = this.storeFile.bind(this);
+    this.openPictures = this.openPictures.bind(this);
+    this.openVideos = this.openVideos.bind(this);
   }
 
   dragOver(e) {
@@ -56,18 +60,55 @@ class SlideShow extends Component {
     this.setState({curDown: false, x: undefined, y: undefined});
   }
 
+  storeFile(e) {
+    if (e.currentTarget.files) {
+      var name = e.currentTarget.files[0].name;
+      var type = 'vid';
+      if (e.currentTarget.files[0].type.indexOf("image") > -1) {
+        type = 'image';
+      }
+      var reader = new FileReader();
+      reader.onloadend = () => {
+        this.props.addFile(type, reader.result, name);
+      }
+      reader.readAsDataURL(e.currentTarget.files[0]);
+    }
+  }
+
+  openPictures() {
+    document.getElementById('picButton').click();
+  }
+
+  openVideos() {
+    document.getElementById('vidButton').click();
+  }
+
   render() {
 
     return (
       <div onTouchStart={this.startGesture} onTouchMove={this.dragOver}
         onTouchEnd={this.endGesture} className="SlideShow">
         {this.props.type === 'video' ? (
-          <video loop muted>
-            <source src={this.props.profile["video"+this.state.slide]}
-            type="video/mp4"/>
-          </video>
+          this.props.profile["video"+this.state.slide] ? (
+            <video loop muted>
+              <source src={this.props.profile["video"+this.state.slide]}
+              type="video/mp4"/>
+            </video>
+          ) : (
+            <img src={uploadBlock} style={{
+              width: '150px', borderRadius: '15px', marginTop: '150px',
+              background: 'rgba(255, 255, 255, 0.68)'
+            }} onClick={this.openVideos}/>
+          )
         ) : (
-          <img src={this.props.profile["pic"+this.state.slide]} />
+          this.props.profile["pic"+this.state.slide] ? (
+            <img src={this.props.profile["pic"+this.state.slide]} />
+          ) : (
+            <img src={uploadBlock} style={{
+              width: '150px', borderRadius: '15px', marginTop: '150px',
+              background: 'rgba(255, 255, 255, 0.68)'
+            }} onClick={this.openPictures} />
+          )
         )}
         <div onClick={this.props.closeSlideShow} className="close-button">X</div>
         <div className="cur-slide-show">
@@ -117,6 +158,10 @@ class SlideShow extends Component {
         {this.props.isUser ? (
           <i className="fa fa-trash" aria-hidden="true"></i>
         ) : (null)}
+        <input type="file" id="picButton"
+          accept="image/x-png,image/jpeg" onChange={this.storeFile} />
+        <input type="file" id="vidButton"
+          accept="video/mp4,video/x-m4v,video/*" onChange={this.storeFile} />
       </div>
     )
   }

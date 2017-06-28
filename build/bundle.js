@@ -34590,6 +34590,10 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _uploadBlock = __webpack_require__(353);
+	
+	var _uploadBlock2 = _interopRequireDefault(_uploadBlock);
+	
 	__webpack_require__(379);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34617,6 +34621,9 @@
 	    _this.dragOver = _this.dragOver.bind(_this);
 	    _this.startGesture = _this.startGesture.bind(_this);
 	    _this.endGesture = _this.endGesture.bind(_this);
+	    _this.storeFile = _this.storeFile.bind(_this);
+	    _this.openPictures = _this.openPictures.bind(_this);
+	    _this.openVideos = _this.openVideos.bind(_this);
 	    return _this;
 	  }
 	
@@ -34664,6 +34671,34 @@
 	      this.setState({ curDown: false, x: undefined, y: undefined });
 	    }
 	  }, {
+	    key: 'storeFile',
+	    value: function storeFile(e) {
+	      var _this2 = this;
+	
+	      if (e.currentTarget.files) {
+	        var name = e.currentTarget.files[0].name;
+	        var type = 'vid';
+	        if (e.currentTarget.files[0].type.indexOf("image") > -1) {
+	          type = 'image';
+	        }
+	        var reader = new FileReader();
+	        reader.onloadend = function () {
+	          _this2.props.addFile(type, reader.result, name);
+	        };
+	        reader.readAsDataURL(e.currentTarget.files[0]);
+	      }
+	    }
+	  }, {
+	    key: 'openPictures',
+	    value: function openPictures() {
+	      document.getElementById('picButton').click();
+	    }
+	  }, {
+	    key: 'openVideos',
+	    value: function openVideos() {
+	      document.getElementById('vidButton').click();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	
@@ -34671,12 +34706,18 @@
 	        'div',
 	        { onTouchStart: this.startGesture, onTouchMove: this.dragOver,
 	          onTouchEnd: this.endGesture, className: 'SlideShow' },
-	        this.props.type === 'video' ? _react2.default.createElement(
+	        this.props.type === 'video' ? this.props.profile["video" + this.state.slide] ? _react2.default.createElement(
 	          'video',
 	          { loop: true, muted: true },
 	          _react2.default.createElement('source', { src: this.props.profile["video" + this.state.slide],
 	            type: 'video/mp4' })
-	        ) : _react2.default.createElement('img', { src: this.props.profile["pic" + this.state.slide] }),
+	        ) : _react2.default.createElement('img', { src: _uploadBlock2.default, style: {
+	            width: '150px', borderRadius: '15px', marginTop: '150px',
+	            background: 'rgba(255, 255, 255, 0.68)'
+	          }, onClick: this.openVideos }) : this.props.profile["pic" + this.state.slide] ? _react2.default.createElement('img', { src: this.props.profile["pic" + this.state.slide] }) : _react2.default.createElement('img', { src: _uploadBlock2.default, style: {
+	            width: '150px', borderRadius: '15px', marginTop: '150px',
+	            background: 'rgba(255, 255, 255, 0.68)'
+	          }, onClick: this.openPictures }),
 	        _react2.default.createElement(
 	          'div',
 	          { onClick: this.props.closeSlideShow, className: 'close-button' },
@@ -34716,7 +34757,11 @@
 	              display: 'none'
 	            } })
 	        ),
-	        this.props.isUser ? _react2.default.createElement('i', { className: 'fa fa-trash', 'aria-hidden': 'true' }) : null
+	        this.props.isUser ? _react2.default.createElement('i', { className: 'fa fa-trash', 'aria-hidden': 'true' }) : null,
+	        _react2.default.createElement('input', { type: 'file', id: 'picButton',
+	          accept: 'image/x-png,image/jpeg', onChange: this.storeFile }),
+	        _react2.default.createElement('input', { type: 'file', id: 'vidButton',
+	          accept: 'video/mp4,video/x-m4v,video/*', onChange: this.storeFile })
 	      );
 	    }
 	  }]);
@@ -34761,7 +34806,7 @@
 	
 	
 	// module
-	exports.push([module.id, ".SlideShow {\n  padding: 20px;\n  background: rgba(0, 0, 0, 0.5);\n  position: fixed;\n  top: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .SlideShow video, .SlideShow img {\n    max-width: 100%;\n    max-height: calc(100% - 60px);\n    margin-top: 50px;\n    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .SlideShow .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n  .SlideShow .cur-slide-show {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    top: 0;\n    margin: auto;\n    right: 0;\n    left: 0;\n    max-width: 100px;\n    margin-top: 28px; }\n    .SlideShow .cur-slide-show div {\n      border-radius: 50px;\n      width: 10px;\n      height: 10px;\n      margin: 0px 5px;\n      background: white;\n      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow i {\n    position: absolute;\n    top: 0;\n    left: 0;\n    padding: 20px;\n    color: white;\n    font-size: 22px; }\n    .SlideShow i:hover {\n      color: #F26648; }\n", ""]);
+	exports.push([module.id, ".SlideShow {\n  padding: 20px;\n  background: rgba(0, 0, 0, 0.5);\n  position: fixed;\n  top: 0;\n  z-index: 3;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  -ms-touch-action: none;\n  touch-action: none; }\n  .SlideShow video, .SlideShow img {\n    max-width: 100%;\n    max-height: calc(100% - 60px);\n    margin-top: 50px; }\n  .SlideShow .close-button {\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 22px;\n    padding: 20px;\n    color: white;\n    font-weight: bold;\n    text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45); }\n    .SlideShow .close-button:hover {\n      cursor: pointer;\n      color: #F26648; }\n  .SlideShow .cur-slide-show {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n    -ms-flex-pack: center;\n    justify-content: center;\n    position: absolute;\n    top: 0;\n    margin: auto;\n    right: 0;\n    left: 0;\n    max-width: 100px;\n    margin-top: 28px; }\n    .SlideShow .cur-slide-show div {\n      border-radius: 50px;\n      width: 10px;\n      height: 10px;\n      margin: 0px 5px;\n      background: white;\n      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2); }\n  .SlideShow i {\n    position: absolute;\n    top: 0;\n    left: 0;\n    padding: 20px;\n    color: white;\n    font-size: 22px; }\n    .SlideShow i:hover {\n      color: #F26648; }\n  .SlideShow input {\n    display: none; }\n", ""]);
 	
 	// exports
 
