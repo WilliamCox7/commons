@@ -157,8 +157,10 @@ class Profile extends Component {
               <span>update background</span>
             </div>
           ) : (null)}
-          <img id="triangle1" src={T1} />
-          <img id="triangle2" src={T2} />
+          <img id="triangle1" src={T1}
+            style={this.props.isUser ? {bottom: '17px'} : {bottom: '2px'}} />
+          <img id="triangle2" src={T2}
+            style={this.props.isUser ? {bottom: '18px'} : {bottom: '2px'}} />
         </div>
         <div className="profile-info" style={this.props.isUser ? ({
           marginTop: '-150px'

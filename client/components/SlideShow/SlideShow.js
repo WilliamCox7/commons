@@ -97,7 +97,7 @@ class SlideShow extends Component {
           ) : (
             <img src={uploadBlock} style={{
               width: '150px', borderRadius: '15px', marginTop: '150px',
-              background: 'rgba(255, 255, 255, 0.68)'
+              background: 'white'
             }} onClick={this.openVideos}/>
           )
         ) : (
@@ -106,7 +106,7 @@ class SlideShow extends Component {
           ) : (
             <img src={uploadBlock} style={{
               width: '150px', borderRadius: '15px', marginTop: '150px',
-              background: 'rgba(255, 255, 255, 0.68)'
+              background: 'white'
             }} onClick={this.openPictures} />
           )
         )}
