@@ -9,8 +9,43 @@
   background: white;
   -ms-touch-action: none;
   touch-action: none;
-  video {
-    width: 100%;
+  .background-container {
+    position: relative;
+    video {
+      width: 100%;
+    }
+    .editBackground {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: white;
+      width: 100px;
+      padding: 10px;
+      text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45);
+      span {
+        margin-left: 10px;
+      }
+      i {
+        padding-top: 5px;
+        font-size: 20px;
+      }
+    }
+    #triangle1 {
+      position: absolute;
+      bottom: 17px;
+      left: -4px;
+      width: calc(100% + 4px);
+    }
+    #triangle2 {
+      position: absolute;
+      bottom: 18px;
+      left: -2px;
+      width: 80%;
+      opacity: 0.5;
+    }
   }
   .profile-info {
     display: -webkit-box;
@@ -33,6 +68,9 @@
         font-weight: bold;
         margin-bottom: 4px;
         text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45);
+        i {
+          margin-left: 5px;
+        }
       }
       p {
         font-size: 14px;
@@ -45,6 +83,30 @@
         border-radius: 50px;
         -o-object-fit: cover;
         object-fit: cover;
+      }
+      .editPhoto {
+        color: white;
+        text-align: center;
+        position: absolute;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        top: 73px;
+        margin: auto;
+        width: 50px;
+        right: 0;
+        left: 0;
+        text-shadow: 0px 3px 6px rgba(0, 0, 0, 0.45);
+        span {
+          margin-bottom: 5px;
+        }
+        i {
+          font-size: 20px;
+        }
       }
     }
     .dial-sections {
@@ -80,20 +142,55 @@
         margin: 40px;
       }
     }
-    #triangle1 {
-      position: absolute;
-      top: 20px;
-      left: -4px;
-      width: 120%;
+    .dial-editing {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+      background: white;
+      width: 100%;
+      margin-top: -18px;
+      padding: 50px;
+      .edit-button {
+        margin-bottom: 30px;
+        color: $commonsorange;
+        .icon-pencil {
+          margin-left: 10px;
+          color: $lightgray;
+        }
+      }
     }
-    #triangle2 {
-      position: absolute;
-      top: 73px;
-      left: -4px;
-      width: 80%;
-      opacity: 0.5;
+    .status-editing {
+      background: white;
+      width: 100%;
+      margin-top: -18px;
+      padding: 50px;
+      text-align: center;
+      h1 {
+        margin-bottom: 10px;
+        color: $commonsorange;
+      }
+      textarea {
+        font-family: helvetica, sans-serif;
+        border-radius: 10px;
+        border-color: $lightergray;
+        resize: none;
+        padding: 10px;
+        width: 90%;
+        height: 100px;
+        color: $black;
+      }
     }
-    i {
+    .icon-gears, .icon-heart {
       position: absolute;
       top: 62px;
       right: 0;
@@ -133,5 +230,12 @@
       cursor: pointer;
       color: $commonsorange;
     }
+  }
+  .darken {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, 0.4);
   }
 }

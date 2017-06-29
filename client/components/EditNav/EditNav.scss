@@ -1,0 +1,32 @@
+@import "../../vars.scss";
+
+.EditNav {
+  z-index: 2;
+  position: fixed;
+  width: 100%;
+  .done-button {
+    color: $commonsorange;
+    padding: 18px;
+    float: right;
+    font-weight: bold;
+  }
+  .action-buttons {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 18px;
+    color: white;
+    font-weight: bold;
+  }
+  .prompt {
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 45px;
+    left: 20px;
+    padding: 18px;
+  }
+}

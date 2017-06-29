@@ -10,12 +10,16 @@ class Hobbies extends Component {
   render() {
     return (
       <div className="Hobbies">
-        <ProgressBar redirect={"/"} width={"25%"}
-          progressText={"choose five hobbies"} />
+        {!this.props.dontshow ? (
+          <ProgressBar redirect={"/"} width={"25%"}
+            progressText={"choose five hobbies"} />
+        ) : (null)}
         <Dial type="edit" editType="hobbies"
           array={this.props.user.hobbies} dim={[150, 40, 90]} />
-        <SkipNext next={this.props.user.hobbies.length > 0}
-          redirect="/attributes" />
+        {!this.props.dontshow ? (
+          <SkipNext next={this.props.user.hobbies.length > 0}
+            redirect="/attributes" />
+        ) : (null)}
       </div>
     )
   }

@@ -10,19 +10,32 @@ class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first: '',
-      last: '',
-      email: '',
-      age: '',
+      first: this.props.user.first,
+      last: this.props.user.last,
+      email: this.props.user.email,
+      age: this.props.user.age,
       password: '',
       confirm: '',
-      gender: undefined,
+      gender: this.props.user.gender,
       error: undefined
     }
     this.update = this.update.bind(this);
     this.toggleGender = this.toggleGender.bind(this);
     this.createUser = this.createUser.bind(this);
     this.throwError = this.throwError.bind(this);
+  }
+
+  componentDidMount() {
+    var create = document.getElementsByClassName('Create')[0];
+    var inputDivs = create.getElementsByClassName('create-input');
+    for (var i = 0; i < 5; i++) {
+      var input = inputDivs[i].children[1];
+      if (input.getAttribute("type") === "text") {
+        if (input.value) {
+          input.style.backgroundSize = '0px'
+        }
+      }
+    }
   }
 
   update(e) {
@@ -50,8 +63,7 @@ class Create extends Component {
         if (this.state.email) {
           if (this.state.age) {
             if (this.state.gender !== undefined) {
-              if (this.state.password === this.state.confirm &&
-              this.state.password && this.state.confirm) {
+              if (this.props.dontshow) {
                 this.props.setUser({
                   isLoggedIn: true,
                   isFirstTime: true,
@@ -61,8 +73,21 @@ class Create extends Component {
                   age: this.state.age,
                   gender: this.state.gender
                 });
-                hashHistory.replace("/");
-              } else { this.throwError(e, 'password'); }
+              } else {
+                if (this.state.password === this.state.confirm &&
+                this.state.password && this.state.confirm) {
+                  this.props.setUser({
+                    isLoggedIn: true,
+                    isFirstTime: true,
+                    first: this.state.first,
+                    last: this.state.last,
+                    email: this.state.email,
+                    age: this.state.age,
+                    gender: this.state.gender
+                  });
+                  hashHistory.replace("/");
+                } else { this.throwError(e, 'password'); }
+              }
             } else { this.throwError(e, 'gender'); }
           } else { this.throwError(e, 'age'); }
         } else { this.throwError(e, 'email'); }
@@ -91,24 +116,34 @@ class Create extends Component {
     }
 
     return (
-      <div className="Create">
-        <img src={logo} />
+      <div className="Create" style={this.props.dontshow ? ({
+        minHeight: '500px', padding: '0px 50px'
+      }) : ({
+        minHeight: '580px', padding: '30px 50px'
+      })}>
+        {this.props.dontshow ? (null) : (
+          <img src={logo} />
+        )}
         <div className="create-input">
           <h1>first name</h1>
-          <input name="first" onChange={this.update} type="text" />
+          <input name="first" onChange={this.update} type="text"
+            value={this.state.first} />
         </div>
         <div className="create-input">
           <h1>last name</h1>
-          <input name="last" onChange={this.update} type="text" />
+          <input name="last" onChange={this.update} type="text"
+            value={this.state.last} />
         </div>
         <div className="create-input">
           <h1>email</h1>
-          <input name="email" onChange={this.update} type="text" />
+          <input name="email" onChange={this.update} type="text"
+            value={this.state.email} />
         </div>
         <div className="create-other-input">
           <span>
             <h1>age</h1>
-            <select name="age" onChange={this.update}>{options}</select>
+            <select name="age" onChange={this.update}
+              value={this.state.age}>{options}</select>
           </span>
           <span>
             {this.state.gender && this.state.gender !== undefined ? (
@@ -128,14 +163,17 @@ class Create extends Component {
           </span>
         </div>
         <div className="create-input">
-          <h1>password</h1>
+          <h1>{this.props.dontshow ? "new " : null}password</h1>
           <input name="password" onChange={this.update} type="password" />
         </div>
         <div className="create-input">
           <h1>confirm password</h1>
           <input name="confirm" onChange={this.update} type="password" />
         </div>
-        <button onClick={this.createUser}>
+        <button id="create-user-btn" onClick={this.createUser}
+          style={this.props.dontshow ? ({
+            display: 'none'
+          }) : (null)}>
           continue
           <span className="error-msg">{this.state.error}</span>
         </button>
@@ -144,8 +182,14 @@ class Create extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
 const mapDispatchToProps = {
   setUser: setUser
 }
 
-export default connect(null, mapDispatchToProps)(Create);
+export default connect(mapStateToProps, mapDispatchToProps)(Create);

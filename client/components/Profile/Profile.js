@@ -136,52 +136,105 @@ class Profile extends Component {
         }) : ({
           height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
         })) : (
-          this.props.isUser ? ({
+          this.props.isUser ? ( this.props.editing ? (
+            this.props.editMode !== 'status' && this.props.editMode ? ({
+              height: '100%', top: '0px', WebkitFilter: 'blur(4px)', filter: 'blur(4px)'
+            }) : ({
+              height: 'calc(100% - 51px)', top: '51px'
+            })
+          ) : ({
             height: 'calc(100% - 115px)', top: '115px'
-          }) : ({
+          })) : ({
             height: '100%', top: '0px'
           })
         )}>
-        <video onClick={this.openToSlideVideo} loop muted><source src={this.props.profile.video1}
-          type="video/mp4"/></video>
+        <div className="background-container">
+          <video onClick={this.openToSlideVideo} loop muted><source src={this.props.profile.video1}
+            type="video/mp4"/></video>
+          {this.props.editing ? (
+            <div onClick={this.openToSlideVideo} className="editBackground">
+              <i className="icon-up-arrow"></i>
+              <span>update background</span>
+            </div>
+          ) : (null)}
+          <img id="triangle1" src={T1} />
+          <img id="triangle2" src={T2} />
+        </div>
         <div className="profile-info" style={this.props.isUser ? ({
           marginTop: '-150px'
         }) : ({
           marginTop: '-135px'
         })}>
           <div className="pic-info">
-            <h1>{this.props.profile.first + " " + this.props.profile.last}</h1>
-            <p>
+            <h1 onClick={this.props.editing ? this.props.setEditMode : null}
+              name="userinfo">
+              {this.props.profile.first + " " + this.props.profile.last}
+              {this.props.editing ? (
+                <i name="userinfo" className="icon-pencil"></i>
+              ) : (null)}
+            </h1>
+            <p onClick={this.props.editing ? this.props.setEditMode : null}
+              name="userinfo">
               {this.props.profile.age + " | " + this.props.profile.location}
               {this.props.profile.test ? (
                 " | " + this.props.profile.test
               ) : (null)}
             </p>
             <img onClick={this.openToSlidePic} src={this.props.profile.pic1} />
+            {this.props.editing ? (
+              <div onClick={this.openToSlidePic} className="editPhoto">
+                <span>update picture</span>
+                <i className="icon-up-arrow"></i>
+              </div>
+            ) : (null)}
           </div>
-          <div className="dial-sections">
-            <div className="dial-section">
-              <DialWords wordkey={this.props.dial.wordkey['hobbies']}
-                words={this.props.profile['hobbies']} />
-              <Dial type="profile" editType={'hobbies'}
-                array={this.props.profile['hobbies']} dim={[110, 30, 50]} />
+          {!this.props.editing ? (
+            <div className="dial-sections">
+              <div className="dial-section">
+                <DialWords wordkey={this.props.dial.wordkey['hobbies']}
+                  words={this.props.profile['hobbies']} />
+                <Dial type="profile" editType={'hobbies'}
+                  array={this.props.profile['hobbies']} dim={[110, 30, 50]} />
+              </div>
+              <div className="dial-section">
+                <DialWords wordkey={this.props.dial.wordkey['attributes']}
+                  words={this.props.profile['attributes']} />
+                <Dial type="profile" editType={'attributes'}
+                  array={this.props.profile['attributes']} dim={[110, 30, 50]} />
+              </div>
+              <div className="status-section">
+                <p>{this.props.profile.activity}</p>
+              </div>
             </div>
-            <div className="dial-section">
-              <DialWords wordkey={this.props.dial.wordkey['attributes']}
-                words={this.props.profile['attributes']} />
-              <Dial type="profile" editType={'attributes'}
-                array={this.props.profile['attributes']} dim={[110, 30, 50]} />
-            </div>
-            <div className="status-section">
-              <p>{this.props.profile.activity}</p>
-            </div>
-          </div>
-          <img id="triangle1" src={T1} />
-          <img id="triangle2" src={T2} />
+          ) : (
+            this.props.editMode !== 'status' ? (
+              <div className="dial-editing">
+                <div onClick={this.props.setEditMode} className="edit-button"
+                  name="hobbies">
+                  hobbies<i name="hobbies" className="icon-pencil"></i>
+                </div>
+                <div onClick={this.props.setEditMode} className="edit-button"
+                  name="attributes">
+                  attributes<i name="attributes" className="icon-pencil"></i>
+                </div>
+                <div onClick={this.props.setEditMode} className="edit-button"
+                  name="status">
+                  status<i name="status" className="icon-pencil"></i>
+                </div>
+              </div>
+            ) : (
+              <div className="status-editing">
+                <h1>status</h1>
+                <textarea value={this.props.user.activity} />
+              </div>
+            )
+          )}
           {this.props.profile.id === this.props.user.id ? (
-            <i className="icon-gears" style={{
-              fontSize: '40px', margin: '20px calc(25% - 65px)'
-            }} ></i>
+            !this.props.editing ? (
+              <i className="icon-gears" style={{
+                fontSize: '40px', margin: '20px calc(25% - 65px)'
+              }} onClick={this.props.toggleEdit}></i>
+            ) : (null)
           ) : (
             <i className="icon-heart" style={this.props.profile.liked ? ({
               color: '#F26648', fontSize: '30px', margin: '20px calc(25% - 60px)'
@@ -190,14 +243,21 @@ class Profile extends Component {
             })} onClick={this.likePerson} ></i>
           )}
         </div>
-        <div className="profile-nav">
-          <p className="active" onClick={this.toggleNav}>hobbies</p>
-          <p onClick={this.toggleNav}>attributes</p>
-          <p onClick={this.toggleNav}>status</p>
-        </div>
-        <Advertisement />
+        {!this.props.editing ? (
+          <div>
+            <div className="profile-nav">
+              <p className="active" onClick={this.toggleNav}>hobbies</p>
+              <p onClick={this.toggleNav}>attributes</p>
+              <p onClick={this.toggleNav}>status</p>
+            </div>
+            <Advertisement />
+          </div>
+        ) : (null)}
         {this.props.profile.id !== this.props.user.id ? (
           <div onClick={this.closeProfile} className="close-button">X</div>
+        ) : (null)}
+        {this.props.editMode !== 'status' && this.props.editMode ? (
+          <div className="darken"></div>
         ) : (null)}
       </div>
     )
