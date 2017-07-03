@@ -1,0 +1,127 @@
+@import "../../vars.scss";
+
+.Chat {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  .chat-back {
+    height: 51px;
+    width: 100%;
+    box-shadow: 0px 3px 6px $fadedgray;
+    position: fixed;
+    z-index: 1;
+    background: white;
+    img {
+      width: 15px;
+      height: 34px;
+      margin: 9px 20px;
+    }
+  }
+  .chat-content {
+    height: calc(100% - 110px);
+    padding: 20px 0px;
+    position: absolute;
+    width: 100%;
+    bottom: 59px;
+    overflow-y: scroll;
+    div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      .msg-container {
+        max-width: 300px;
+        .blankImg {
+          width: 81px;
+          height: 45px;
+        }
+        span {
+          p {
+            padding: 10px;
+            color: white;
+            border-radius: 9px;
+            max-width: 214px;
+            white-space: pre-line;
+          }
+        }
+        img {
+          width: 45px;
+          height: 45px;
+          border-radius: 50px;
+          -o-object-fit: cover;
+          object-fit: cover;
+          margin: 0px 18px;
+        }
+      }
+    }
+    .user-message {
+      position: relative;
+      .msg-container {
+        margin-left: auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+        p {
+          background: $commonsorange;
+        }
+      }
+    }
+    .match-message {
+      position: relative;
+      .msg-container {
+        margin-right: auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        p {
+          background: $lightgray;
+        }
+      }
+    }
+  }
+  .chat-input {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: solid 1px $fadedgray;
+    img {
+      width: 80px;
+      height: 60px;
+      padding: 10px 20px;
+    }
+    input {
+      width: calc(100% - 160px);
+      border: none;
+      text-align: right;
+      &::-webkit-input-placeholder {
+        color: $lightergray;
+      }
+      &::-moz-placeholder {
+        color: $lightergray;
+      }
+      &:-ms-input-placeholder {
+        color: $lightergray;
+      }
+      &::placeholder {
+        color: $lightergray;
+      }
+    }
+  }
+}
