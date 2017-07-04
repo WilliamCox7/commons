@@ -9,7 +9,9 @@ class Edit extends Component {
 
   render() {
     return (
-      <div className="Edit">
+      <div className="Edit" style={this.props.editMode !== 'userinfo' ? {
+        background: 'none', top: '100px', height: 'calc(100% - 100px)'
+      } : null}>
         {this.props.editMode === 'hobbies' ? (
           <Hobbies dontshow={true} />
         ) : (null)}

@@ -35431,7 +35431,9 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'Edit' },
+	        { className: 'Edit', style: this.props.editMode !== 'userinfo' ? {
+	            background: 'none', top: '100px', height: 'calc(100% - 100px)'
+	          } : null },
 	        this.props.editMode === 'hobbies' ? _react2.default.createElement(_Hobbies2.default, { dontshow: true }) : null,
 	        this.props.editMode === 'attributes' ? _react2.default.createElement(_Attributes2.default, { dontshow: true }) : null,
 	        this.props.editMode === 'userinfo' ? _react2.default.createElement(_Create2.default, { dontshow: true }) : null
