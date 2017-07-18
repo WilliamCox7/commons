@@ -11,6 +11,7 @@
   touch-action: none;
   .background-container {
     position: relative;
+    max-height: 250px;
     video {
       width: 100%;
     }
