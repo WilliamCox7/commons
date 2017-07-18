@@ -3,6 +3,7 @@ import FeedFilter from '../FeedFilter/FeedFilter';
 import HomeButton from '../../src/home-button.svg';
 import ProfileButton from '../../src/profile-nav.svg';
 import { hashHistory } from 'react-router';
+import commons from '../../src/orange-logo-text.svg';
 import './MainNav.scss';
 
 class MainNav extends Component {
@@ -30,7 +31,8 @@ class MainNav extends Component {
         ) : (
           <i onClick={this.gotoFeed} className="icon-home-button"></i>
         )}
-        <FeedFilter />
+        {/* <FeedFilter /> */}
+        <img className="commons-logo" src={commons} />
         {loc === '/profile' ? (
           <i className="icon-profile-nav active"></i>
         ) : (

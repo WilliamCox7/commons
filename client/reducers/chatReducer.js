@@ -5,18 +5,27 @@ const initState = {
     {
       id: 1,
       convo: [
-        {msg: 'I really hat that you are gay. I have always wanted to set you up with my older sister.', postId: 1, posted: '5-20-17'},
-        {msg: 'I know....', postId: 3, posted: '5-20-17'},
-        {msg: 'I can turn you for sure bae', postId: 1, posted: '5-20-17'},
-        {msg: 'go. jus go', postId: 3, posted: '5-20-17'},
-        {msg: '*just', postId: 3, posted: '5-20-17'},
-        {msg: '*just', postId: 3, posted: '5-20-17'},
-        {msg: "you're gay", postId: 1, posted: '5-20-17'},
-        {msg: 'I can turn you for sure bae', postId: 1, posted: '5-20-17'},
-        {msg: 'go. jus go', postId: 3, posted: '5-20-17'},
-        {msg: '*just', postId: 3, posted: '5-20-17'},
-        {msg: '*just', postId: 3, posted: '5-20-17'},
-        {msg: "you're gay", postId: 1, posted: '5-20-17'}
+        {msg: 'Hey what are you doing tomorrow?', postId: 1, posted: '5-20-17'},
+        {msg: 'Nothing why?', postId: 0, posted: '5-20-17'},
+        {msg: 'Dude lets get a group together and go to the beach.', postId: 1, posted: '5-20-17'},
+        {msg: 'But we live in uta?', postId: 0, posted: '5-20-17'},
+        {msg: '*utah', postId: 0, posted: '5-20-17'},
+        {msg: "What about the Salt Lake?", postId: 1, posted: '5-20-17'},
+        {msg: 'You want to go to the beach on the Salt Lake?', postId: 1, posted: '5-20-17'},
+        {msg: 'nm', postId: 0, posted: '5-20-17'}
+      ]
+    },
+    {
+      id: 2,
+      convo: [
+        {msg: 'Hey what are you doing tomorrow?', postId: 2, posted: '5-20-17'},
+        {msg: 'Nothing why?', postId: 0, posted: '5-20-17'},
+        {msg: 'Dude lets get a group together and go to the beach.', postId: 2, posted: '5-20-17'},
+        {msg: 'But we live in uta?', postId: 0, posted: '5-20-17'},
+        {msg: '*utah', postId: 0, posted: '5-20-17'},
+        {msg: "What about the Salt Lake?", postId: 2, posted: '5-20-17'},
+        {msg: 'You want to go to the beach on the Salt Lake?', postId: 2, posted: '5-20-17'},
+        {msg: 'nm', postId: 0, posted: '5-20-17'}
       ]
     }
   ]
