@@ -49,7 +49,7 @@ const initState = {
       age: '25',
       location: 'Provo, UT',
       test: '',
-      video1: 'https://video-lax3-1.xx.fbcdn.net/v/t42.1790-2/1258465_516710031733212_63634_n.mp4?efg=eyJybHIiOjY2MiwicmxhIjoxNTcxLCJ2ZW5jb2RlX3RhZyI6ImxlZ2FjeV9zZCJ9&rl=662&vabr=368&oh=0a2ff0ee1f7c6059c3dcad1e85bb4827&oe=596E7DEB',
+      video1: 'https://scontent-lax3-1.cdninstagram.com/t50.2886-16/20669940_122318171741368_2330054908092350464_n.mp4',
       video2: '',
       video3: '',
       pic1: 'https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/12189801_1019558668066383_1592587300257835667_n.jpg?oh=ae85cb3a634c74a11d3704e1ed2d0cf2&oe=59F92E10',
